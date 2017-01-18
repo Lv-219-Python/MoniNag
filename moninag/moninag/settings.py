@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'check',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,8 @@ WSGI_APPLICATION = 'moninag.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': '',
+        'NAME': '',
     }
 }
 
@@ -120,6 +121,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
