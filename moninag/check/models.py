@@ -1,14 +1,21 @@
 from django.db import models
 
-# Create your models here.
 
 class Check(models.Model):
+    """
+    Check model class
 
-	name = models.CharField(max_length=20)
-	plugin_name = models.CharField(max_length=20)
-	run_freq = models.IntegerField()
+    name      define name of check
+    plugin    define name of plugin
+    run_freq  define time value of runing time
+    id        set by default, foreign key to service
+    """
 
-	def __str__(self):
-		return "Check Name: %s, Plugin Name: %s, Run Frequency: %d".format(self.name,
-                                                    					   self.plugin_name,
-                                                    					   self.run_freq)
+    name = models.CharField(max_length=20, default=0)
+    plugin_name = models.CharField(max_length=20, default=0)
+    run_freq = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "Check Name: %s, Plugin Name: %s, Run Frequency: %d".format(self.name,
+                                                                           self.plugin_name,
+                                                                           self.run_freq)

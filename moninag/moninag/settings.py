@@ -76,8 +76,8 @@ WSGI_APPLICATION = 'moninag.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE':'',
-        'NAME':'',
+        'ENGINE': '',
+        'NAME': '',
     }
 }
 
@@ -124,4 +124,3 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-
