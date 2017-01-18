@@ -1,21 +1,37 @@
 # MoniNag
 
-<h2>Install</h2>
-<p>We are assuming that you're using bash & you have to install or clone such packages: </p>
-<ul>
-    <li> Install PostgreSQL server on local machine.<br>
-        <code>sudo apt-get install postgresql postgresql-contrib</code><br>
-        <code>sudo apt-get install python-psycopg2</code><br>
-        <code>sudo apt-get install libpq-dev</code><br>
-    </li>
-    <li>Clone this repository to your local machine.<br>
-        <code>git clone https://github.com/Lv-219-Python/MoniNag.git</code>
-    </li>
-    <li>Go to the local copy of repository. Open terminal and run the following command<br>
-        <code>sudo pip install -r moninag/requirements.txt</code>
-    </li>
-    <li>
-        Create and configure your local_settings.py
-    </li>
-</ul>
+## Install
+We are assuming that you're using bash & you have to install or clone such packages:
 
+* Install PostgreSQL server on local machine
+  
+  ```
+  sudo apt-get install postgresql postgresql-contrib
+  sudo apt-get install python-psycopg2
+  sudo apt-get install libpq-dev
+  ```
+* Clone this repository to your local machine
+  
+  ```
+  git clone https://github.com/Lv-219-Python/MoniNag.git
+  ```
+* Go to the local copy of repository. Open terminal and run the following command
+  
+  ```
+  pip install -r moninag/requirements.txt
+  ```
+* Create your *local_settings.py* in the folder with *settings.py* and configure it 
+  * Database settings
+    
+    ```
+    DATABASES = {            
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': database_name,
+            'USER': database_username,
+            'PASSWORD': user_password,
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+    ```
