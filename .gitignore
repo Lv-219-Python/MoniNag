@@ -94,3 +94,9 @@ ENV/
 
 # PyCharm project settings
 .idea/
+
+#npm
+node_modules/
+source_app.js
+styles.css
+

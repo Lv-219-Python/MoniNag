@@ -35,3 +35,14 @@ We are assuming that you're using bash & you have to install or clone such packa
         }
     }
     ```
+* Install npm and packages
+ 
+  ```
+  sudo apt-get install node-js
+  npm install -g gulp
+  npm install -g typescript
+  npm i
+  gulp
+  ```
+ 
+
