@@ -87,3 +87,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Sublime project and workspace settings
+*.sublime-project
+*.sublime-workspace
+
+# PyCharm project settings
+.idea/
