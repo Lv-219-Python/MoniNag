@@ -43,7 +43,10 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'registration.CustomUser'
+<<<<<<< 16e921982f891290f7c743d408b82dda51df83a7
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+=======
+>>>>>>> Added initial backend part for user registration
 
 AUTHENTICATION_BACKENDS = ('registration.backends.CustomUserAuth', )
 
@@ -75,13 +78,31 @@ TEMPLATES = [
     },
 ]
 
+<<<<<<< 16e921982f891290f7c743d408b82dda51df83a7
+=======
+ACCOUNT_ACTIVATION_DAYS=7
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT=587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'moninaginfo@gmail.com'
+EMAIL_HOST_PASSWORD = '1234rewqasdfvcxz'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "moninaginfo@gmail.com"
+
+WSGI_APPLICATION = 'moninag.wsgi.application'
+
+>>>>>>> Added initial backend part for user registration
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'moninag',
+        'USER': 'moninag',
+        'PASSWORD': '12345678',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 

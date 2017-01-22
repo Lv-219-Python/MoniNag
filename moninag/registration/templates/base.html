@@ -31,6 +31,14 @@
     </div><!-- /.navbar -->
 
     <div class="container">
+<<<<<<< 16e921982f891290f7c743d408b82dda51df83a7
+=======
+    {% if user.is_authenticated %}
+        You are currently logged in as {{ user.email }}, not you? <a href="{% url 'logout' %}">Sign out</a>
+    {% else %}
+        <a href="{% url 'register_user' %}">Register</a> or <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+>>>>>>> Added initial backend part for user registration
     {% block content %}
 
     {% endblock %}

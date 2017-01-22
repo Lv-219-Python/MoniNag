@@ -1,4 +1,7 @@
+<<<<<<< 16e921982f891290f7c743d408b82dda51df83a7
 from hashlib import md5
+=======
+>>>>>>> Added initial backend part for user registration
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 
@@ -11,7 +14,10 @@ class CustomUser(AbstractBaseUser):
     is_admin     = models.BooleanField(default=False)
     is_staff     = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+<<<<<<< 16e921982f891290f7c743d408b82dda51df83a7
     avatar       =  models.CharField(default='', max_length=1000, editable=False)
+=======
+>>>>>>> Added initial backend part for user registration
 
 
     USERNAME_FIELD = 'email'
@@ -33,6 +39,7 @@ class CustomUser(AbstractBaseUser):
         """
         return self.first_name
 
+<<<<<<< 16e921982f891290f7c743d408b82dda51df83a7
     def save(self, *args, **kwargs):
         """
         Creates md5 hash from user email for gravatar integration and stores it in DB
@@ -40,3 +47,8 @@ class CustomUser(AbstractBaseUser):
         cleaned_email = self.email.strip().lower().encode('utf-8')
         self.avatar = md5(cleaned_email).hexdigest()
         super(AbstractBaseUser, self).save(*args, **kwargs)
+=======
+
+
+
+>>>>>>> Added initial backend part for user registration
