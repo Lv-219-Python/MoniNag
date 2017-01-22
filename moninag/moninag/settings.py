@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'server',
     'service',
     'check',
+    'home',
     'registration'
 ]
 
@@ -61,9 +62,7 @@ ROOT_URLCONF = 'moninag.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'registration/templates')
-        ],
+        'DIRS': ['templates', 'templates/registration'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,6 +124,10 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 try:
     from .local_settings import *
