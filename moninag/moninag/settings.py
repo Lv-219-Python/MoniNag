@@ -37,7 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'service',
     'check',
+    'registration'
 ]
+
+AUTH_USER_MODEL = 'registration.CustomUser'
+
+AUTHENTICATION_BACKENDS = ('registration.backends.CustomUserAuth', )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +59,9 @@ ROOT_URLCONF = 'moninag.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'registration/templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,6 +74,15 @@ TEMPLATES = [
     },
 ]
 
+ACCOUNT_ACTIVATION_DAYS=7
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT=587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'moninaginfo@gmail.com'
+EMAIL_HOST_PASSWORD = '1234rewqasdfvcxz'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "moninaginfo@gmail.com"
+
 WSGI_APPLICATION = 'moninag.wsgi.application'
 
 # Database
@@ -74,8 +90,12 @@ WSGI_APPLICATION = 'moninag.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'moninag',
+        'USER': 'moninag',
+        'PASSWORD': '12345678',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
