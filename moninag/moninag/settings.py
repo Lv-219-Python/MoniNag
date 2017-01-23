@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'registration.CustomUser'
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 AUTHENTICATION_BACKENDS = ('registration.backends.CustomUserAuth', )
 
@@ -90,12 +91,8 @@ WSGI_APPLICATION = 'moninag.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'moninag',
-        'USER': 'moninag',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': ''
+        'ENGINE': '',
+        'NAME': '',
     }
 }
 
@@ -139,3 +136,5 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+print (DATABASES)

@@ -28,7 +28,7 @@ def auth_view(request):
     if user is not None:
         if user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect('/accounts/loggedin')
+            return HttpResponseRedirect('/accounts/profile')
         else:
             return HttpResponseRedirect('/accounts/inactive_account', {'active': user.is_active})
     else:
@@ -37,8 +37,8 @@ def auth_view(request):
 def inactive_account(request):
     return render(request, 'inactive_account.html')
 
-def loggedin(request):
-    return render(request, 'loggedin.html',
+def profile(request):
+    return render(request, 'profile.html',
                   {'user': request.user })
 
 def invalid_login(request):

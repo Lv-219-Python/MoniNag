@@ -33,4 +33,8 @@ class CustomUser(AbstractBaseUser):
 
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(CustomUser)
 
+    def __unicode__(self):
+        return u'Profile of user: %s' % self.user.username

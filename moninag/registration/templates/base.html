@@ -31,11 +31,6 @@
     </div><!-- /.navbar -->
 
     <div class="container">
-    {% if user.is_authenticated %}
-        You are currently logged in as {{ user.email }}, not you? <a href="{% url 'logout' %}">Sign out</a>
-    {% else %}
-        <a href="{% url 'register_user' %}">Register</a> or <a href="{% url 'login' %}">Login</a>
-    {% endif %}
     {% block content %}
 
     {% endblock %}
