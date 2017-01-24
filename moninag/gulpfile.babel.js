@@ -1,18 +1,18 @@
+import browserify from 'browserify';
+import glob from 'glob';
 import gulp from 'gulp';
 import less from 'gulp-less';
 import gutil from 'gulp-util';
-import glob from 'glob';
-import browserify from 'browserify';
-import source from 'vinyl-source-stream';
 import tsify from 'tsify';
+import source from 'vinyl-source-stream';
 
 // Convert all .ts fules in one source_app.js file
 gulp.task('browserify', () => {
     var files = glob.sync('./static/src/ts/**/*.ts');
     return browserify({
-        entries: files,
-        debug: true
-    })
+            entries: files,
+            debug: true
+        })
         .plugin(tsify, {
             target: 'es5',
             experimentalDecorators: true
@@ -28,14 +28,15 @@ gulp.task('browserify', () => {
 });
 
 // Copy dependencies to lib folder
-gulp.task('copy:libs', function() {
-  return gulp.src([      
-        // List here dependecies
-        'node_modules/rxjs/bundles/Rx.js',
-        'node_modules/zone.js/dist/zone.js',
-        'node_modules/reflect-metadata/Reflect.js',      
-    ])
-    .pipe(gulp.dest('./static/lib'))
+gulp.task('copylibs', function() {
+    return gulp.src([      
+
+            // List here which libs to copy
+            'node_modules/rxjs/bundles/Rx.js',
+            'node_modules/zone.js/dist/zone.js',
+            'node_modules/reflect-metadata/Reflect.js',      
+        ])
+        .pipe(gulp.dest('./static/lib'))
 });
 
 // Convert .less to .css
@@ -60,7 +61,7 @@ gulp.task('watch', () => {
 });
 
 // Add build task
-gulp.task('build', ['browserify', 'less', 'copy:libs']);
+gulp.task('build', ['browserify', 'less', 'copylibs']);
 
 // Add default task
 gulp.task('default', ['build', 'watch']);
