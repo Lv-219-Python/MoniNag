@@ -75,17 +75,6 @@ TEMPLATES = [
     },
 ]
 
-ACCOUNT_ACTIVATION_DAYS=7
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_PORT=587
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'moninaginfo@gmail.com'
-EMAIL_HOST_PASSWORD = '1234rewqasdfvcxz'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "moninaginfo@gmail.com"
-
-WSGI_APPLICATION = 'moninag.wsgi.application'
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -136,5 +125,3 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-
-print (DATABASES)

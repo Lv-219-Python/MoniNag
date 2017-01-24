@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.template.context_processors import csrf
+from moninag.settings import DEFAULT_FROM_EMAIL, DEFAULT_HOST
 from registration.forms import CustomUserCreationForm
 from registration.models import CustomUser
+from registration.utils.send_email import send_activation_email
 
 def login(request):
     c = {}
@@ -61,7 +63,7 @@ def register_user(request):
             user_id = user.id
             email = user.email
             user.save()
-            form.send_activation_email('localhost:8000', 'moninaginfo@gmail.com', email, user_id)
+            send_activation_email(DEFAULT_HOST, DEFAULT_FROM_EMAIL, email, user_id)
             return HttpResponseRedirect('/accounts/register_success')
     else:
         form = CustomUserCreationForm()
