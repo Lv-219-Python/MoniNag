@@ -45,5 +45,8 @@ We are assuming that you're using bash & you have to install or clone such packa
   npm i
   gulp
   ```
- 
-
+* Install nagios-plugins on local machine
+    
+  ```
+  sudo apt-get install nagios-plugins
+  ```
