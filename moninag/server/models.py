@@ -1,5 +1,6 @@
 from django.db import models
 
+
 STATE_CHOICES = (
     (1, "NotSelected"),
     (2, "Production"),
@@ -22,8 +23,7 @@ class Server(models.Model):
     state = models.CharField(max_length=100, choices=STATE_CHOICES, default=0)
 
     def __str__(self):
-        return "ServerId: {}, ServerName: {}, ServerAddress: {}, ServerStatus {}".format(self.id,
-                                                                                         self.name,
-                                                                                         self.address,
-                                                                                         self.status)
-
+        return "ServerId: {}, ServerName: {}, ServerAddress: {}, ServerState {}".format(self.id,
+                                                                                        self.name,
+                                                                                        self.address,
+                                                                                        self.state)

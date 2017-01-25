@@ -94,3 +94,10 @@ ENV/
 
 # PyCharm project settings
 .idea/
+
+# npm
+node_modules/
+
+# Static files (will be created with gupl)
+source_app.js
+styles.css
