@@ -24,7 +24,7 @@ We are assuming that you're using bash & you have to install or clone such packa
   * Database settings
     
     ```
-    DATABASES = {            
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': database_name,
@@ -35,17 +35,17 @@ We are assuming that you're using bash & you have to install or clone such packa
         }
     }
     ```
-
-* Install npm and packages
+  
+  * Install npm and packages
  
-  ```
-  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-  sudo apt-get install -y nodejs
-  sudo npm install gulp -g
-  sudo npm install typescript -g
-  npm i
-  gulp
-  ```
+    ```
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    sudo npm install gulp -g
+    sudo npm install typescript -g
+    npm i
+    gulp
+    ```
 
   * Email settings 
 
@@ -61,3 +61,4 @@ We are assuming that you're using bash & you have to install or clone such packa
     WSGI_APPLICATION = 'moninag.wsgi.application'
     DEFAULT_HOST = 'localhost:8000'
     ```
+
