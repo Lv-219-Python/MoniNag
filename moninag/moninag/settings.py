@@ -79,12 +79,8 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'moninag',
-        'USER': 'moninag',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': ''
+        'ENGINE': '',
+        'NAME': '',
     }
 }
 
