@@ -27,3 +27,4 @@ class Server(models.Model):
                                                                                         self.name,
                                                                                         self.address,
                                                                                         self.state)
+
