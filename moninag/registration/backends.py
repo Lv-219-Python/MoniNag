@@ -1,5 +1,6 @@
 from registration.models import CustomUser
 
+
 class CustomUserAuth(object):
 
     def authenticate(self, username=None, password=None):
@@ -18,5 +19,3 @@ class CustomUserAuth(object):
             return None
         except CustomUser.DoesNotExist:
             return None
-
-

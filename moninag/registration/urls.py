@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from registration.views import activate, inactive_account,login, auth_view, logout, profile, invalid_login, register_user, register_success
+from registration.views import activate, inactive_account, login, auth_view, logout, profile, invalid_login, register_user, register_success
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin

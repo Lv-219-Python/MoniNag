@@ -46,7 +46,7 @@ def inactive_account(request):
 
 def profile(request):
     return render(request, 'profile.html',
-                  {'user': request.user })
+                  {'user': request.user})
 
 
 def invalid_login(request):
@@ -70,7 +70,8 @@ def register_user(request):
             user.set_password(request.POST['password1'])
             user.is_active = False
             user.save()
-            send_activation_email(DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, user.id)
+            send_activation_email(
+                DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, user.id)
             return HttpResponseRedirect('/accounts/register_success')
         # else:
         #     return JsonResponse({'errors': errors}, status=400)

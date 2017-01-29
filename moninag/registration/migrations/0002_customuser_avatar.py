@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='customuser',
             name='avatar',
-            field=models.CharField(default=b'', editable=False, max_length=1000),
+            field=models.CharField(
+                default=b'', editable=False, max_length=1000),
         ),
     ]

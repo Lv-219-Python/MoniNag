@@ -15,7 +15,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customuser',
             name='avatar',
-            field=models.CharField(default='', editable=False, max_length=1000),
+            field=models.CharField(
+                default='', editable=False, max_length=1000),
         ),
         migrations.AlterField(
             model_name='customuser',
