@@ -1,6 +1,8 @@
+from json import loads
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import auth
+from django.core.validators import validate_email
 from django.template.context_processors import csrf
 from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
 from registration.utils.send_email import send_activation_email
@@ -26,18 +28,32 @@ def activate(request, activation_key):
 
 
 def auth_view(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
+    json = {
+        'error': {},
+        'message': {},
+        'success': False,
+    }
 
-    if user is not None:
-        if user.is_active:
-            auth.login(request, user)
-            return HttpResponseRedirect('/accounts/profile')
+    data = loads(request.body.decode('utf-8'))
+
+
+    if request.method == 'POST':
+        email = data.get('email').strip().lower()
+        password = data.get('password').strip()
+
+        user = auth.authenticate(username=email, password=password)
+        if user is not None:
+            if user.is_active:
+                auth.login(request, user)
+                json['success'] = True
+                json['message'] = '/accounts/profile/'
+            else:
+                # Return a 'disabled account' error message
+                json['error'] = 'Account is not active'
         else:
-            return HttpResponseRedirect('/accounts/inactive_account', {'active': user.is_active})
-    else:
-        return HttpResponseRedirect('/accounts/invalid')
+            # Return an 'invalid login' error message.
+            json['error'] = 'Email and/or password invalid.'
+    return JsonResponse(json)
 
 
 def inactive_account(request):
@@ -55,26 +71,38 @@ def invalid_login(request):
 
 def logout(request):
     auth.logout(request)
-    return render(request, 'logout.html')
+    return HttpResponseRedirect('/accounts/')
 
 
 def register_user(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        json = {
+            'error': {},
+            'message': {},
+            'success': False,
+        }
 
-        # errors = form.errors
-        if form.is_valid():
-            form = CustomUserCreationForm(request.POST)
-            user = form.save()
-            user.email = request.POST['email']
-            user.set_password(request.POST['password1'])
-            user.is_active = False
-            user.save()
-            send_activation_email(
-                DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, user.id)
-            return HttpResponseRedirect('/accounts/register_success')
-        # else:
-        #     return JsonResponse({'errors': errors}, status=400)
+        data = loads(request.body.decode('utf-8'))
+        email = data.get('email')
+        try:
+            validate_email(email)
+            try:
+                CustomUser.objects.get(email=email)
+                json['error'] = "This email is already registered. Please try another"
+            except CustomUser.DoesNotExist:
+                user = CustomUser()
+                user.email, user.first_name, user.second_name = email, data.get(
+                    'firstName'), data.get('lastName')
+                user.set_password(data.get('password'))
+                user.save()
+                json['success'] = True
+                json['message'] = "Thank you for your time. The confirmation code has been sent to your email. In order to confirm the registration, simply click on the link given in it."
+                send_activation_email(
+                    DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, user.id)
+        except:
+            json['error'] = "The email address you've entered has not a valid format"
+
+        return JsonResponse(json)
     else:
         form = CustomUserCreationForm()
     args = {}
