@@ -7,7 +7,7 @@ import tsify from 'tsify';
 import source from 'vinyl-source-stream';
 
 
-// Convert all .ts fules in one source_app.js file
+// Convert all .ts files in one source_app.js file
 gulp.task('browserify', () => {
     var files = glob.sync('./static/src/ts/**/*.ts');
     return browserify({

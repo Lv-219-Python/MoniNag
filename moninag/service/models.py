@@ -25,6 +25,77 @@ class Service(models.Model):
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
 
     @classmethod
+    def create(cls, name, status, server_id):
+        """Create and add service to database.
+
+        Args:
+            name(str): service status.
+            status(str): service status.
+            server_id(int): server id.
+
+        Returns:
+            Service: The return value. Created service for success, None otherwise.
+        """
+
+        try:
+            # Will be replaced with appropriate Server method
+            server = Server.objects.get(id=server_id)
+        except Exception as error:
+            return None
+
+        service = cls(name=name, status=status, server=server)
+        service.save()
+
+        return service
+
+    @classmethod
+    def update(cls, id, name, status, server_id):
+        """Update service data.
+
+        Args:
+            id(int): service id.
+            name(str): service status.
+            status(str): service status.
+            server_id(int): server id.
+
+        Returns:
+            Service: The return value. Updated service for success, None otherwise.
+        """
+
+        # Check if service exist allready
+        if cls.objects.filter(id=id).count() == 0:
+            return None
+
+        try:
+            # Will be replaced with appropriate Server method
+            server = Server.objects.get(id=server_id)
+        except Exception as error:
+            return None
+
+        service = cls(id=id, name=name, status=status, server=server)
+        service.save()
+
+        return service
+
+    @classmethod
+    def get_by_id(cls, id):
+        """Get service with given id.
+
+        Args:
+            id (int): service id.
+
+        Returns:
+            Service: If service was found, and None otherwise.
+        """
+
+        try:
+            service = cls.objects.get(id=id)
+        except Exception as error:
+            return None
+
+        return service
+
+    @classmethod
     def get(cls, statuses=None, server_id=None, start=0, end=20):
         """Get services.
 
@@ -55,6 +126,44 @@ class Service(models.Model):
             services = cls.objects.all()[start:end]
 
         return services
+
+    @classmethod
+    def remove(cls, id):
+        """Remove service with given id from database.
+
+        Args:
+            id (int): service id.
+
+        Returns:
+            bool: The return value. True for success, False otherwise.
+        """
+
+        try:
+            cls.objects.get(id=id).delete()
+        except Exception as error:
+            return False
+
+        return True
+
+    def to_dict(self):
+        """Convert model object to dictionary.
+
+        Return:
+            dict:
+                {
+                    'id': id,
+                    'name': name,
+                    'status': status,
+                    'server_id': server.id
+                }
+        """
+
+        return {
+            'id': self.id,
+            'name': self.name,
+            'status': self.status,
+            'server_id': self.server.id
+        }
 
     def __str__(self):
         return 'Service id: {}, name: {}, status: {}'.format(self.id,
