@@ -16,9 +16,11 @@ Including another URLconf
 
 from django.conf.urls import include, url
 
-
 urlpatterns = [
     url(r'^', include('home.urls')),
+    url(r'^server/', include('server.urls')),
     # Registration & Auth
     url(r'^accounts/', include('registration.urls'))
 ]
+
+
