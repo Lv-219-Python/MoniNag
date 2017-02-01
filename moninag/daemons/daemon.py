@@ -6,8 +6,7 @@ import time
 
 
 class Daemon(object):
-    """
-    Linux Daemon boilerplate
+    """Linux Daemon boilerplate.
 
     Must be inherited and can't be run. Otherwise raise NotImplementedError.
 
@@ -18,19 +17,22 @@ class Daemon(object):
         pid_file_path(str): path to directory where pid file
             will be created and stored while daemon is running.
             If path doesn't exist it will be created.
+
+        logger(Logger): specified logging.Logger object to write logs.
     """
 
-    def __init__(self, daemon_name, pid_file_path):
+    def __init__(self, daemon_name, pid_file_path, logger):
 
         self.daemon_name = daemon_name
         self.pid_file = '{0}/{1}.pid'.format(pid_file_path, daemon_name)
+        self.logger = logger
 
         # Set process name
         try:
             import setproctitle
             setproctitle.setproctitle(self.daemon_name)
         except Exception as err:
-            print('Error: ', err)
+            self.logger.error('Can not set daemon name. Error: {0}'.format(err))
 
     def delete_pid(self):
         """ Delete the pid file. """
@@ -70,6 +72,7 @@ class Daemon(object):
         atexit.register(self.delete_pid)
 
         pid = str(os.getpid())
+        self.logger.debug('Daemon created with pid {0}.'.format(pid))
 
         with open(self.pid_file, 'w+') as pid_file:
             pid_file.write('{0}'.format(pid))
@@ -87,26 +90,35 @@ class Daemon(object):
     def start(self):
         """ Start the daemon. """
 
-        print('Starting {0} ...'.format(self.daemon_name))
-
         if self.get_pid_by_file():
             print('PID file {0} exists.\nIs the deamon already running?'.format(self.pid_file))
             sys.exit(1)
 
+        print('Starting {0} ...'.format(self.daemon_name))
+
         self.daemonize()
         self.run()
 
+    def status(self):
+        """ Daemon Status """
+
+        if self.get_pid_by_file():
+            pf = open(self.pid_file, 'r')
+            print('Daemon is currently running. PID: {}'.format(pf.read()))
+        else:
+            print('Daemon is not running.')
+
     def stop(self):
         """ Stop the daemon. """
-
-        print('Stopping {0} ...'.format(self.daemon_name))
 
         pid = self.get_pid_by_file()
         if not pid:
             print("PID file {0} doesn't exist.\nIs the daemon not running?".format(self.pid_file))
             return
 
-        # Time to kill.
+        print('Stopping {0} ...'.format(self.daemon_name))
+
+        # Kill daemon.
         try:
             while True:
                 os.kill(pid, signal.SIGTERM)
