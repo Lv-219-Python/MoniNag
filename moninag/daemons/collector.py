@@ -27,7 +27,7 @@ if not os.path.exists(log_file_path):
 logger = logging.getLogger('moninag_collector')
 
 # Logger format
-formatter = logging.Formatter('%(asctime)s %(levelname)6s %(name)s: %(message)s')
+formatter = logging.Formatter('%(asctime)s\t%(levelname)s\t%(name)s: %(message)s')
 
 # Log file handler
 handler = logging.FileHandler('{0}/{1}.log'.format(log_file_path, daemon_name))

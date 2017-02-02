@@ -70,5 +70,5 @@ class CollectorDaemon(Daemon):
 
             self.logger.info('Fetching Finished. Number of '
                              'records: {amount}'.format(amount=Check.objects.all().count()))
-        except:
-            self.logger.error('Undefined Error')
+        except Exception as error:
+            self.logger.error(str(error))
