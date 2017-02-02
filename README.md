@@ -24,7 +24,7 @@ We are assuming that you're using bash & you have to install or clone such packa
   * Database settings
     
     ```
-    DATABASES = {            
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': database_name,
@@ -35,6 +35,20 @@ We are assuming that you're using bash & you have to install or clone such packa
         }
     }
     ```
+  * Email settings
+  
+      ```
+      ACCOUNT_ACTIVATION_DAYS=7
+      EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+      EMAIL_PORT=587
+      EMAIL_HOST = 'smtp.gmail.com'
+      EMAIL_HOST_USER = 'moninaginfo@gmail.com'
+      EMAIL_HOST_PASSWORD = '1234rewqasdfvcxz'
+      EMAIL_USE_TLS = True
+      DEFAULT_FROM_EMAIL = "moninaginfo@gmail.com"
+      WSGI_APPLICATION = 'moninag.wsgi.application'
+      DEFAULT_HOST = 'localhost:8000'
+      ```
 * Install npm and packages
  
   ```
@@ -44,9 +58,9 @@ We are assuming that you're using bash & you have to install or clone such packa
   sudo npm install typescript -g
   npm i
   gulp
-  ```
+  ``` 
 * Install nagios-plugins on local machine
-    
+ 
   ```
   sudo apt-get install nagios-plugins
   ```

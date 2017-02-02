@@ -6,6 +6,7 @@ import gutil from 'gulp-util';
 import tsify from 'tsify';
 import source from 'vinyl-source-stream';
 
+
 // Convert all .ts fules in one source_app.js file
 gulp.task('browserify', () => {
     var files = glob.sync('./static/src/ts/**/*.ts');
@@ -29,12 +30,12 @@ gulp.task('browserify', () => {
 
 // Copy dependencies to lib folder
 gulp.task('copylibs', function() {
-    return gulp.src([      
+    return gulp.src([
 
             // List here which libs to copy
             'node_modules/rxjs/bundles/Rx.js',
             'node_modules/zone.js/dist/zone.js',
-            'node_modules/reflect-metadata/Reflect.js',      
+            'node_modules/reflect-metadata/Reflect.js',
         ])
         .pipe(gulp.dest('./static/lib'))
 });
