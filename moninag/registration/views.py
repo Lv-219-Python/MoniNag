@@ -1,19 +1,18 @@
 from json import loads
-from django.shortcuts import render
-from django.http import JsonResponse, HttpResponseRedirect
-from django.contrib import auth
+from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponse
+from django.contrib import auth as authentication
 from django.core.validators import validate_email
 from django.template.context_processors import csrf
 from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
 from registration.utils.send_email import send_activation_email
-from registration.forms import CustomUserCreationForm
 from registration.models import CustomUser
 
 
-def login(request):
+def auth(request):
     c = {}
     c.update(csrf(request))
-    return render(request, 'login.html', c)
+    return render(request, 'registration/login.html', c)
 
 
 def activate(request, activation_key):
@@ -23,55 +22,46 @@ def activate(request, activation_key):
         user.is_active = True
         user.save()
     else:
-        return render(request, 'already_activated.html')
-    return render(request, 'activate.html')
+        return render(request, 'registration/already_activated.html')
+    return render(request, 'registration/activate.html')
 
 
-def auth_view(request):
-    json = {
-        'error': {},
-        'message': {},
-        'success': False,
-    }
-
-    data = loads(request.body.decode('utf-8'))
-
+def login(request):
 
     if request.method == 'POST':
+        data = loads(request.body.decode('utf-8'))
         email = data.get('email').strip().lower()
         password = data.get('password').strip()
 
-        user = auth.authenticate(username=email, password=password)
-        if user is not None:
+        user = authentication.authenticate(username=email, password=password)
+        if user:
             if user.is_active:
-                auth.login(request, user)
-                json['success'] = True
-                json['message'] = '/accounts/profile/'
+                authentication.login(request, user)
+                return JsonResponse({'success': True, 'message': 'accounts/profile'})
             else:
                 # Return a 'disabled account' error message
-                json['error'] = 'Account is not active'
-        else:
-            # Return an 'invalid login' error message.
-            json['error'] = 'Email and/or password invalid.'
-    return JsonResponse(json)
+                return HttpResponse('Account is not active', status=401)
 
+        return HttpResponse('Email and/or password invalid', status=403)
+
+    return HttpResponse(status=400)
 
 def inactive_account(request):
-    return render(request, 'inactive_account.html')
+    return render(request, 'registration/inactive_account.html')
 
 
 def profile(request):
-    return render(request, 'profile.html',
+    return render(request, 'registration/profile.html',
                   {'user': request.user})
 
 
 def invalid_login(request):
-    return render(request, 'invalid_login.html')
+    return render(request, 'registration/invalid_login.html')
 
 
 def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect('/accounts/')
+    authentication.logout(request)
+    return redirect('/accounts/')
 
 
 def register_user(request):
@@ -103,15 +93,9 @@ def register_user(request):
             json['error'] = "The email address you've entered has not a valid format"
 
         return JsonResponse(json)
-    else:
-        form = CustomUserCreationForm()
-    args = {}
-    args.update(csrf(request))
 
-    args['form'] = form
-
-    return render(request, 'register.html', args)
+    return render(request, 'registration/register.html')
 
 
 def register_success(request):
-    return render(request, 'register_success.html')
+    return render(request, 'registration/register_success.html')

@@ -27,13 +27,13 @@ def send_activation_email(site, from_email, to_email, id):
     """
     ctx_dict = {'activation_key': id,
                 'site': site}
-    subject = render_to_string('activation_email_subject.txt',
+    subject = render_to_string('registration/activation_email_subject.txt',
                                ctx_dict)
     # Email subject *must not* contain newlines
     subject = ''.join(subject.splitlines())
 
     html_message = render_to_string(
-        'activation_email.html',
+        'registration/activation_email.html',
         ctx_dict
     )
 
@@ -41,7 +41,4 @@ def send_activation_email(site, from_email, to_email, id):
         subject, 'This is message', from_email, [to_email])
     mail.attach_alternative(html_message, "text/html")
 
-    try:
-        mail.send()
-    except:
-        pass
+    mail.send()
