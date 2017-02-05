@@ -4,6 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.generic.base import View
 from utils.validators import validate_dict, validate_subdict
 
+from nagplugin.models import NagPlugin
 from service.models import Service
 from .models import Check
 
@@ -59,7 +60,7 @@ class CheckView(View):
         Require JSON with fields:
             {
                 'name': <check name>,
-                'plugin_name': <plugin name>,
+                'plugin_id': <nagios plugin id>,
                 'target_port': <target port>,
                 'run_freq': <run freq>,
                 'service_id': <service id>
@@ -73,7 +74,7 @@ class CheckView(View):
                 }
         """
         REQUIREMENTS = {'name',
-                        'plugin_name',
+                        'plugin_id',
                         'run_freq',
                         'target_port',
                         'service_id'
@@ -84,10 +85,16 @@ class CheckView(View):
         check_params = json.loads(request.body.decode('utf-8'))
 
         if not validate_dict(check_params, REQUIREMENTS):
-            json_response['error'] = 'Incorect JSON format.'
+            json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        service = Service.get_by_id(id=check_params['service_id'])
+        plugin = NagPlugin.get_by_id(check_params['plugin_id'])
+
+        if not plugin:
+            json_response['response'] = 'Plugin with given id was not found.'
+            return JsonResponse(json_response, status=404)
+
+        service = Service.get_by_id(check_params['service_id'])
 
         if not service:
             json_response['response'] = 'Service with given id was not found.'
@@ -97,7 +104,7 @@ class CheckView(View):
             return HttpResponse(status=403)
 
         check = Check.create(name=check_params['name'],
-                             plugin_name=check_params['plugin_name'],
+                             plugin=plugin,
                              run_freq=check_params['run_freq'],
                              target_port=check_params['target_port'],
                              service=service)
@@ -112,7 +119,7 @@ class CheckView(View):
 
         :return: HttpResponse: Status 200 for success,
                                Status 404 if not founded,
-                               Status 403 if Unauthorized.
+                               Status 403 if permission denied.
         """
 
         check = Check.get_by_id(check_id)
@@ -141,25 +148,36 @@ class CheckView(View):
                     error: <error message>
                 }
         """
-        REQUIREMENTS = {'name',
-                        'plugin_name',
-                        'run_freq',
-                        'target_port'
-                        }
+        OPTIONAL_REQUIREMENTS = {'name',
+                                 'plugin_id',
+                                 'run_freq',
+                                 'target_port'
+                                 }
 
         json_response = {}
 
-        check_dict = json.loads(request.body.decode('utf-8'))
+        check_params = json.loads(request.body.decode('utf-8'))
 
-        if not validate_subdict(check_dict, REQUIREMENTS):
-            json_response['error'] = 'Incorect JSON format.'
+        if not validate_subdict(check_params, OPTIONAL_REQUIREMENTS):
+            json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
+
+        if 'plugin_id' in check_params:
+            plugin = NagPlugin.get_by_id(check_params['plugin_id'])
+
+            if not plugin:
+                json_response['response'] = 'Plugin with given id was not found.'
+                return JsonResponse(json_response, status=404)
+
+            # Replace 'plugin_id' key with 'plugin' key to unpack in update method
+            check_params.pop('plugin_id')
+            check_params['plugin'] = plugin
 
         check = Check.get_by_id(check_id)
 
         if check:
             if check.service.server.user.id == request.user.id:
-                check.update(**check_dict)
+                check.update(**check_params)
                 json_response['response'] = check.to_dict()
                 return JsonResponse(json_response, status=200)
             return HttpResponse(json_response, status=403)
