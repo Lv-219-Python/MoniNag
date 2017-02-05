@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^profile/$', profile, name='profile'),
     url(r'^invalid/$', invalid_login, name='invalid_login'),
     url(r'^inactive_account/$', inactive_account, name='inactive_account'),
-    url(r'^activate/(?P<activation_key>[0-9]+)/$', activate, name='activate'),
+    url(r'^activate/(?P<activation_key>[a-z0-9]+)/$', activate, name='activate'),
     url(r'^register_user/$', register_user, name='register_user'),
     url(r'^register_success/$', register_success, name='register_success'),
 

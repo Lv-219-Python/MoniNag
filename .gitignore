@@ -99,5 +99,5 @@ ENV/
 node_modules/
 
 # Static files (will be created with gupl)
-source_app.js
+moninag/static/js/*
 styles.css

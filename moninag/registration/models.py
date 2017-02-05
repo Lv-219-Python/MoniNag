@@ -12,6 +12,7 @@ class CustomUser(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     avatar = models.CharField(default='', max_length=1000, editable=False)
+    activation_key = models.CharField(default='', max_length=1000, editable=False)
 
     USERNAME_FIELD = 'email'
 

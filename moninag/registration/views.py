@@ -5,7 +5,7 @@ from django.contrib import auth as authentication
 from django.core.validators import validate_email
 from django.template.context_processors import csrf
 from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
-from registration.utils.send_email import send_activation_email
+from registration.utils.send_email import send_activation_email, generate_activation_key
 from registration.models import CustomUser
 
 
@@ -16,8 +16,8 @@ def auth(request):
 
 
 def activate(request, activation_key):
-    activation_key = int(activation_key)
-    user = CustomUser.objects.get(id=activation_key)
+
+    user = CustomUser.objects.get(activation_key=activation_key)
     if not user.is_active:
         user.is_active = True
         user.save()
@@ -45,6 +45,7 @@ def login(request):
         return HttpResponse('Email and/or password invalid', status=403)
 
     return HttpResponse(status=400)
+
 
 def inactive_account(request):
     return render(request, 'registration/inactive_account.html')
@@ -84,11 +85,15 @@ def register_user(request):
                 user.email, user.first_name, user.second_name = email, data.get(
                     'firstName'), data.get('lastName')
                 user.set_password(data.get('password'))
+                activation_key = generate_activation_key(email)
+                user.activation_key = activation_key
+
                 user.save()
                 json['success'] = True
                 json['message'] = "Thank you for your time. The confirmation code has been sent to your email. In order to confirm the registration, simply click on the link given in it."
+
                 send_activation_email(
-                    DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, user.id)
+                    DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, activation_key)
         except:
             json['error'] = "The email address you've entered has not a valid format"
 
