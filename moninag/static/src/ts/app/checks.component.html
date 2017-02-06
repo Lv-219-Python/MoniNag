@@ -1,0 +1,16 @@
+<p>Name:{{checkname}}</p>
+<p>Plugins:</p>
+    <select>
+        <option *ngFor="let plugin of plugins" value= {{plugin.id}}>
+            {{plugin.name}}
+        </option>
+    </select>
+<p>Target port:{{portname}}</p>
+<p>Check-frequency:</p>
+    <select>
+        <option value="1 min">1 min</option>
+        <option value="5 min">5 min</option>
+        <option value="15 min">15 min</option>
+        <option value="30 min">30 min</option>
+        <option value="1 hour">1 hour</option>
+    </select>

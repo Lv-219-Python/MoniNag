@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component'
 import { ChecksComponent } from './checks.component';
 import { ServersComponent } from './servers.component';
 import { ServicesComponent } from './services.component';
+import { ChecksService } from './checks.service';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { ServicesComponent } from './services.component';
                 path: 'checks',
                 component: ChecksComponent
             }
-        ])
+        ]),
+        HttpModule,
+        JsonpModule
     ],
     declarations: [
         AppComponent,
@@ -40,8 +44,9 @@ import { ServicesComponent } from './services.component';
         ServicesComponent
     ],
     providers: [
-
+        ChecksService
     ],
+
     bootstrap: [
         AppComponent
     ]
