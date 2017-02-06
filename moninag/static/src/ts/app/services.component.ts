@@ -16,6 +16,7 @@ export class ServicesComponent {
 
 
 /* 
+http://127.0.0.1:8000/api/1/service/21/
 export class ServicesComponent implements OnInit {
 
     constructor(
