@@ -1,0 +1,11 @@
+label {
+  color: #607D8B;
+  font-weight: bold;
+}
+.StatusOk {
+    color: green;
+}
+.StatusNotOk {
+    color: red;
+}
+`]

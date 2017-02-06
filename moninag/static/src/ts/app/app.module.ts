@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ChecksComponent } from './checks.component';
 import { ServersComponent } from './servers.component';
 import { ServicesComponent } from './services.component';
-
+import { DBListComponent }    from './db-list';
 
 @NgModule({
     imports: [
@@ -17,7 +17,8 @@ import { ServicesComponent } from './services.component';
         AppComponent,
         ChecksComponent,
         ServersComponent,
-        ServicesComponent
+        ServicesComponent,
+        DBListComponent
     ],
     providers: [
 
