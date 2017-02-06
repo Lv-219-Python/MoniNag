@@ -9,6 +9,6 @@ export class UserService {
         let headers = new Headers({ 'Content-Type': 'application/json', 'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'});
         let options = new RequestOptions({ headers: headers });
         let body = JSON.stringify(user);
-        return this.http.post('/accounts/register_user/', body, options).map((res: Response) => res.json());
+        return this.http.post('/auth/register_user/', body, options).map((res: Response) => res.json());
     }
 }

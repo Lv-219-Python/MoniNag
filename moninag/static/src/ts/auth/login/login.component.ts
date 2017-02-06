@@ -24,7 +24,7 @@ export class LoginComponent {
             .subscribe(
                 data => {
                     if(data.success) {
-                        window.location.href = '/accounts/profile/';
+                        window.location.href = data.message;
                     } else {
                         this.alertService.error(data.error);
                         this.loading = false;

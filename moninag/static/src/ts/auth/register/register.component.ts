@@ -23,7 +23,7 @@ export class RegisterComponent {
                 data => {
                     if(data.success) {
                         this.alertService.success(data.message, true);
-                        setTimeout(() => {this.router.navigate(['/accounts'])}, 5000);
+                        setTimeout(() => {this.router.navigate(['/auth'])}, 5000);
                     } else {
                         this.alertService.error(data.error);
                         this.loading = false;

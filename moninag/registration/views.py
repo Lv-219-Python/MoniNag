@@ -3,16 +3,13 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from django.contrib import auth as authentication
 from django.core.validators import validate_email
-from django.template.context_processors import csrf
 from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
 from registration.utils.send_email import send_activation_email, generate_activation_key
 from registration.models import CustomUser
 
 
 def auth(request):
-    c = {}
-    c.update(csrf(request))
-    return render(request, 'registration/login.html', c)
+    return render(request, 'registration/login.html')
 
 
 def activate(request, activation_key):
@@ -37,7 +34,7 @@ def login(request):
         if user:
             if user.is_active:
                 authentication.login(request, user)
-                return JsonResponse({'success': True, 'message': 'accounts/profile'})
+                return JsonResponse({'success': True, 'message': 'api/1/profile/{}'.format(user.id)})
             else:
                 # Return a 'disabled account' error message
                 return HttpResponse('Account is not active', status=401)
@@ -47,22 +44,9 @@ def login(request):
     return HttpResponse(status=400)
 
 
-def inactive_account(request):
-    return render(request, 'registration/inactive_account.html')
-
-
-def profile(request):
-    return render(request, 'registration/profile.html',
-                  {'user': request.user})
-
-
-def invalid_login(request):
-    return render(request, 'registration/invalid_login.html')
-
-
 def logout(request):
     authentication.logout(request)
-    return redirect('/accounts/')
+    return redirect('/auth/')
 
 
 def register_user(request):
@@ -100,7 +84,3 @@ def register_user(request):
         return JsonResponse(json)
 
     return render(request, 'registration/register.html')
-
-
-def register_success(request):
-    return render(request, 'registration/register_success.html')

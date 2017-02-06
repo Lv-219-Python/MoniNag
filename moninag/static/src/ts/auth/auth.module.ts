@@ -21,18 +21,15 @@ import { RegisterComponent } from './register/register.component'
         RouterModule.forRoot([
             {
                 path: '',
-                redirectTo: '/accounts',
+                redirectTo: '/auth',
                 pathMatch: 'full'
             },
-
-
             {
-                path: 'accounts',
+                path: 'auth',
                 component: LoginComponent
             },
-
             {
-                path: 'accounts/register_user',
+                path: 'auth/register_user',
                 component: RegisterComponent
             }
         ])

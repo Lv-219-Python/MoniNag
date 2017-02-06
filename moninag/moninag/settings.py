@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'service',
     'check',
     'home',
-    'registration'
+    'registration',
+    'user_profile'
 ]
 
 AUTH_USER_MODEL = 'registration.CustomUser'

@@ -11,6 +11,6 @@ export class AuthenticationService {
         let headers = new Headers({ 'Content-Type': 'application/json', 'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'});
         let options = new RequestOptions({ headers: headers });
         let body = JSON.stringify({'email': email, 'password': password});
-        return this.http.post('/accounts/login/', body, options).map((res: Response) => res.json());
+        return this.http.post('/auth/login/', body, options).map((res: Response) => res.json());
     }
 }
