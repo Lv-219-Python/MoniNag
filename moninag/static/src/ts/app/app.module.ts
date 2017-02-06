@@ -8,6 +8,10 @@ import { ServersComponent } from './servers.component';
 import { ServicesComponent } from './services.component';
 import { DBListComponent }    from './db-list';
 
+
+import { SearchService } from './search.service';
+import { ServiceListComponent } from './get.service-list';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -18,10 +22,11 @@ import { DBListComponent }    from './db-list';
         ChecksComponent,
         ServersComponent,
         ServicesComponent,
-        DBListComponent
+        DBListComponent,
+        ServiceListComponent,
     ],
     providers: [
-
+        SearchService
     ],
     bootstrap: [
         AppComponent
