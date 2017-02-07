@@ -2,30 +2,53 @@ import { Component, OnInit } from '@angular/core';
 
 import { ServicesService } from './services.service';
 import { Observable } from 'rxjs/Observable';
-import { Services } from './services';
+import { Service } from './services';
 
 @Component({
     selector: 'services-app',
     templateUrl: 'static/src/ts/app/services.component.html',
+    providers: [ ServicesService ],
     styleUrls: ['static/src/ts/app/services.component.css'],
 })
 
 export class ServicesComponent implements OnInit {
-    services: Services[];
-    selectedService: Services;
+    // services: Service[];
+    services: Service[];
+    oneService: Service;
+    mode = 'Observable';
 
-    constructor(
-        private servicesService: ServicesService){}
+    constructor (private servicesService: ServicesService) {}
 
-    getServices(): void {
-        this.servicesService
-            .getServices()
-            .subscribe(services => this.services = services);
+    ngOnInit() { 
+        this.getServices(); 
+        this.getService(21); 
     }
 
-    ngOnInit(): void {
-        this.getServices();
-    }
+    getService(id: number) {
+        this.servicesService.getService(id)
+                            .subscribe(
+                                service => this.oneService = service);
+    }    
+
+    getServices() {
+        this.servicesService.getServices()
+                            .subscribe(
+                                services => this.services = services);
+    }    
+    // addService(name: string) {
+    //     if (!name) { return; }
+    //     this.servicesService.addService(name)
+    //                         .subscribe(
+    //                             service =>this.services.push(service));
+    //     }
+
+    my() {
+       console.log(this.services)
+     }
+    foo() {
+       console.log(this.oneService)
+ }
+
 }
 
 

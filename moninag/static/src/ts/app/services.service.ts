@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-import { Services } from './services';
+import { Service } from './services';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -11,16 +11,23 @@ import 'rxjs/add/operator/catch';
 
 export class ServicesService {
 
+    private servicesUrl = 'api/1/service/';
+
     constructor(private http: Http) { }
 
-
-    private servicesUrl = 'api/1/service';
-
-    getServices() {
+    getServices(): Observable<Service[]> {
         return this.http.get(this.servicesUrl)
-            .map((res:Response) => res = JSON.parse['response']);
+                        .map(this.extractData);
     }
-    
+    getService(id: number): Observable<Service> {
+        return this.http.get(this.servicesUrl+id)
+                        .map(this.extractData);
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body.response;
+      }
 }
 
 
