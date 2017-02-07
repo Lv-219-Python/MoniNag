@@ -7,8 +7,8 @@ import django
 from daemon import Daemon
 
 # Path to project directory where manage.py is located
-project_path = '../'
-sys.path.append(project_path)
+PROJECT_PATH = '../'
+sys.path.append(PROJECT_PATH)
 
 # This is so Django knows where to find stuff
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moninag.settings')

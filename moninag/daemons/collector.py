@@ -5,23 +5,23 @@ import os
 from collectordaemon import CollectorDaemon
 
 # Absolute path to this script
-current_path = os.path.abspath(os.curdir)
+CURRENT_PATH = os.path.abspath(os.curdir)
 
 # Set daemon process name
-daemon_name = 'moninag_collector_daemon'
+DAEMON_NAME = 'moninag_collector_daemon'
 
 # Frequency in seconds
-frequency = 300
+FREQUENCY = 300
 
 # Set path to directory with pid files
-pid_file_path = current_path + '/tmp'
+PID_FILE_PATH = CURRENT_PATH + '/tmp'
 
 # Set path to directory with log files
-log_file_path = current_path + '/log'
+LOG_FILE_PATH = CURRENT_PATH + '/log'
 
 # If log_file_path directory doesn't exist create it
-if not os.path.exists(log_file_path):
-    os.makedirs(log_file_path)
+if not os.path.exists(LOG_FILE_PATH):
+    os.makedirs(LOG_FILE_PATH)
 
 # Create logger
 logger = logging.getLogger('moninag_collector')
@@ -30,7 +30,7 @@ logger = logging.getLogger('moninag_collector')
 formatter = logging.Formatter('%(asctime)s\t%(levelname)s\t%(name)s: %(message)s')
 
 # Log file handler
-handler = logging.FileHandler('{0}/{1}.log'.format(log_file_path, daemon_name))
+handler = logging.FileHandler('{0}/{1}.log'.format(LOG_FILE_PATH, DAEMON_NAME))
 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         str_level = 'ERROR'
 
     logger.setLevel(level)
-    daemon = CollectorDaemon(daemon_name, pid_file_path, logger, frequency)
+    daemon = CollectorDaemon(DAEMON_NAME, PID_FILE_PATH, logger, FREQUENCY)
     if 'start' == args.command:
         print('Output level set to {}'.format(str_level))
         daemon.start()
