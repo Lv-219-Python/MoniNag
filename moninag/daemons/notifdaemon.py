@@ -8,8 +8,8 @@ from daemon import Daemon
 
 
 # Path to project directory where manage.py is located
-project_path = '../'
-sys.path.append(project_path)
+PROJECT_PATH = '../'
+sys.path.append(PROJECT_PATH)
 
 # This is so Django knows where to find stuff
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moninag.settings')
@@ -63,18 +63,26 @@ class NotificationDaemon(Daemon):
 
         self.logger.debug('Start fetching services with {} statuses...'.format(self.statuses))
 
-        services = Service.get(statuses=self.statuses)
+        try:
+            services = Service.get_by_statuses(self.statuses)
 
-        self.logger.debug('...{} services with {} statuses.'.format(len(services), self.statuses))
+            self.logger.debug('...{} services with {} statuses.'.format(len(services),
+                                                                        self.statuses))
 
-        for service in services:
-            self.logger.info(
-                'Service (id {id}): {name}, '
-                'status: {status}, '
-                'server (id {server_id}): {server_name}'.format(id=service.id,
-                                                                name=service.name,
-                                                                status=service.status,
-                                                                server_id=service.server.id,
-                                                                server_name=service.server.name))
+            for service in services:
+                self.logger.info(
+                    'Service #{id}: {name}, '
+                    'status: {status}, '
+                    'server #{server_id}: {server_name}, '
+                    'user #{user_id}: {user_email}'.format(id=service.id,
+                                                           name=service.name,
+                                                           status=service.status,
+                                                           server_id=service.server.id,
+                                                           server_name=service.server.name,
+                                                           user_id=service.server.user.id,
+                                                           user_email=service.server.user.email))
 
-        self.logger.debug('..fetching finished.'.format(self.statuses))
+            self.logger.debug('..fetching finished.'.format(self.statuses))
+
+        except Exception as error:
+            self.logger.error(str(error))

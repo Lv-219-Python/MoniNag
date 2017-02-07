@@ -3,11 +3,9 @@ import json
 from django.http import JsonResponse, HttpResponse
 from django.views.generic.base import View
 
+from server.models import Server
 from service.models import Service
-from utils.validators import validate_dict
-
-
-REQUIREMENTS = {'name', 'status', 'server_id'}
+from utils.validators import validate_dict, validate_subdict
 
 
 class ServiceView(View):
@@ -34,20 +32,25 @@ class ServiceView(View):
 
         json_response = {}
 
-        if service_id:
-            # Get service with specified id
-            service = Service.get_by_id(service_id)
+        if not service_id:
+            # Get all services of user
+            user_services = Service.get_by_user_id(request.user.id)
+            json_response['response'] = [service.to_dict() for service in user_services]
 
-            if service:
-                json_response['response'] = service.to_dict()
-                return JsonResponse(json_response, status=200)
+            return JsonResponse(json_response, status=200)
 
+        # Get service with specified id
+        service = Service.get_by_id(service_id)
+
+        if not service:
             json_response['error'] = 'Service with specified id was not found.'
             return JsonResponse(json_response, status=404)
 
-        # Get all services
-        json_response['response'] = [service.to_dict() for service in Service.get()]
+        if not request.user.id == service.server.user.id:
+            # Service does not belong to user
+            return HttpResponse(status=403)
 
+        json_response['response'] = service.to_dict()
         return JsonResponse(json_response, status=200)
 
     def post(self, request):
@@ -74,20 +77,30 @@ class ServiceView(View):
 
         json_response = {}
 
-        service_dict = json.loads(request.body.decode('utf-8'))
+        REQUIREMENTS = {'name', 'status', 'server_id'}
 
-        if not validate_dict(service_dict, REQUIREMENTS):
-            json_response['error'] = 'Incorect JSON format.'
+        service_params = json.loads(request.body.decode('utf-8'))
+
+        if not validate_dict(service_params, REQUIREMENTS):
+            json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        service = Service.create(**service_dict)
+        server = Server.get_by_id(id=service_params['server_id'])
 
-        if service:
-            json_response['response'] = service.to_dict()
-            return JsonResponse(json_response, status=201)
+        if not server:
+            json_response['error'] = 'Server with given id was not found.'
+            return JsonResponse(json_response, status=404)
 
-        json_response['error'] = 'Service was not created.'
-        return JsonResponse(json_response, status=400)
+        if not server.user.id == request.user.id:
+            # Server does not belong to user
+            return HttpResponse(status=403)
+
+        service = Service.create(name=service_params['name'],
+                                 status=service_params['status'],
+                                 server=server)
+
+        json_response['response'] = service.to_dict()
+        return JsonResponse(json_response, status=201)
 
     def put(self, request, service_id):
         """Handles PUT request.
@@ -109,21 +122,28 @@ class ServiceView(View):
 
         json_response = {}
 
+        OPTIONAL_REQUIREMENTS = {'name', 'status'}
+
         service_dict = json.loads(request.body.decode('utf-8'))
 
-        if not validate_dict(service_dict, REQUIREMENTS):
-            json_response['error'] = 'Incorect JSON format.'
+        if not validate_subdict(service_dict, OPTIONAL_REQUIREMENTS):
+            json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        service_dict['id'] = service_id
-        service = Service.update(**service_dict)
+        service = Service.get_by_id(service_id)
 
-        if service:
-            json_response['response'] = service.to_dict()
-            return JsonResponse(json_response, status=200)
+        if not service:
+            json_response['error'] = 'Service with given id was not found.'
+            return JsonResponse(json_response, status=404)
 
-        json_response['error'] = 'Service was not updated.'
-        return JsonResponse(json_response, status=400)
+        if not request.user.id == service.server.user.id:
+            # Service does not belong to user
+            return HttpResponse(status=403)
+
+        service.update(**service_dict)
+
+        json_response['response'] = service.to_dict()
+        return JsonResponse(json_response, status=200)
 
     def delete(self, request, service_id):
         """Handles DELETE request.
@@ -134,9 +154,16 @@ class ServiceView(View):
             HttpResponse: Status 200 for success, 400 otherwise.
         """
 
-        deleted = Service.remove(service_id)
+        service = Service.get_by_id(service_id)
 
-        if deleted:
-            return HttpResponse(status=200)
+        if not service:
+            # Service not found
+            return HttpResponse(status=404)
 
-        return HttpResponse(status=400)
+        if not request.user.id == service.server.user.id:
+            # Service does not belong to user
+            return HttpResponse(status=403)
+
+        service.delete()
+
+        return HttpResponse(status=200)
