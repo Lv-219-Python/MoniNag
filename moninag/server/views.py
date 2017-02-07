@@ -6,7 +6,7 @@ from django.views.generic.base import View
 from server.models import Server
 from utils.validators import validate_dict, validate_subdict
 
-REQUIREMENTS = {'name', 'address', 'state', 'user_id'}
+REQUIREMENTS = {'name', 'address', 'state'}
 
 
 class ServerView(View):
@@ -34,20 +34,18 @@ class ServerView(View):
             # Get server with specified id
             server = Server.get_by_id(server_id)
             if server:
-                # if server.user.id == request.user.id:
-                # else: return HttpResponse(code=403)
-                json_response['response'] = server.to_dict()
-                return JsonResponse(json_response, status=200)
+                if server.user.id == request.user.id:
+                    json_response['response'] = server.to_dict()
+                    return JsonResponse(json_response, status=200)
+                else:
+                    return HttpResponse(code=403)
             else:
-                HttpResponse(code=400)
-            json_response['error'] = 'Server with specified id was not found.'
-            return JsonResponse(json_response, status=404)
+                json_response['error'] = 'Server with specified id was not found.'
+                return JsonResponse(json_response, status=404)
 
         # Get all servers
-        # servers = Server.get_by_user_id(request.user.id)
-        servers = Server.get()
+        servers = Server.get_by_user_id(request.user.id)
         json_response['response'] = [server.to_dict() for server in servers]
-
         return JsonResponse(json_response, status=200)
 
     def post(self, request):
@@ -80,14 +78,8 @@ class ServerView(View):
             json_response['error'] = 'Incorect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        server = Server.create(**server_dict)
-
-        if server:
-            json_response['response'] = server.to_dict()
-            return JsonResponse(json_response, status=201)
-
-        json_response['error'] = 'Server was not created.'
-        return JsonResponse(json_response, status=400)
+        server = Server.create(user=request.user, **server_dict)
+        return HttpResponse(status=201)
 
     def put(self, request, server_id):
         """Handles PUT request.
@@ -115,12 +107,13 @@ class ServerView(View):
         server = Server.get_by_id(server_id)
 
         if server:
-            server.update(**server_dict)
-            json_response['response'] = server.to_dict()
-            return JsonResponse(json_response, status=200)
-
+            if server.user.id == request.user.id:
+                server.update(**server_dict)
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=403)
         json_response['error'] = 'Server was not updated.'
-        return JsonResponse(json_response, status=400)
+        return JsonResponse(json_response, status=404)
 
     def delete(self, request, server_id):
         """Handles DELETE request.
@@ -131,7 +124,10 @@ class ServerView(View):
         :return: HttpResponse: Status 200 for success, 400 otherwise.
         """
         server = Server.get_by_id(server_id)
-        count = server.delete()
-        if count:
-            return HttpResponse(status=200)
-        return HttpResponse(status=400)
+        if server:
+            if server.user.id == request.user.id:
+                server.delete()
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=403)
+        return HttpResponse(status=404)

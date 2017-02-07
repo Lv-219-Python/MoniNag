@@ -27,7 +27,7 @@ class Server(models.Model):
     user = models.ForeignKey(CustomUser, default=1, on_delete=models.CASCADE)
 
     @staticmethod
-    def create(name, address, state, user_id):
+    def create(name, address, state, user):
         """Create and add server to database.
 
         :param name: str - server name
@@ -41,20 +41,18 @@ class Server(models.Model):
         server.name = name
         server.address = address
         server.state = state
-        server.user = CustomUser.objects.get(id=user_id)
+        server.user = user
         server.save()
         return server
 
     def update(self, name=None, address=None, state=None):
         """Update server data.
 
-        :param name: server name
-        :param address: server address
-        :param state: server state
-        :return: The return value. Updated server for success, None otherwise.
+        :param name: str - server name
+        :param address: str - server address
+        :param state: str - server state
         """
 
-        # Check if server exist allready
         if name:
             self.name = name
         if address:
@@ -63,13 +61,11 @@ class Server(models.Model):
             self.state = state
         self.save()
 
-        return self
-
     @staticmethod
     def get_by_id(id):
         """Get server with given id.
 
-        :param id: server id
+        :param id: int - server id
         :return: Server if server was found, and None otherwise.
         """
         try:
@@ -82,34 +78,10 @@ class Server(models.Model):
     @staticmethod
     def get_by_user_id(user_id):
         """
-        :param user_id:
-        :return: return Server
-        """
-        return Server.objects.filter(user=user_id)
-
-    @staticmethod
-    def get(states=None, user_id=None, start=0, end=20):
-        """Get servers.
-
-        :param states: server state - optional parameter - used as filter
-        :param user_id: user id - optional parameter - used as filter
-        :param start: starting index of servers returned
-        :param end: las index of servers returned.
+        :param user_id: int - user id
         :return: QuerySet<Server>: QuerySet of servers.
         """
-
-        filters = {}
-
-        if states:
-            filters['state__in'] = states
-        if user_id:
-            filters['user__id'] = user_id
-        if filters:
-            servers = Server.objects.filter(**filters)
-        else:
-            servers = Server.objects.all()[start:end]
-
-        return servers
+        return Server.objects.filter(user=user_id)
 
     def to_dict(self):
         """Convert model object to dictionary.

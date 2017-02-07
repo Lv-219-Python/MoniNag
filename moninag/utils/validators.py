@@ -23,4 +23,4 @@ def validate_subdict(dictionary, requirements):
         bool: The return value. True if valid, False otherwise.
     """
 
-    return bool(set(dictionary.keys()).issubset(requirements))
+    return set(dictionary.keys()).issubset(requirements)
