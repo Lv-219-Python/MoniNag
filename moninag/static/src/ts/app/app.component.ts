@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
         <a routerLink="/servers">Servers</a>
         <a routerLink="/services">Services</a>
         <a routerLink="/checks">Checks</a>
-
         <router-outlet></router-outlet>
     `
 })

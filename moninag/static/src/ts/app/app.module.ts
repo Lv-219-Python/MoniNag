@@ -8,6 +8,7 @@ import { ServersComponent } from './servers.component';
 import { ServicesComponent } from './services.component';
 
 
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -20,7 +21,6 @@ import { ServicesComponent } from './services.component';
         ServicesComponent
     ],
     providers: [
-
     ],
     bootstrap: [
         AppComponent

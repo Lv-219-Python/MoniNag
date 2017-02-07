@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^', include('home.urls')),
     url(r'^api/1/service/', include('service.urls')),
     # Registration & Auth
-    url(r'^accounts/', include('registration.urls'))
+    url(r'^auth/', include('registration.urls')),
+    url(r'^', include('user_profile.urls'))
 ]

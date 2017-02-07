@@ -4,6 +4,7 @@
     <base href="/">
     <meta charset="utf-8">
     <title>Moninag</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="static/css/styles.css">
 
@@ -11,9 +12,14 @@
     <script src="static/lib/zone.js"></script>
     <script src="static/lib/Reflect.js"></script>
 
-    <script async="" src="static/js/source_app.js"></script>
+    {% block jsApp %}
+        <script async="" src="static/js/source_app.js"></script>
+    {% endblock %}
+
 </head>
 <body>
-    <moninag-app></moninag-app>
+    {% block content %}
+        <moninag-app></moninag-app>
+    {% endblock %}
 </body>
 </html>
