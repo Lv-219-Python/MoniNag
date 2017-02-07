@@ -6,27 +6,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { ChecksComponent } from './checks.component';
 import { ServersComponent } from './servers.component';
 import { ServicesComponent } from './services.component';
-import { DBListComponent }    from './db-list';
 
+import { ServicesService } from './services.service';
+import { HttpModule, JsonpModule } from '@angular/http';
 
-import { SearchService } from './search.service';
-import { ServiceListComponent } from './get.service-list';
 
 @NgModule({
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpModule,
+        JsonpModule
     ],
     declarations: [
         AppComponent,
         ChecksComponent,
         ServersComponent,
         ServicesComponent,
-        DBListComponent,
-        ServiceListComponent,
     ],
     providers: [
-        SearchService
+        ServicesService,
     ],
     bootstrap: [
         AppComponent

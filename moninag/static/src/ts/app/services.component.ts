@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }            from '@angular/router';
-import { DBListComponent }   from './db-list';
+
+import { ServicesService } from './services.service';
+import { Observable } from 'rxjs/Observable';
+import { Services } from './services';
 
 @Component({
     selector: 'services-app',
@@ -8,8 +10,22 @@ import { DBListComponent }   from './db-list';
     styleUrls: ['static/src/ts/app/services.component.css'],
 })
 
-export class ServicesComponent {
-    
+export class ServicesComponent implements OnInit {
+    services: Services[];
+    selectedService: Services;
+
+    constructor(
+        private servicesService: ServicesService){}
+
+    getServices(): void {
+        this.servicesService
+            .getServices()
+            .subscribe(services => this.services = services);
+    }
+
+    ngOnInit(): void {
+        this.getServices();
+    }
 }
 
 
