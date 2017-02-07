@@ -10,3 +10,17 @@ def validate_dict(dictionary, requirements):
     """
 
     return not bool(requirements ^ set(dictionary.keys()))
+
+
+def validate_subdict(dictionary, requirements):
+    """Validate given dictionary to be a subset of requirements.
+
+    Args:
+        dictionary(dict): Dictionary to validate.
+        requirements(set): Set of required keys in dictionary.
+
+    Returns:
+        bool: The return value. True if valid, False otherwise.
+    """
+
+    return bool(set(dictionary.keys()).intersection(requirements))

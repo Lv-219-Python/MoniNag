@@ -4,7 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.generic.base import View
 
 from server.models import Server
-from utils.validators import validate_dict
+from utils.validators import validate_dict, validate_subdict
 
 REQUIREMENTS = {'name', 'address', 'state', 'user_id'}
 
@@ -33,16 +33,20 @@ class ServerView(View):
         if server_id:
             # Get server with specified id
             server = Server.get_by_id(server_id)
-
             if server:
+                # if server.user.id == request.user.id:
+                # else: return HttpResponse(code=403)
                 json_response['response'] = server.to_dict()
                 return JsonResponse(json_response, status=200)
-
+            else:
+                HttpResponse(code=400)
             json_response['error'] = 'Server with specified id was not found.'
             return JsonResponse(json_response, status=404)
 
         # Get all servers
-        json_response['response'] = [server.to_dict() for server in Server.get()]
+        # servers = Server.get_by_user_id(request.user.id)
+        servers = Server.get()
+        json_response['response'] = [server.to_dict() for server in servers]
 
         return JsonResponse(json_response, status=200)
 
@@ -104,14 +108,14 @@ class ServerView(View):
 
         server_dict = json.loads(request.body.decode('utf-8'))
 
-        if not validate_dict(server_dict, REQUIREMENTS):
+        if not validate_subdict(server_dict, REQUIREMENTS):
             json_response['error'] = 'Incorect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        server_dict['id'] = server_id
-        server = Server.update(**server_dict)
+        server = Server.get_by_id(server_id)
 
         if server:
+            server.update(**server_dict)
             json_response['response'] = server.to_dict()
             return JsonResponse(json_response, status=200)
 
@@ -126,10 +130,8 @@ class ServerView(View):
         :param server_id: int - server id
         :return: HttpResponse: Status 200 for success, 400 otherwise.
         """
-
-        deleted = Server.remove(server_id)
-
-        if deleted:
+        server = Server.get_by_id(server_id)
+        count = server.delete()
+        if count:
             return HttpResponse(status=200)
-
         return HttpResponse(status=400)

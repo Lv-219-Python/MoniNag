@@ -20,75 +20,75 @@ class Server(models.Model):
     :argument state: str - Server state ('NotSelected'/'Production','Staging')
     :argument user: id - CustomUser id - user owner id
     """
+
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=200)
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='')
     user = models.ForeignKey(CustomUser, default=1, on_delete=models.CASCADE)
 
-    @classmethod
-    def create(cls, name, address, state, user_id):
+    @staticmethod
+    def create(name, address, state, user_id):
         """Create and add server to database.
 
         :param name: str - server name
         :param address: str - server address
         :param state: str - server state
-        :param user_id: id - user id
+        :param user: user
         :return: Created server for success, None otherwise.
         """
 
-        try:
-            user = CustomUser.objects.get(id=user_id)
-        except Exception as error:
-            return None
-
-        server = cls(name=name, address=address, state=state, user=user)
+        server = Server()
+        server.name = name
+        server.address = address
+        server.state = state
+        server.user = CustomUser.objects.get(id=user_id)
         server.save()
-
         return server
 
-    @classmethod
-    def update(cls, id, name, address, state, user_id):
+    def update(self, name=None, address=None, state=None):
         """Update server data.
 
-        :param id: server id
         :param name: server name
         :param address: server address
         :param state: server state
-        :param user_id: CustomUser id
         :return: The return value. Updated server for success, None otherwise.
         """
 
         # Check if server exist allready
-        if cls.objects.filter(id=id).count() == 0:
-            return None
+        if name:
+            self.name = name
+        if address:
+            self.address = address
+        if state:
+            self.state = state
+        self.save()
 
-        try:
-            # Will be replaced with appropriate CustomUser method
-            user = CustomUser.objects.get(id=user_id)
-        except Exception as error:
-            return None
+        return self
 
-        server = cls(id=id, name=name, address=address, state=state, user=user)
-        server.save()
-
-        return server
-
-    @classmethod
-    def get_by_id(cls, id):
+    @staticmethod
+    def get_by_id(id):
         """Get server with given id.
 
         :param id: server id
         :return: Server if server was found, and None otherwise.
         """
         try:
-            server = cls.objects.get(id=id)
+            server = Server.objects.get(id=id)
         except Exception as error:
             return None
 
         return server
 
-    @classmethod
-    def get(cls, states=None, user_id=None, start=0, end=20):
+    @staticmethod
+    def get_by_user_id(user_id):
+        """
+        :param user_id:
+        :return: return Server
+        """
+        return Server.objects.filter(user=user_id)
+
+    @staticmethod
+    def get(states=None, user_id=None, start=0, end=20):
         """Get servers.
 
         :param states: server state - optional parameter - used as filter
@@ -102,31 +102,14 @@ class Server(models.Model):
 
         if states:
             filters['state__in'] = states
-
         if user_id:
             filters['user__id'] = user_id
-
         if filters:
-            servers = cls.objects.filter(**filters)
+            servers = Server.objects.filter(**filters)
         else:
-            servers = cls.objects.all()[start:end]
+            servers = Server.objects.all()[start:end]
 
         return servers
-
-    @classmethod
-    def remove(cls, id):
-        """Remove server with given id from database.
-
-        :param id: int - server id
-        :return: bool: The return value. True for success, False otherwise.
-        """
-
-        try:
-            cls.objects.get(id=id).delete()
-        except Exception as error:
-            return False
-
-        return True
 
     def to_dict(self):
         """Convert model object to dictionary.
