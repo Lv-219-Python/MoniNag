@@ -99,6 +99,15 @@ class Daemon(object):
         self.daemonize()
         self.run()
 
+    def status(self):
+        """Get daemon Status """
+
+        if self.get_pid_by_file():
+            pf = open(self.pid_file, 'r')
+            print('Daemon is currently running. PID: {}'.format(pf.read()))
+        else:
+            print('Daemon is not running.')
+
     def stop(self):
         """Stop the daemon."""
 
