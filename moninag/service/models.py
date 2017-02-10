@@ -24,61 +24,46 @@ class Service(models.Model):
     status = models.CharField(default='', choices=SERVICE_STATUS_CHOICES, max_length=10)
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
 
-    @classmethod
-    def create(cls, name, status, server_id):
-        """Create and add service to database.
-
-        Args:
-            name(str): service status.
-            status(str): service status.
-            server_id(int): server id.
-
-        Returns:
-            Service: The return value. Created service for success, None otherwise.
-        """
-
-        try:
-            # Will be replaced with appropriate Server method
-            server = Server.objects.get(id=server_id)
-        except Exception as error:
-            return None
-
-        service = cls(name=name, status=status, server=server)
-        service.save()
-
-        return service
-
-    @classmethod
-    def update(cls, id, name, status, server_id):
+    def update(self, name=None, status=None):
         """Update service data.
 
         Args:
-            id(int): service id.
-            name(str): service status.
-            status(str): service status.
-            server_id(int): server id.
-
-        Returns:
-            Service: The return value. Updated service for success, None otherwise.
+            name(str, optional): service name. Defaults to None.
+            status(str, optional): service status. Defaults to None.
         """
 
-        # Check if service exist allready
-        if cls.objects.filter(id=id).count() == 0:
-            return None
+        if name:
+            self.name = name
+        if status:
+            self.status = status
 
-        try:
-            # Will be replaced with appropriate Server method
-            server = Server.objects.get(id=server_id)
-        except Exception as error:
-            return None
+        self.save()
 
-        service = cls(id=id, name=name, status=status, server=server)
+    @staticmethod
+    def create(name, server, status=''):
+        """Create and add service to database.
+
+        Args:
+            name(str): service name.
+            status(str, optional): service status. Default empty string.
+            server(Server): server instance which will own the service.
+
+        Returns:
+            Service: Created service.
+        """
+
+        service = Service()
+
+        service.name = name
+        service.status = status
+        service.server = server
+
         service.save()
 
         return service
 
-    @classmethod
-    def get_by_id(cls, id):
+    @staticmethod
+    def get_by_id(id):
         """Get service with given id.
 
         Args:
@@ -89,61 +74,55 @@ class Service(models.Model):
         """
 
         try:
-            service = cls.objects.get(id=id)
+            service = Service.objects.get(id=id)
         except Exception as error:
             return None
 
         return service
 
-    @classmethod
-    def get(cls, statuses=None, server_id=None, start=0, end=20):
-        """Get services.
-
-        Statuses and server are used used as filters,
-        otherwise the given count of services are returned starting from start index.
+    @staticmethod
+    def get_by_user_id(user_id):
+        """Get services for given user id.
 
         Args:
-            statuses(list, optional): service statuses. Defaults to None.
-            server_id(int, optional): server id. Defaults to None.
-            start(int, optional): start position when getting all services. Defaults to 0.
-            end(int, optional): end position when getting all services. Defaults to 20.
+            user_id(int): user id.
 
         Returns:
             QuerySet<Service>: QuerySet of services.
         """
 
-        filters = {}
-
-        if statuses:
-            filters['status__in'] = statuses
-
-        if server_id:
-            filters['server__id'] = server_id
-
-        if filters:
-            services = cls.objects.filter(**filters)
-        else:
-            services = cls.objects.all()[start:end]
+        services = Service.objects.filter(server__user__id=user_id)
 
         return services
 
-    @classmethod
-    def remove(cls, id):
-        """Remove service with given id from database.
+    @staticmethod
+    def get_by_server_id(server_id):
+        """Get services for given server id.
 
         Args:
-            id (int): service id.
+            server_id(int): server id.
 
         Returns:
-            bool: The return value. True for success, False otherwise.
+            QuerySet<Service>: QuerySet of services.
         """
 
-        try:
-            cls.objects.get(id=id).delete()
-        except Exception as error:
-            return False
+        services = Service.objects.filter(server__id=server_id)
 
-        return True
+        return services
+
+    @staticmethod
+    def get_by_statuses(statuses):
+        """Get services by statuses.
+
+        Args:
+            statuses(collection): service statuses.
+
+        Returns:
+            QuerySet<Service>: QuerySet of services.
+        """
+
+        services = Service.objects.filter(status__in=statuses)
+        return services
 
     def to_dict(self):
         """Convert model object to dictionary.

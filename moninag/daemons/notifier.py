@@ -6,36 +6,36 @@ from notifdaemon import NotificationDaemon
 
 
 # Absolute path to this script
-current_path = os.path.abspath(os.curdir)
+CURRENT_PATH = os.path.abspath(os.curdir)
 
 # Set daemon process name
-daemon_name = 'moninag_notification_daemon'
+DAEMON_NAME = 'moninag_notification_daemon'
 
 # Frequency in seconds
-frequency = 60
+FREQUENCY = 60
 
 # Statuses to fetch
-statuses = ['fail']
+STATUSES = ['fail']
 
 # Set path to directory with pid files
-pid_file_path = current_path + '/tmp'
+PID_FILE_PATH = CURRENT_PATH + '/tmp'
 
 # Set path to directory with log files
-log_file_path = current_path + '/log'
+LOG_FILE_PATH = CURRENT_PATH + '/log'
 
 # If log_file_path directory doesn't exist create it
-if not os.path.exists(log_file_path):
-    os.makedirs(log_file_path)
+if not os.path.exists(LOG_FILE_PATH):
+    os.makedirs(LOG_FILE_PATH)
 
 # Create logger
-logger = logging.getLogger('NotificationDaemonLog')
+logger = logging.getLogger('moninag-notifier')
 
 # Logger format
 formatter = logging.Formatter('%(asctime)s - %(levelname)7s - %(message)s',
                               '%Y-%m-%d %H:%M:%S')
 
 # Log file handler
-handler = logging.FileHandler('{0}/{1}.log'.format(log_file_path, daemon_name))
+handler = logging.FileHandler('{0}/{1}.log'.format(LOG_FILE_PATH, DAEMON_NAME))
 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Notifier daemon runner.')
 
-    parser.add_argument('command', choices={'start', 'stop', 'restart'},
+    parser.add_argument('command', choices={'start', 'stop', 'restart', 'status'},
                         help='command applied to notifier daemon')
 
     level_group = parser.add_mutually_exclusive_group()
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         str_level = 'ERROR'
 
     logger.setLevel(level)
-    daemon = NotificationDaemon(daemon_name, pid_file_path, logger, frequency, statuses)
+    daemon = NotificationDaemon(DAEMON_NAME, PID_FILE_PATH, logger, FREQUENCY, STATUSES)
 
     if 'start' == args.command:
         print('Output level set to {0}'.format(str_level))
@@ -89,3 +89,5 @@ if __name__ == '__main__':
     elif 'restart' == args.command:
         print('Output level set to {0}'.format(str_level))
         daemon.restart()
+    elif 'status' == args.command:
+        daemon.status()
