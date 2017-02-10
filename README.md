@@ -64,3 +64,32 @@ We are assuming that you're using bash & you have to install or clone such packa
   ```
   sudo apt-get install nagios-plugins
   ```
+
+* Nginx server deployment
+ 
+  * Install Nginx
+
+    ```
+    sudo apt-get install nginx
+    ```
+
+  * Create symlink to config file
+
+    ```
+    sudo ln -s "$(pwd)"/moninag_nginx.conf /etc/nginx/sites-enabled/
+    ```
+
+  * Start (Stop/Reload) Nginx server
+
+    ```
+    sudo nginx
+    sudo nginx -s stop 
+    sudo nginx -s reload
+    ```
+
+* Run uWSGI
+
+  ```
+  uwsgi moninag_uwsgi.ini
+  ```
+      
