@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^api/1/profile/', include('user_profile.urls')),
     url(r'^api/1/server/', include('server.urls')),
     url(r'^api/1/service/', include('service.urls')),
+    url(r'^api/1/check/', include('check.urls')),
     # Registration & Auth
     url(r'^auth/', include('registration.urls')),
     url(r'^', include('home.urls')),
