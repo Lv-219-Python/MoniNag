@@ -15,7 +15,8 @@
             <button [disabled]="loading" class="btn btn-primary">Sign In</button>
             <div class="pull-right">
                 Don't have an account yet?
-                <a [routerLink]="['/auth/register_user']" class="btn btn-link">Sign Up</a>
+                <a [routerLink]="['/auth/register_user']" class="btn btn-link">Sign Up</a><br>
+                <a href="/auth/reset_password" class="btn btn-link pull-right">Forgot your password?</a><br>
             </div>
         </div>
     </form>
