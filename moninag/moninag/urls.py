@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import include, url
 
 urlpatterns = [
+    url(r'^api/1/nagplugin/', include('nagplugin.urls')),
     url(r'^api/1/profile/', include('user_profile.urls')),
     url(r'^api/1/server/', include('server.urls')),
     url(r'^api/1/service/', include('service.urls')),
