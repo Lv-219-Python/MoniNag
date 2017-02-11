@@ -73,3 +73,4 @@ class UserProfileView(View):
 
         json_response['response'] = request.user.to_dict()
         return JsonResponse(json_response, status=200)
+

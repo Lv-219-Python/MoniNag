@@ -31,8 +31,7 @@ export class RegisterComponent {
                     }
                 },
                 error => {
-                    debugger;
-                    this.alertService.error(error);
+                    this.alertService.error(error._body);
                     this.loading = false;
                 }
             );
