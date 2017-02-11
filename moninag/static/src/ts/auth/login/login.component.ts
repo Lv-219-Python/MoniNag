@@ -3,9 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthenticationService } from '../_services/index';
 
+
 @Component({
     selector: 'login',
-    templateUrl: 'static/src/ts/auth/login/login.component.html'
+    template: require('./login.component.html')
 })
 
 export class LoginComponent {
