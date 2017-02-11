@@ -54,10 +54,10 @@ We are assuming that you're using bash & you have to install or clone such packa
   ```
   curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
   sudo apt-get install -y nodejs
-  sudo npm install gulp -g
+  sudo npm install webpack -g
   sudo npm install typescript -g
   npm i
-  gulp
+  webpack --watch
   ``` 
 * Install nagios-plugins on local machine
  

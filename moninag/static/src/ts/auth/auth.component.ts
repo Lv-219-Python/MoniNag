@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'auth-app',
+  styles: [require('../../less/styles.less').toString()],
   template: `
   <div class="row">
     <div class="col-sm-12">

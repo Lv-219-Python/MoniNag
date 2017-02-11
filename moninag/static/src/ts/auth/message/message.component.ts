@@ -4,7 +4,7 @@ import { AlertService } from '../_services/index';
 
 @Component({
     selector: 'message',
-    templateUrl: 'static/src/ts/auth/message/message.component.html'
+    template: require('./message.component.html')
 })
 
 export class MessageComponent {
