@@ -24,11 +24,28 @@ export class ServicesService {
                         .map(this.extractData);
     }
 
+    getTrueServices(): Observable<Service[]> {
+        return this.http.get(this.servicesUrl)
+                        .map((res:Response) => res.json());
+    }
+
+
     private extractData(res: Response) {
         let body = res.json();
         return body.response;
       }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import { Http } from '@angular/http';
