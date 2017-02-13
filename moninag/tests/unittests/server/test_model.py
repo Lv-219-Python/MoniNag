@@ -77,12 +77,18 @@ class TestServer(TestCase):
 
     def test_to_dict(self):
         server = Server.objects.get(id=2)
+
+        id = 2,
+        name = "Server2",
+        address = "address2",
+        state = "NotSelected",
+
         test = {
-            'id': server.id,
-            'name': server.name,
-            'address': server.address,
-            'state': server.state,
-            'user_id': server.user.id
+            'id': 2,
+            'name': "Server2",
+            'address': "address2",
+            'state': "NotSelected",
+            'user_id': 1
         }
         self.assertEqual(server.to_dict(), test)
 

@@ -38,7 +38,7 @@ class ServerView(View):
                     json_response['response'] = server.to_dict()
                     return JsonResponse(json_response, status=200)
                 else:
-                    return HttpResponse(code=403)
+                    return HttpResponse(status=403)
             else:
                 json_response['error'] = 'Server with specified id was not found.'
                 return JsonResponse(json_response, status=404)
