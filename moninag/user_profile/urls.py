@@ -1,8 +1,9 @@
 from django.conf.urls import url
-from user_profile.views import profile
+
+from . import views
 
 
 urlpatterns = [
-    # User profile
-    url(r'^(?P<id>[0-9]+)/$', profile, name='profile'),
+    url(r'^$', views.UserProfileView.as_view(), name='user_profile'),
+    url(r'^(?P<user_id>\d+)/$', views.UserProfileView.as_view(), name='user_profile'),
 ]
