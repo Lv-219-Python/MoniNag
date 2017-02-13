@@ -1,6 +1,6 @@
 import json
 
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
 
 from server.models import Server
