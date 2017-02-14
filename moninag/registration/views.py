@@ -34,7 +34,7 @@ def login(request):
         if user:
             if user.is_active:
                 authentication.login(request, user)
-                return JsonResponse({'success': True, 'message': 'api/1/profile/{}'.format(user.id)})
+                return JsonResponse({'success': True, 'message': '/'})
             else:
                 # Return a 'disabled account' error message
                 return HttpResponse('Account is not active', status=401)

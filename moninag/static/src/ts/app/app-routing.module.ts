@@ -4,13 +4,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { ChecksComponent } from './checks.component';
 import { ServersComponent } from './servers.component';
 import { ServicesComponent } from './services.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 const APP_ROUTES: Routes = [
     {
         path: '',
-        redirectTo: '/servers',
+        redirectTo: '/profile',
         pathMatch: 'full'
+    },
+    {
+        path: 'profile',
+        component: UserProfileComponent
     },
     {
         path: 'servers',
@@ -24,10 +29,11 @@ const APP_ROUTES: Routes = [
         path: 'checks',
         component: ChecksComponent
     }
-]
+];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(APP_ROUTES) ],
-  exports: [ RouterModule ]
+    imports: [RouterModule.forRoot(APP_ROUTES)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule {}
+
+export class AppRoutingModule { }
