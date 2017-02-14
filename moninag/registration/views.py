@@ -1,89 +1,86 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.contrib import auth
-from django.template.context_processors import csrf
+from json import loads
+from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponse
+from django.contrib import auth as authentication
+from django.core.validators import validate_email
 from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
-from registration.utils.send_email import send_activation_email
-from registration.forms import CustomUserCreationForm
+from registration.utils.send_email import send_activation_email, generate_activation_key
 from registration.models import CustomUser
 
 
-def login(request):
-    c = {}
-    c.update(csrf(request))
-    return render(request, 'login.html', c)
+def auth(request):
+    return render(request, 'registration/login.html')
 
 
 def activate(request, activation_key):
-    activation_key = int(activation_key)
-    user = CustomUser.objects.get(id=activation_key)
+
+    user = CustomUser.objects.get(activation_key=activation_key)
     if not user.is_active:
         user.is_active = True
         user.save()
     else:
-        return render(request, 'already_activated.html')
-    return render(request, 'activate.html')
+        return render(request, 'registration/already_activated.html')
+    return render(request, 'registration/activate.html')
 
 
-def auth_view(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
+def login(request):
 
-    if user is not None:
-        if user.is_active:
-            auth.login(request, user)
-            return HttpResponseRedirect('/accounts/profile')
-        else:
-            return HttpResponseRedirect('/accounts/inactive_account', {'active': user.is_active})
-    else:
-        return HttpResponseRedirect('/accounts/invalid')
+    if request.method == 'POST':
+        data = loads(request.body.decode('utf-8'))
+        email = data.get('email').strip().lower()
+        password = data.get('password').strip()
 
+        user = authentication.authenticate(username=email, password=password)
+        if user:
+            if user.is_active:
+                authentication.login(request, user)
+                return JsonResponse({'success': True, 'message': 'api/1/profile/{}'.format(user.id)})
+            else:
+                # Return a 'disabled account' error message
+                return HttpResponse('Account is not active', status=401)
 
-def inactive_account(request):
-    return render(request, 'inactive_account.html')
+        return HttpResponse('Email and/or password invalid', status=403)
 
-
-def profile(request):
-    return render(request, 'profile.html',
-                  {'user': request.user})
-
-
-def invalid_login(request):
-    return render(request, 'invalid_login.html')
+    return HttpResponse(status=400)
 
 
 def logout(request):
-    auth.logout(request)
-    return render(request, 'logout.html')
+    authentication.logout(request)
+    return redirect('/auth/')
 
 
 def register_user(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        json = {
+            'error': {},
+            'message': {},
+            'success': False,
+        }
 
-        # errors = form.errors
-        if form.is_valid():
-            form = CustomUserCreationForm(request.POST)
-            user = form.save()
-            user.email = request.POST['email']
-            user.set_password(request.POST['password1'])
-            user.is_active = False
-            user.save()
-            send_activation_email(
-                DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, user.id)
-            return HttpResponseRedirect('/accounts/register_success')
-        # else:
-        #     return JsonResponse({'errors': errors}, status=400)
-    else:
-        form = CustomUserCreationForm()
-    args = {}
-    args.update(csrf(request))
+        data = loads(request.body.decode('utf-8'))
+        email = data.get('email')
+        try:
+            validate_email(email)
+            try:
+                CustomUser.objects.get(email=email)
+                json['error'] = "This email is already registered. Please try another"
+            except CustomUser.DoesNotExist:
+                user = CustomUser()
+                user.email, user.first_name, user.second_name = email, data.get(
+                    'firstName'), data.get('lastName')
+                user.set_password(data.get('password'))
+                activation_key = generate_activation_key(email)
+                user.activation_key = activation_key
 
-    args['form'] = form
+                user.save()
+                json['success'] = True
+                json['message'] = "Thank you for your time. The confirmation code has been sent to your email. In order to confirm the registration, simply click on the link given in it."
 
-    return render(request, 'register.html', args)
+                send_activation_email(
+                    DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, activation_key)
+        except:
+            json['error'] = "The email address you've entered has not a valid format"
 
+        return JsonResponse(json)
 
-def register_success(request):
-    return render(request, 'register_success.html')
+    return render(request, 'registration/register.html')

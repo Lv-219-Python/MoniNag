@@ -35,30 +35,32 @@ We are assuming that you're using bash & you have to install or clone such packa
         }
     }
     ```
+  * Email settings
   
-  * Install npm and packages
+      ```
+      ACCOUNT_ACTIVATION_DAYS=7
+      EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+      EMAIL_PORT=587
+      EMAIL_HOST = 'smtp.gmail.com'
+      EMAIL_HOST_USER = 'moninaginfo@gmail.com'
+      EMAIL_HOST_PASSWORD = '1234rewqasdfvcxz'
+      EMAIL_USE_TLS = True
+      DEFAULT_FROM_EMAIL = "moninaginfo@gmail.com"
+      WSGI_APPLICATION = 'moninag.wsgi.application'
+      DEFAULT_HOST = 'localhost:8000'
+      ```
+* Install npm and packages
  
-    ```
-    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-    sudo npm install gulp -g
-    sudo npm install typescript -g
-    npm i
-    gulp
-    ```
-
-  * Email settings 
-
-    ```
-    ACCOUNT_ACTIVATION_DAYS=7
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_PORT=587
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = 'moninaginfo@gmail.com'
-    EMAIL_HOST_PASSWORD = '1234rewqasdfvcxz'
-    EMAIL_USE_TLS = True
-    DEFAULT_FROM_EMAIL = "moninaginfo@gmail.com"
-    WSGI_APPLICATION = 'moninag.wsgi.application'
-    DEFAULT_HOST = 'localhost:8000'
-    ```
-
+  ```
+  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+  sudo npm install webpack -g
+  sudo npm install typescript -g
+  npm i
+  webpack --watch
+  ``` 
+* Install nagios-plugins on local machine
+ 
+  ```
+  sudo apt-get install nagios-plugins
+  ```
