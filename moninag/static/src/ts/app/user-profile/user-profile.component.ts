@@ -12,8 +12,8 @@ import { UserProfileService } from './user-profile.service';
 })
 
 export class UserProfileComponent implements OnInit {
-
     user: UserProfile;
+    errorMessage: any;
 
     constructor(private userService: UserProfileService) { }
 
@@ -22,6 +22,8 @@ export class UserProfileComponent implements OnInit {
     }
 
     getUser(): void {
-        this.userService.getUserProfile().then(userResponse => this.user = userResponse);
+        this.userService.getUserProfile().subscribe(
+            user => this.user = user,
+            error => this.errorMessage = <any>error);        
     }
 }

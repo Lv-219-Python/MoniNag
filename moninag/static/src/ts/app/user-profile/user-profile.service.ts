@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import { UserProfile } from './user-profile'
 
@@ -12,20 +14,27 @@ export class UserProfileService {
 
     constructor(private http: Http) { }
 
-    getUserProfile(): Promise<UserProfile> {
+    getUserProfile(): Observable<UserProfile> {
         return this.http.get(this.profileURL)
-            .toPromise()
-            .then(this.handleResponse)
+            .map(this.extractData)
             .catch(this.handleError);
     }
 
-    private handleResponse(response: any): Promise<UserProfile> {
-        let responseData = response.json()['response'] as UserProfile
-        return Promise.resolve(responseData);
+    private extractData(response: Response) {
+        let body = response.json();
+        return body.response;
     }
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+    private handleError(error: Response | any) {
+        let errMsg: string;
+        if (error instanceof Response) {
+            const body = error.json() || '';
+            const err = body.error || JSON.stringify(body);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return Observable.throw(errMsg);
     }
 }
