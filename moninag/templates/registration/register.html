@@ -1,20 +1,12 @@
-{% extends "base.html" %}
+{% extends "../index.html" %}
+
+{% block jsApp %}
+    <script async="" src="static/js/auth_app.js"></script>
+{% endblock %}
 
 {% block content %}
 
-  <h2>Register</h2>
-
-  {% for field in form %}
-    {{field.error}}
-
-  {% endfor %}
-
-  <form action="/accounts/register/" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-
-    <input type="submit" value="Register" />
-  </form>
+    <auth-app></auth-app>
 
 {% endblock %}
 

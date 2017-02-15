@@ -9,7 +9,7 @@ import source from 'vinyl-source-stream';
 
 // Convert all .ts files in one source_app.js file
 gulp.task('browserify', () => {
-    var files = glob.sync('./static/src/ts/**/*.ts');
+    var files = glob.sync('./static/src/ts/app/**/*.ts');
     return browserify({
             entries: files,
             debug: true
@@ -25,6 +25,27 @@ gulp.task('browserify', () => {
             this.emit('end');
         })
         .pipe(source('source_app.js'))
+        .pipe(gulp.dest('./static/js'));
+});
+
+// Convert all .ts fules in one source_app.js file
+gulp.task('browserifyAuth', () => {
+    var files = glob.sync('./static/src/ts/auth/**/*.ts');
+    return browserify({
+            entries: files,
+            debug: true
+        })
+        .plugin(tsify, {
+            target: 'es5',
+            experimentalDecorators: true
+        })
+        .bundle()
+        .on('error', function(err){
+            gutil.log(gutil.colors.red.bold('[browserify error]'));
+            gutil.log(err.message);
+            this.emit('end');
+        })
+        .pipe(source('auth_app.js'))
         .pipe(gulp.dest('./static/js'));
 });
 
@@ -57,12 +78,12 @@ gulp.task('less', function () {
 
 // Watching tasks
 gulp.task('watch', () => {
-    gulp.watch('./static/src/**/*.ts', ['browserify']);
+    gulp.watch('./static/src/**/*.ts', ['browserify', 'browserifyAuth']);
     gulp.watch('./static/src/less/*.less', ['less']);
 });
 
 // Add build task
-gulp.task('build', ['browserify', 'less', 'copylibs']);
+gulp.task('build', ['browserify', 'browserifyAuth', 'less', 'copylibs']);
 
 // Add default task
 gulp.task('default', ['build', 'watch']);

@@ -1,0 +1,29 @@
+# .coveragerc to control coverage.py
+[run]
+
+# a list of packages or directories, the source to measure during execution
+# source = . for launching tests only for the current directory (and subdirs)
+source = .
+
+# a list of file name patterns, the files to leave out of measurement or reporting.
+omit =
+
+    # omit migrations
+    */migrations/*
+
+    # omit tests directory
+    */tests/*
+
+    # omit main project directory with settings
+    */moninag/moninag/*
+
+    # omit middleware directory
+    */middleware/*
+
+    # omit __init__.py, manage.py, apps.py and urls.py
+    *admin*
+    *apps*
+    *__init__*
+    *tests*
+    *manage*
+    *urls*

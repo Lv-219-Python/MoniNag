@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "../index.html" %}
 
 {% block content %}
 
@@ -55,7 +55,7 @@
 </div>
 
 {% else %}
-<a href="{% url 'register_user' %}">Register</a> or <a href="{% url 'login' %}">Login</a>
+<a href="{% url 'register_user' %}">Register</a> or <a href="{% url 'auth' %}">Login</a>
 {% endif %}
 {% endblock %}
 
