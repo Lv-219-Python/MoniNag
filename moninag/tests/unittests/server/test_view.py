@@ -142,7 +142,7 @@ class TestServerView(TestCase):
         self.assertEqual(server.user.id, 1)
 
     def test_post_incorrect_format(self):
-        """Ensure that PUT fails to create server with invalid data on input and returns 404 status"""
+        """Ensure that POST fails to create server with invalid data on input and returns 404 status"""
 
         url = reverse('servers')
         data = json.dumps({'name': 'ServerName',

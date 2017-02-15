@@ -105,14 +105,14 @@ class TestServer(TestCase):
             'user_id': 1
         }
 
-        self.assertEqual(result, expected)
+        self.assertDictEqual(result, expected)
 
     def test___str__(self):
         """Ensure that __str__ method builds a proper str representation of a server"""
 
         server = Server.objects.get(id=2)
         result = str(server)
-        expected = "ServerId: {}, ServerName: {}, ServerAddress: {}, ServerState {}".format(server.id,
+        expected = 'ServerId: {}, ServerName: {}, ServerAddress: {}, ServerState {}'.format(server.id,
                                                                                             server.name,
                                                                                             server.address,
                                                                                             server.state)
