@@ -1,15 +1,15 @@
 import json
+
 from django.contrib.auth import authenticate
 from django.core.urlresolvers import reverse
 from django.test import Client
 from django.test import TestCase
 
-from server.models import Server
 from registration.models import CustomUser
+from server.models import Server
 
 
-# Helper functions
-
+# Helper function
 def to_dict(server):
     """Convert model object to dictionary.
 
@@ -38,18 +38,18 @@ class TestServerView(TestCase):
             id=1,
             first_name='Frank',
             second_name='Sinatra',
-            email='testemail@gmail.com',
+            email='test@test.com',
             is_active=True,
         )
         self.user.set_password('password')
         self.user.save()
-        self.user = authenticate(username='testemail@gmail.com', password='password')
+        self.user = authenticate(username='test@test.com', password='password')
 
         CustomUser.objects.create(
             id=2,
             first_name='Leonard',
             second_name='Cohen',
-            email='testemail2@gmail.com',
+            email='test2@test.com',
             is_active=True,
         )
 
@@ -78,10 +78,10 @@ class TestServerView(TestCase):
         )
 
         self.client = Client()
-        self.client.login(username='testemail@gmail.com', password='password')
+        self.client.login(username='test@test.com', password='password')
 
     def test_get_servers(self):
-        """Ensure that GET method returns all servers for authenticated user"""
+        """Ensure that GET method returns all servers for authenticated user and 200 status"""
 
         url = reverse('servers')
         response = self.client.get(url)
@@ -95,7 +95,7 @@ class TestServerView(TestCase):
         self.assertJSONEqual(response.content.decode('utf-8'), expected_json_response)
 
     def test_get_server(self):
-        """Ensure that GET method returns specific server for authenticated user"""
+        """Ensure that GET method returns specific server for authenticated user and 200 status"""
 
         url = reverse('server', args=[1])
         response = self.client.get(url)
@@ -125,7 +125,7 @@ class TestServerView(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_post(self):
-        """Ensure that POST method creates server with specified data"""
+        """Ensure that POST method creates server with specified data and 201 status"""
 
         url = reverse('servers')
         data = json.dumps({'name': 'ServerName',
@@ -142,7 +142,7 @@ class TestServerView(TestCase):
         self.assertEqual(server.user.id, 1)
 
     def test_post_incorrect_format(self):
-        """Ensure that PUT fails to create server with invalid data on input and returns 404"""
+        """Ensure that PUT fails to create server with invalid data on input and returns 404 status"""
 
         url = reverse('servers')
         data = json.dumps({'name': 'ServerName',
@@ -153,7 +153,7 @@ class TestServerView(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_put(self):
-        """Ensure that PUT method updates server properly and returns 200"""
+        """Ensure that PUT method updates server properly and returns 200 status"""
 
         url = reverse('server', args=[1])
         data = json.dumps({'name': 'NewName',
@@ -169,7 +169,7 @@ class TestServerView(TestCase):
         self.assertEqual(server.state, 'Staging')
 
     def test_put_incorrect_format(self):
-        """Ensure that PUT method fails to update server with incorrect input data format and returns 400"""
+        """Ensure that PUT method fails to update server with incorrect input data format and returns 400 status"""
 
         url = reverse('server', args=[4])
         data = json.dumps({'name': 'NewName',
@@ -181,7 +181,7 @@ class TestServerView(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_put_not_existing_server(self):
-        """Ensure that PUT method fails to update not existing server and returns 404"""
+        """Ensure that PUT method fails to update not existing server and returns 404 status"""
 
         url = reverse('server', args=[111])
         data = json.dumps({'name': 'NewName',
@@ -193,7 +193,7 @@ class TestServerView(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_put_permission_denied(self):
-        """Ensure that PUT method fails to update server with another user owner and returns 403"""
+        """Ensure that PUT method fails to update server with another user owner and returns 403 status"""
 
         url = reverse('server', args=[4])
         data = json.dumps({'name': 'NewName',
@@ -205,7 +205,7 @@ class TestServerView(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_delete(self):
-        """Ensure that DELETE method deletes server with specified id and returns 200"""
+        """Ensure that DELETE method deletes server with specified id and returns 200 status"""
 
         url = reverse('server', args=[1])
         response = self.client.delete(url)
@@ -214,7 +214,7 @@ class TestServerView(TestCase):
         self.assertEqual(len(Server.objects.all()), 2)
 
     def test_delete_permission_denied(self):
-        """Ensure that DELETE method fails to delete server with another user owner and returns 403"""
+        """Ensure that DELETE method fails to delete server with another user owner and returns 403 status"""
 
         url = reverse('server', args=[4])
         response = self.client.delete(url)
@@ -222,10 +222,9 @@ class TestServerView(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_delete_not_existing_server(self):
-        """Ensure that DELETE method fails to delete not existing server and returns 404"""
+        """Ensure that DELETE method fails to delete not existing server and returns 404 status"""
 
         url = reverse('server', args=[44])
         response = self.client.delete(url)
 
         self.assertEqual(response.status_code, 404)
-

@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from server.models import Server
 from registration.models import CustomUser
+from server.models import Server
 
 
 class TestServer(TestCase):
@@ -47,56 +47,74 @@ class TestServer(TestCase):
         )
 
     def test_create(self):
+        """Ensure that creat method craetes server"""
+
         user = CustomUser.objects.get(id=1)
         data = {
             "name": "ServerName1",
             "address": "ServerAddress1",
-            "state": "Production",
+            "state": "Production"
         }
-        server = Server.create(user=user, **data)
-        self.assertEqual(server, Server.objects.get(id=1))
 
-    def test_update(self):
-        server = Server.objects.get(id=2)
-        server.update(name='TestName', address='127.0.0.1', state='Production')
-        self.assertEqual(Server.objects.get(id=2).name, 'TestName')
-        self.assertEqual(Server.objects.get(id=2).address, '127.0.0.1')
-        self.assertEqual(Server.objects.get(id=2).state, 'Production')
+        result = Server.create(user=user, **data)
+        expected = Server.objects.get(id=1)
+
+        self.assertEqual(result, expected)
 
     def test_get_by_id(self):
-        test1 = Server.get_by_id(2)
-        self.assertEqual(test1, Server.objects.get(pk=2))
+        """Ensure that get by id method returns specific server using id"""
+
+        result = Server.get_by_id(2)
+        expected = Server.objects.get(id=2)
+
+        self.assertEqual(result, expected)
+
+    def test_update(self):
+        """Ensure that update method updates specific server"""
+
+        server = Server.objects.get(id=2)
+        server.update(name='TestName', address='127.0.0.1', state='Production')
+        result = Server.objects.get(id=2)
+
+        self.assertEqual(result.name, 'TestName')
+        self.assertEqual(result.address, '127.0.0.1')
+        self.assertEqual(result.state, 'Production')
 
     def test_get_by_id_none(self):
-        test2 = Server.get_by_id(66)
-        self.assertEqual(test2, None)
+        """Ensure that get_by_id method returns none if server does not exist"""
+
+        result = Server.get_by_id(66)
+        self.assertEqual(result, None)
 
     def test_get_by_user_id(self):
-        test = Server.get_by_user_id(1)
-        self.assertEqual(len(test), 2)
+        """Ensure that get_by_user_id returns all servers for specific user_id"""
+
+        result = Server.get_by_user_id(1)
+        self.assertEqual(len(result), 2)
 
     def test_to_dict(self):
+        """Ensure that to_dict methods builds a proper dict from server"""
+
         server = Server.objects.get(id=2)
-
-        id = 2,
-        name = "Server2",
-        address = "address2",
-        state = "NotSelected",
-
-        test = {
+        result = server.to_dict()
+        expected = {
             'id': 2,
             'name': "Server2",
             'address': "address2",
             'state': "NotSelected",
             'user_id': 1
         }
-        self.assertEqual(server.to_dict(), test)
+
+        self.assertEqual(result, expected)
 
     def test___str__(self):
-        server = Server.objects.get(id=2)
-        test = "ServerId: {}, ServerName: {}, ServerAddress: {}, ServerState {}".format(server.id,
-                                                                                        server.name,
-                                                                                        server.address,
-                                                                                        server.state)
+        """Ensure that __str__ method builds a proper str representation of a server"""
 
-        self.assertEqual(str(server), test)
+        server = Server.objects.get(id=2)
+        result = str(server)
+        expected = "ServerId: {}, ServerName: {}, ServerAddress: {}, ServerState {}".format(server.id,
+                                                                                            server.name,
+                                                                                            server.address,
+                                                                                            server.state)
+
+        self.assertEqual(result, expected)
