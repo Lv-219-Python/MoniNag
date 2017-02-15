@@ -1,9 +1,6 @@
 from django.conf.urls import url
 
-from .views import CheckView
-
-
-app_name = 'check'
+from check.views import CheckView
 
 urlpatterns = [
     url(r'^$', CheckView.as_view(), name='check'),

@@ -1,8 +1,8 @@
 from django.conf.urls import url
 
-from . import views
+from server.views import ServerView
 
 urlpatterns = [
-    url(r'^$', views.ServerView.as_view(), name='servers'),
-    url(r'^(?P<server_id>\d+)/$', views.ServerView.as_view(), name='server'),
+    url(r'^$', ServerView.as_view(), name='servers'),
+    url(r'^(?P<server_id>\d+)/$', ServerView.as_view(), name='server'),
 ]

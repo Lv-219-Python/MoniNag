@@ -3,6 +3,7 @@ import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
+
 @Injectable()
 export class AlertService {
 
@@ -19,7 +20,6 @@ export class AlertService {
             }
         });
     }
-
 
     success(message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
