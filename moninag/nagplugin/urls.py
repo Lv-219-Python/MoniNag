@@ -1,9 +1,7 @@
 from django.conf.urls import url
 
-from . import views
-
-app_name = 'nagplugin'
+from nagplugin.views import NagPluginView
 
 urlpatterns = [
-    url(r'^$', views.NagPluginView.as_view(), name='nagplugins'),
+    url(r'^$', NagPluginView.as_view(), name='nagplugins'),
 ]

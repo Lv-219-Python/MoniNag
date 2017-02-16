@@ -1,7 +1,7 @@
 from django.db import models
 
-from service.models import Service
 from nagplugin.models import NagPlugin
+from service.models import Service
 
 
 class Check(models.Model):

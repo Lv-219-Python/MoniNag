@@ -1,9 +1,8 @@
 from django.conf.urls import url
-from registration.views import activate, login, auth, logout, register_user
 
+from registration.views import activate, auth, login, logout, register_user
 
 urlpatterns = [
-    # Auth
     url(r'^$', auth, name='auth'),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
