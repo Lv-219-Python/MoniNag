@@ -4,15 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, BaseRequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { AlertService, AuthenticationService, UserService, ResetPasswordService } from './_services/index';
 import { AuthComponent } from './auth.component'
-import { MessageComponent } from './message/message.component'
-import { LoginComponent } from './login/login.component'
-import { RegisterComponent } from './register/register.component'
-import { ResetPasswordComponent } from './reset_password/reset_password.component'
 import { ConfirmPasswordResetComponent } from './reset_password/confirm_password_reset.component'
 import { EqualValidator } from './reset_password/equal-validator.directive';
+import { LoginComponent } from './login/login.component'
+import { MessageComponent } from './message/message.component'
+import { RegisterComponent } from './register/register.component'
+import { ResetPasswordComponent } from './reset_password/reset_password.component'
+
 
 @NgModule({
     imports: [
@@ -20,6 +22,7 @@ import { EqualValidator } from './reset_password/equal-validator.directive';
         FormsModule,
         HttpModule,
         MaterialModule.forRoot(),
+        FlexLayoutModule.forRoot(),
         RouterModule.forRoot([
             {
                 path: '',

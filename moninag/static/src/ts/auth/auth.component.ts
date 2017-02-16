@@ -3,16 +3,13 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'auth-app',
-    styles: [require('../../less/styles.less').toString()],
+    styles: [require('../../less/auth/auth.less').toString()],
     template: `
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="col-md-4 col-md-offset-4">
-                    <message></message>
-                </div>
-                <router-outlet></router-outlet>
-            </div>
+        <message></message>
+        <div id="auth-app" class="flex-container" fxLayout="row" fxLayoutAlign="center center">
+            <router-outlet></router-outlet>
         </div>
+
     `
 })
 

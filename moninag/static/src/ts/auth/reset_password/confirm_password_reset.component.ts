@@ -31,21 +31,20 @@ export class ConfirmPasswordResetComponent implements OnInit {
         this.loading = true;
         this.resetPasswordService.confirmPasswordReset(this.model.password, this.uidb64, this.token)
             .subscribe(
-                    data => {
-                        if(data.success) {
-                            this.alertService.success(data.message, true);
-                            setTimeout(() => {this.router.navigate(['/auth'])}, 5000);
-                        } else {
-                            this.alertService.error(data.error);
-                            this.loading = false;
-                        }
-                    },
-
-                    error => {
-                        this.alertService.error(error._body);
+                data => {
+                    if(data.success) {
+                        this.alertService.success(data.message, true);
+                        setTimeout(() => {this.router.navigate(['/auth'])}, 5000);
+                    } else {
+                        this.alertService.error(data.error);
                         this.loading = false;
                     }
+                },
 
-                );
+                error => {
+                    this.alertService.error(error._body);
+                    this.loading = false;
+                }
+            );
     }
 }

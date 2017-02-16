@@ -55,7 +55,7 @@ def send_activation_email(site, from_email, to_email, activation_key):
 
 def send_reset_password_email(site, from_email, to_email, uidb64, token):
     """
-    Send an password reset email to the user.
+    Send a password reset email to the user.
 
     The password reset email will make use of two templates:
 
