@@ -19,16 +19,6 @@ export class ServicesService {
         return this.http.get(this.servicesUrl)
                         .map(this.extractData);
     }
-    getService(id: number): Observable<Service> {
-        return this.http.get(this.servicesUrl+id)
-                        .map(this.extractData);
-    }
-
-    getTrueServices(): Observable<Service[]> {
-        return this.http.get(this.servicesUrl)
-                        .map((res:Response) => res.json());
-    }
-
 
     private extractData(res: Response) {
         let body = res.json();

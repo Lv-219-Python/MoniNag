@@ -8,36 +8,20 @@ import { Service } from './services';
 @Component({
     selector: 'services-app',
     template: `
-        <h2> Services ({{mode}}) </h2>  
+        <h2>Services</h2>  
         <div>  
         <ul>
-            <li class="Box" *ngFor="let service of services">
-            <a href="api/1/service/{{service.id}}"> {{service.name}} </a></li>
+            <li class="Box" *ngFor="let service of services"
+                [class.selected]="service === selectedService"
+                (click)="onSelect(service)">
+                {{service.name}}
+            </li>
         </ul>
         </div>
-        <button (click)="my();">
-            Services
-        </button>
-
-        <button (click)="foo();">
-            Service(21)
-        </button>
-
-
-        <!-- <input #id (keyup)="0">
-        <p>{{id.value}}</p> -->
-
-        <input #box (keyup.enter)="onEnter(box.value);">
-
-        <p>{{value}}</p>
-
+        <services-detail [service]="selectedService"></services-detail>
     `,
     providers: [ ServicesService ],
     styles: [`
-        .test1 {
-            margin: 20px;
-            padding: 20px;
-        }
         .Box {
             height: 70px;
             width: 150px;
@@ -51,33 +35,19 @@ import { Service } from './services';
         ul {
             list-style-type: none;
         }
-
     `]
 })
 
 export class ServicesComponent implements OnInit {
     services: Service[];
-    oneService: Service;
-    mode = 'Observable';
-
-    value = '';
-
-
+    selectedService: Service;
 
     
     constructor (private servicesService: ServicesService) {}
 
     ngOnInit() { 
         this.getServices(); 
-        this.getService(21); 
     }
-
-
-    getService(id: number) {
-        this.servicesService.getService(id)
-                            .subscribe(
-                                service => this.oneService = service);
-    }    
 
     getServices() {
         this.servicesService.getServices()
@@ -85,28 +55,9 @@ export class ServicesComponent implements OnInit {
                                 services => this.services = services);
     }    
 
-
-    getTrueService(){
-
+    onSelect(service: Service): void {
+        this.selectedService = service;
     }
-    // addService(name: string) {
-    //     if (!name) { return; }
-    //     this.servicesService.addService(name)
-    //                         .subscribe(
-    //                             service =>this.services.push(service));
-    //     }
-    onEnter(value: string) {
-        this.value = value;
-        console.log("this.services")
-    }
-    my() {
-       console.log(this.services)
-     }
-    foo() {
-       console.log(this.oneService)
-   }
-
-
 }
 
 /////////////////////////////////////////////////////
