@@ -1,5 +1,4 @@
 from json import loads
-
 from django.contrib import auth as authentication
 from django.core.validators import validate_email
 from django.http import HttpResponse, JsonResponse
@@ -8,8 +7,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
-from registration.utils.send_email import send_activation_email, generate_activation_key, send_reset_password_email
 from registration.models import CustomUser
+from registration.utils.send_email import send_activation_email, generate_activation_key, send_reset_password_email
 
 
 def auth(request):
@@ -111,11 +110,10 @@ def request_password_reset(request):
                 uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
                 token = default_token_generator.make_token(user)
 
-                send_reset_password_email(DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, uidb64, token)
+                send_reset_password_email( DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, uidb64, token )
 
                 json['success'] = True
                 json['message'] = "An email has been sent to " + user.email +". Please check its inbox to continue reseting password."
-
 
             except CustomUser.DoesNotExist:
                 json['error'] = "No user is associated with this email address"
@@ -125,6 +123,7 @@ def request_password_reset(request):
 
         return JsonResponse(json)
     return render(request, 'registration/password_reset.html')
+
 
 def confirm_password_reset(request, uidb64=None, token=None):
     if request.method == 'POST':
