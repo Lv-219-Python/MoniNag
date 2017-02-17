@@ -5,14 +5,14 @@ import { ChecksService } from './checks.service';
 import { Observable } from 'rxjs/Observable';
 import { Check } from './check';
 
-@Component({
+@Component({ 
     selector:'checks-app',
     template:`
             <ul>
-                <li *ngFor="let check of checks" (click)="onSelect(check)" value= {{check.id}} (click)="gotoDetail()"> 
+                <li *ngFor="let check of checks" (click)="onSelect(check)" (click)="gotoDetail()" value= {{check.id}> 
                 {{check.name}}
                 </li>
-            </ul>       
+            </ul>  
             `,
 
     providers: [
@@ -34,7 +34,7 @@ export class CheckListComponent  implements OnInit {
 
    
     loadChecks(){
-        this.checksService.getChecks().subscribe(checks => this.checks = checks);
+        this.checksService.getChecks().subscribe(checks => this.checks = checks["response"]);
                                         
     }     
 

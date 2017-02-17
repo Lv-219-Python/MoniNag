@@ -4,6 +4,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 
 import { CheckListComponent } from './check-list.component';
 import { CheckDetailComponent } from './check-detail.component';
+import { CheckUpdateComponent } from './check-update.component';
 import { ServersComponent } from './servers.component';
 import { ServicesComponent } from './services.component';
 
@@ -28,7 +29,12 @@ const APP_ROUTES: Routes = [
     },
     { 
         path: 'checks/:id', 
-        component: CheckDetailComponent }
+        component: CheckDetailComponent 
+    },
+    { 
+        path: 'checks/update/:id', 
+        component: CheckUpdateComponent 
+    }
 ]
 
 @NgModule({
