@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'registration',
     'user_profile',
     'nagplugin',
+    'contact',
 ]
 
 AUTH_USER_MODEL = 'registration.CustomUser'
