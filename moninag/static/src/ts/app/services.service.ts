@@ -11,7 +11,7 @@ import 'rxjs/add/operator/catch';
 
 export class ServicesService {
 
-    private servicesUrl = 'api/1/service/';
+    private servicesUrl = 'api/1/service';
 
     constructor(private http: Http) { }
 
@@ -19,11 +19,25 @@ export class ServicesService {
         return this.http.get(this.servicesUrl)
                         .map(this.extractData);
     }
+    getService(id: number): Observable<Service> {
+        const url = `${this.servicesUrl}/${id}`;
+        return this.http.get(url)
+                        .map((res:Response) => res = res.json())
+                        .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    postService(service: Service): Observable<Service[]>{
+        const url = `${this.servicesUrl}/${service.id}`;
+        return this.http.post(url, service)
+                        .map((res:Response) => res.json())
+                        .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    }
 
     private extractData(res: Response) {
         let body = res.json();
         return body.response;
-      }
+    }
+
+
 }
 
 

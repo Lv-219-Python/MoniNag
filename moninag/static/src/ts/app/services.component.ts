@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ServicesService } from './services.service';
 import { Observable } from 'rxjs/Observable';
 import { Service } from './services';
-
-
 @Component({
     selector: 'services-app',
     template: `
@@ -12,13 +11,11 @@ import { Service } from './services';
         <div>  
         <ul>
             <li class="Box" *ngFor="let service of services"
-                [class.selected]="service === selectedService"
-                (click)="onSelect(service)">
+                (click)="onSelect(service)" (click)="gotoDetail()">
                 {{service.name}}
             </li>
         </ul>
         </div>
-        <services-detail [service]="selectedService"></services-detail>
     `,
     providers: [ ServicesService ],
     styles: [`
@@ -43,21 +40,25 @@ export class ServicesComponent implements OnInit {
     selectedService: Service;
 
     
-    constructor (private servicesService: ServicesService) {}
+    constructor (
+        private servicesService: ServicesService,
+        private router: Router
+        ) {}
 
     ngOnInit() { 
         this.getServices(); 
     }
 
     getServices() {
-        this.servicesService.getServices()
-                            .subscribe(
-                                services => this.services = services);
+        this.servicesService.getServices().subscribe(services => this.services = services);
     }    
 
     onSelect(service: Service): void {
         this.selectedService = service;
     }
+    gotoDetail(): void {
+    this.router.navigate(['/services', this.selectedService.id]);
+  }
 }
 
 /////////////////////////////////////////////////////
