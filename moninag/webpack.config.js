@@ -53,7 +53,7 @@ var config = {
                     progressive: true,
                     interlaced: false,
                     pngquant: {
-                      quality: '65-90',
+                      quality: '65-70',
                       speed: 4
                     }
                   }

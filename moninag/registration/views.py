@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
 from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
 from registration.models import CustomUser
 from registration.utils.send_email import send_activation_email, generate_activation_key, send_reset_password_email
