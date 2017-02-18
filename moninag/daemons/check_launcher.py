@@ -20,32 +20,32 @@ from check.models import Check
 
 def perform_check(check_id, command, freq):
     while True:
-
+        print('starting process {}', check_id)
         output = subprocess.Popen(command,
                                   stdout=subprocess.PIPE,
                                   shell=True).communicate()
 
-        print(datetime.datetime.now(), command, output)
+        # print(datetime.datetime.now(), command, output)
         output = output[0].split()
 
         if b'OK' in output[1]:
-            print('\t OK')
+            # print('\t OK')
             this_check = Check.objects.get(id=check_id)
             this_check.service.status = 'OK'
             this_check.service.save()
 
         elif b'WARNING' in output[1]:
-            print('\t Warning')
+            # print('\t Warning')
             this_check = Check.objects.get(id=check_id)
             this_check.service.status = 'Warning'
             this_check.service.save()
         else:
-            print('\t Fail')
+            # print('\t Fail')
             this_check = Check.objects.get(id=check_id)
             this_check.service.status = 'Fail'
             this_check.service.save()
 
-
+        print('ending process {}', check_id)
         time.sleep(freq)
 
 
@@ -61,12 +61,12 @@ def check_collector(storage):
         check_dict[check.id]['command'] = check.plugin.template.format(host=check.service.server.address)
         check_dict[check.id]['freq'] = check.run_freq
 
-    print(check_keys)
-    print(storage_keys)
+    # print(check_keys)
+    # print(storage_keys)
     # added items
     if check_keys - storage_keys:
         for key in check_keys - storage_keys:
-            print('added item')
+            # print('added item')
             storage[key] = check_dict[key]
             storage[key]['command'] = check_dict[key]['command']
             storage[key]['freq'] = check_dict[key]['freq']
@@ -74,29 +74,30 @@ def check_collector(storage):
     # deleted items
     if storage_keys - check_keys:
         for key in storage_keys - check_keys:
-            print('deleted item')
+            # print('deleted item')
             del storage[key]
 
     # update items
     for check_id in check_dict:
         if check_dict[check_id]['command'] != storage[check_id]['command']:
-            print('upd')
+            # print('upd')
             storage[check_id]['command'] = check_dict[check_id]['command']
         if check_dict[check_id]['freq'] != storage[check_id]['freq']:
             storage[check_id]['freq'] = check_dict[check_id]['freq']
 
 
-if __name__ == '__main__':
+def main():
     storage = {}
-    new_storage = {}
     processes = []
     django.db.connections.close_all()
     q = Queue()
-    while True:
-        new_storage = storage.copy()
-        print(new_storage)
-        check_collector(new_storage)
 
+    while True:
+        print('starting main')
+        new_storage = storage.copy()
+        check_collector(new_storage)
+        # print('>>>>>>>>>>>>>', storage)
+        # print('>>>>>>>>>>>>>', new_storage)
         for check_id in new_storage:
             if 'pid' not in new_storage[check_id]:
                 p = Process(target=perform_check, args=(check_id,
@@ -110,8 +111,12 @@ if __name__ == '__main__':
                 # print('starting process {} with pid: {}'.format(storage[check]['command'], p.pid))
                 new_storage[check_id]['pid'] = p.pid
 
-        for p in processes:
-            p.join()
-
         storage = new_storage.copy()
-        time.sleep(10)
+        # for p in processes:
+        #     p.join()
+        print('ending main')
+        time.sleep(30)
+
+
+if __name__ == '__main__':
+    main()
