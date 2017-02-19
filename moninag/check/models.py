@@ -17,6 +17,9 @@ class Check(models.Model):
 
     name = models.CharField(max_length=20, default=0)
     plugin = models.ForeignKey(NagPlugin, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, null=True, blank=True)
+    last_run = models.DateTimeField(null=True, blank=True)
+    output = models.CharField(max_length=200, null=True, blank=True)
     target_port = models.IntegerField(default=0)
     run_freq = models.IntegerField(default=0)
     service = models.ForeignKey(Service)
