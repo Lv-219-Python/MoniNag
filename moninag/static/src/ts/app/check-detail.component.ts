@@ -21,6 +21,7 @@ import { ChecksService } from './checks.service';
     <h6>Service:{{check.service_id}}</h6>
     <button (click)="goBack()">Back</button>
     <button (click)="update()">Update</button>
+    <button (click)="delete()">Delete</button>
     `,
 
     providers: [
@@ -51,6 +52,11 @@ export class CheckDetailComponent implements OnInit{
     update(): void {
     this.router.navigate(['/checks/update', this.check.id]);
     }
+
+    delete(): void {
+        this.checksService.remove(this.check.id)
+            .subscribe(() => this.goBack());
+    } 
 
     goBack(): void {
     this.location.back();

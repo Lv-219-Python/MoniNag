@@ -63,7 +63,12 @@ export class ChecksService {
 
                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
- 
+
+    remove(id:number): Observable<Check[]> {
+        return this.http.delete(`${this.checksUrl}/${id}`)
+
+                         .catch((error:any) => Observable.throw(error.json().error || 'Server error')); 
+    } 
 }
             
 
