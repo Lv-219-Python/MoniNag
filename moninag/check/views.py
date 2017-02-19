@@ -1,12 +1,12 @@
 import json
 
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
-from utils.validators import validate_dict, validate_subdict
 
+from check.models import Check
 from nagplugin.models import NagPlugin
 from service.models import Service
-from .models import Check
+from utils.validators import validate_dict, validate_subdict
 
 
 class CheckView(View):

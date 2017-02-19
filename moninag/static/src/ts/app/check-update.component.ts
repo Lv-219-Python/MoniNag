@@ -12,7 +12,7 @@ import { ChecksService } from './checks.service';
 
 
 @Component({
-    selector: 'checkdetail-app',
+    selector: 'checkupdate-app',
     template: `
 
     <div *ngIf="check"><div>
@@ -69,9 +69,8 @@ export class CheckUpdateComponent implements OnInit{
         
     }
     save(): void {
-
         this.checksService.update(this.check)
-        .subscribe(() => this.goBack()); 
+            .subscribe(() => this.goBack());
     } 
 
     goBack(): void {

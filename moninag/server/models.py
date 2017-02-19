@@ -43,6 +43,7 @@ class Server(models.Model):
         server.state = state
         server.user = user
         server.save()
+
         return server
 
     def update(self, name=None, address=None, state=None):
@@ -59,6 +60,7 @@ class Server(models.Model):
             self.address = address
         if state:
             self.state = state
+
         self.save()
 
     @staticmethod
@@ -68,6 +70,7 @@ class Server(models.Model):
         :param id: int - server id
         :return: Server if server was found, and None otherwise.
         """
+
         try:
             server = Server.objects.get(id=id)
         except Exception as error:
@@ -81,7 +84,9 @@ class Server(models.Model):
         :param user_id: int - user id
         :return: QuerySet<Server>: QuerySet of servers.
         """
-        return Server.objects.filter(user=user_id)
+
+        server = Server.objects.filter(user=user_id)
+        return server
 
     def to_dict(self):
         """Convert model object to dictionary.

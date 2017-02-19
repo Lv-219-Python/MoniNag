@@ -5,15 +5,21 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { CheckListComponent } from './check-list.component';
 import { CheckDetailComponent } from './check-detail.component';
 import { CheckUpdateComponent } from './check-update.component';
+import { CheckAddComponent } from './check-add.component';
 import { ServersComponent } from './servers.component';
 import { ServicesComponent } from './services.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 const APP_ROUTES: Routes = [
     {
         path: '',
-        redirectTo: '/servers',
+        redirectTo: '/profile',
         pathMatch: 'full'
+    },
+    {
+        path: 'profile',
+        component: UserProfileComponent
     },
     {
         path: 'servers',
@@ -34,8 +40,12 @@ const APP_ROUTES: Routes = [
     { 
         path: 'checks/update/:id', 
         component: CheckUpdateComponent 
+    },
+    { 
+        path: 'add', 
+        component: CheckAddComponent 
     }
-]
+];
 
 @NgModule({
     imports: [ 
@@ -46,5 +56,5 @@ const APP_ROUTES: Routes = [
     exports: [ RouterModule ]
 })
 
+export class AppRoutingModule { }
 
-export class AppRoutingModule {}

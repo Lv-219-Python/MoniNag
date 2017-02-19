@@ -19,8 +19,8 @@ import { ChecksService } from './checks.service';
     <h6>Plugin:{{check.plugin_id}}</h6>
     <h6>Target port:{{check.target_port}}</h6>
     <h6>Service:{{check.service_id}}</h6>
-    <button (click)="onSelect(check)" (click)="update()">Update</button>
     <button (click)="goBack()">Back</button>
+    <button (click)="update()">Update</button>
     `,
 
     providers: [
@@ -39,7 +39,7 @@ export class CheckDetailComponent implements OnInit{
     ) {}
 
 
-    check : Check[];
+    check : Check;
     selectedCheck : Check;
                                                 
     ngOnInit(): void {
@@ -48,12 +48,8 @@ export class CheckDetailComponent implements OnInit{
             .subscribe(check => this.check = check["response"]); 
     }
 
-    onSelect(check: Check): void {
-        this.selectedCheck = check;
-    }
-
     update(): void {
-    this.router.navigate(['/checks/update', this.selectedCheck.id]);
+    this.router.navigate(['/checks/update', this.check.id]);
     }
 
     goBack(): void {

@@ -35,6 +35,6 @@ export class LoginComponent {
                     this.alertService.error(error._body);
                     this.loading = false;
                 }
-                );
+            );
     }
 }

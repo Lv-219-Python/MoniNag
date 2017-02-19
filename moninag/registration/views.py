@@ -1,10 +1,12 @@
 from json import loads
-from django.shortcuts import render, redirect
-from django.http import JsonResponse, HttpResponse
+
 from django.contrib import auth as authentication
 from django.core.validators import validate_email
-from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
-from registration.utils.send_email import send_activation_email, generate_activation_key
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect, render
+
+from moninag.settings import DEFAULT_FROM_EMAIL, DEFAULT_HOST
+from registration.utils.send_email import generate_activation_key, send_activation_email
 from registration.models import CustomUser
 
 
@@ -34,7 +36,7 @@ def login(request):
         if user:
             if user.is_active:
                 authentication.login(request, user)
-                return JsonResponse({'success': True, 'message': 'api/1/profile/{}'.format(user.id)})
+                return JsonResponse({'success': True, 'message': '/'})
             else:
                 # Return a 'disabled account' error message
                 return HttpResponse('Account is not active', status=401)
