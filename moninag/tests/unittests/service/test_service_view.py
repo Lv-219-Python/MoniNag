@@ -1,6 +1,5 @@
 import json
 
-from django.contrib.auth import authenticate
 from django.core.urlresolvers import reverse
 from django.test import Client, TestCase
 
@@ -32,7 +31,6 @@ class TestServiceView(TestCase):
 
         self.user.set_password('qwerty')
         self.user.save()
-        self.user = authenticate(username='email@gmail.com', password='qwerty')
 
         CustomUser.objects.create(
             id=2,
