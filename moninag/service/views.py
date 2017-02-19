@@ -1,6 +1,6 @@
 import json
 
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
 
 from server.models import Server
@@ -28,6 +28,8 @@ class ServiceView(View):
                     or
                     error: <error message>
                 }
+            or
+            HttpResponse: status 403 if service does not belong to user.
         """
 
         json_response = {}
@@ -47,7 +49,6 @@ class ServiceView(View):
             return JsonResponse(json_response, status=404)
 
         if not request.user.id == service.server.user.id:
-            # Service does not belong to user
             return HttpResponse(status=403)
 
         json_response['response'] = service.to_dict()
@@ -73,6 +74,8 @@ class ServiceView(View):
                     or
                     error: <error message>
                 }
+            or
+            HttpResponse: status 403 if server does not belong to user.
         """
 
         json_response = {}
@@ -92,7 +95,6 @@ class ServiceView(View):
             return JsonResponse(json_response, status=404)
 
         if not server.user.id == request.user.id:
-            # Server does not belong to user
             return HttpResponse(status=403)
 
         service = Service.create(name=service_params['name'],
@@ -111,6 +113,12 @@ class ServiceView(View):
         Args:
             service_id(int): service id.
 
+        Except JSON with fields:
+            {
+                'name': <service name>,
+                'status': <service status>
+            }
+
         Returns:
             JsonResponse:
                 {
@@ -118,15 +126,17 @@ class ServiceView(View):
                     or
                     error: <error message>
                 }
+            or
+            HttpResponse: status 403 if service does not belong to user.
         """
 
         json_response = {}
 
         OPTIONAL_REQUIREMENTS = {'name', 'status'}
 
-        service_dict = json.loads(request.body.decode('utf-8'))
+        service_params = json.loads(request.body.decode('utf-8'))
 
-        if not validate_subdict(service_dict, OPTIONAL_REQUIREMENTS):
+        if not validate_subdict(service_params, OPTIONAL_REQUIREMENTS):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
@@ -137,10 +147,9 @@ class ServiceView(View):
             return JsonResponse(json_response, status=404)
 
         if not request.user.id == service.server.user.id:
-            # Service does not belong to user
             return HttpResponse(status=403)
 
-        service.update(**service_dict)
+        service.update(**service_params)
 
         json_response['response'] = service.to_dict()
         return JsonResponse(json_response, status=200)
@@ -151,17 +160,17 @@ class ServiceView(View):
         Delete service with given id from database.
 
         Returns:
-            HttpResponse: Status 200 for success, 400 otherwise.
+            HttpResponse: Status 200 for success,
+                403 if service does not belong to user,
+                404 if service not found.
         """
 
         service = Service.get_by_id(service_id)
 
         if not service:
-            # Service not found
             return HttpResponse(status=404)
 
         if not request.user.id == service.server.user.id:
-            # Service does not belong to user
             return HttpResponse(status=403)
 
         service.delete()

@@ -10,8 +10,8 @@ class ServiceTest(TestCase):
         user2=CustomUser.objects.create(id=3, first_name="firstname3", second_name="secondname3", email="email3@gmail.com")
         server=Server.objects.create(id =1, name="name", address="address", state="Production", user=user)
         server2=Server.objects.create(id =2, name="name2", address="address2", state="Production", user=user2)
-        Service.objects.create(id =2, name="service1", status="ok", server=server2)
-        Service.objects.create(id =3, name="service2", status="Fail", server=server2)
+        Service.objects.create(id =20, name="service1", status="ok", server=server2)
+        Service.objects.create(id =30, name="service2", status="Fail", server=server2)
 
 
     def test_service_update(self):
@@ -30,8 +30,8 @@ class ServiceTest(TestCase):
 
 
     def test_service_get_by_id(self):
-        actual = Service.objects.get(id=3)
-        expect = Service.get_by_id(3)
+        actual = Service.objects.get(id=30)
+        expect = Service.get_by_id(30)
         self.assertEqual(expect, actual)
 
     def test_service_get_by_server_id(self):
@@ -53,9 +53,9 @@ class ServiceTest(TestCase):
         self.assertQuerysetEqual(expect, map(repr,actual), ordered=False)
 
     def test_service_to_dict(self):
-        service = Service.objects.get(id=3)
+        service = Service.objects.get(id=30)
         actual = {
-            'id': 3,
+            'id': 30,
             'name': "service2",
             'status': "Fail",
             'server_id': 2
@@ -64,7 +64,7 @@ class ServiceTest(TestCase):
         self.assertEqual(expect, actual) 
 
     def test_service__str__(self):
-        service = Service.objects.get(id=2)
-        actual = 'Service id: 2, name: service1, status: ok'
+        service = Service.objects.get(id=20)
+        actual = 'Service id: 20, name: service1, status: ok'
         expect = service.__str__()
         self.assertEqual(expect, actual)

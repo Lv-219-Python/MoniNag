@@ -2,7 +2,6 @@ from django.db import models
 
 from server.models import Server
 
-
 SERVICE_STATUS_CHOICES = (
     ('', 'Unknown'),
     ('fail', 'Fail'),

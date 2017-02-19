@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AlertService } from '../_services/index';
 
+
 @Component({
     selector: 'message',
     template: require('./message.component.html')

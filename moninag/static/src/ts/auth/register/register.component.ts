@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AlertService, UserService } from '../_services/index';
 
+
 @Component({
     template: require('./register.component.html')
 })
@@ -21,9 +22,9 @@ export class RegisterComponent {
         this.userService.registerUser(this.model)
             .subscribe(
                 data => {
-                    if(data.success) {
+                    if (data.success) {
                         this.alertService.success(data.message, true);
-                        setTimeout(() => {this.router.navigate(['/auth'])}, 5000);
+                        setTimeout(() => { this.router.navigate(['/auth']) }, 5000);
                     } else {
                         this.alertService.error(data.error);
                         this.loading = false;
@@ -33,6 +34,7 @@ export class RegisterComponent {
                     debugger;
                     this.alertService.error(error);
                     this.loading = false;
-                });
+                }
+            );
     }
 }
