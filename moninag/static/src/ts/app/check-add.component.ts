@@ -86,7 +86,6 @@ export class CheckAddComponent {
     }
 
     add() {
-
         this.checksService.create(this.model)
                           .subscribe(
                               model => model = model

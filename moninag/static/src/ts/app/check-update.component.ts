@@ -1,4 +1,4 @@
-x    import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params } from '@angular/router';

@@ -7,6 +7,8 @@ from server.models import Server
 from service.models import Service
 from utils.validators import validate_dict, validate_subdict
 
+from check.models import Check
+
 
 class ServiceView(View):
     """Service view handles GET, POST, PUT, DELETE requests."""
@@ -51,7 +53,13 @@ class ServiceView(View):
         if not request.user.id == service.server.user.id:
             return HttpResponse(status=403)
 
-        json_response['response'] = service.to_dict()
+        checks = Check.get_by_service(service)
+        data = service.to_dict()
+        data['checks'] = [check.to_dict() for check in checks]
+        json_response['response'] = data
+        # json_response['response'] = service.to_dict()
+        # json_response['response'].append(check.to_dict() for check in checks)
+
         return JsonResponse(json_response, status=200)
 
     def post(self, request):

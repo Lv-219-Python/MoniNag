@@ -93,6 +93,18 @@ class Check(models.Model):
         checks = Check.objects.filter(service__server__user__id=user_id)
 
         return checks
+    
+    @staticmethod
+    def get_by_service(service):
+        """Get checks by user id.
+
+        :param user_id: int - User id.
+        :return: QuerySet of checks for given user id.
+        """
+
+        checks = Check.objects.filter(service=service)
+
+        return checks
 
     def to_dict(self):
         """Convert model object to dictionary.

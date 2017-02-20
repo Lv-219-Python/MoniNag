@@ -31,6 +31,7 @@ import { ServicesService } from './services.service';
     `,
     providers: [ ServicesService ]
 })
+
 export class ServiceDetailComponent implements OnInit {
 
     constructor(
