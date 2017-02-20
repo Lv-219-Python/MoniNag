@@ -1,0 +1,74 @@
+@import "../common/variables.less";
+@import "../common/buttons.less";
+@import "../common/forms.less";
+@import "../common/type.less";
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: @white url(../../../img/bg.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+#auth-app {
+    height: 100%;
+}
+
+.margin-right-1em {
+    margin-right: 1em;
+}
+
+.margin-top-2em {
+    margin-top: 2em;
+}
+
+.auth-form {
+    width: 35em;
+    padding: 2em;
+    border: 1px solid @gray-lighter;
+    border-radius: 10px;
+    box-shadow: @gray-dark 0 0 50px;
+    background: @white;
+
+    h2 {
+        margin-bottom: 40px;
+    }
+
+    .help-block, .text-danger {
+        color: @brand-danger;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        text-align: right;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .btn-link {
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+}
+
+.message {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -17.5em;
+    padding: 1em;
+    line-height: 1.5;
+    text-align: center;
+
+    &.alert-success {
+        color: @brand-success;
+    }
+
+    &.alert-danger {
+        color: @brand-danger;
+    }
+}

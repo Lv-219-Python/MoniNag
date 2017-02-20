@@ -110,7 +110,7 @@ class CheckView(View):
                              service=service)
 
         json_response['response'] = check.to_dict()
-        return JsonResponse(json_response, status=200)
+        return JsonResponse(json_response, status=201)
 
     def delete(self, request, check_id):
         """Handles DELETE request.

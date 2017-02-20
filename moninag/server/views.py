@@ -1,7 +1,8 @@
 import json
 
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.generic.base import View
+
 
 from server.models import Server
 from utils.validators import validate_dict, validate_subdict
@@ -30,25 +31,22 @@ class ServerView(View):
 
         json_response = {}
 
-        if not server_id:
-            # Get all servers
-            servers = Server.get_by_user_id(request.user.id)
-            json_response['response'] = [server.to_dict() for server in servers]
-            return JsonResponse(json_response, status=200)
+        if server_id:
+            # Get server with specified id
+            server = Server.get_by_id(server_id)
+            if server:
+                if server.user.id == request.user.id:
+                    json_response['response'] = server.to_dict()
+                    return JsonResponse(json_response, status=200)
+                else:
+                    return HttpResponse(code=403)
+            else:
+                json_response['error'] = 'Server with specified id was not found.'
+                return JsonResponse(json_response, status=404)
 
-        # Get server with specified id
-        server = Server.get_by_id(server_id)
-
-        if not server:
-            # Server not found
-            json_response['error'] = 'Server with specified id was not found.'
-            return JsonResponse(json_response, status=404)
-
-        if not server.user.id == request.user.id:
-            # Server belongs to another user
-            return HttpResponse(status=403)
-
-        json_response['response'] = server.to_dict()
+        # Get all servers
+        servers = Server.get_by_user_id(request.user.id)
+        json_response['response'] = [server.to_dict() for server in servers]
         return JsonResponse(json_response, status=200)
 
     def post(self, request):
@@ -81,8 +79,9 @@ class ServerView(View):
             json_response['error'] = 'Incorect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        Server.create(user=request.user, **server_dict)
-        return HttpResponse(status=201)
+        server = Server.create(user=request.user, **server_dict)
+        json_response['response'] = server.to_dict()
+        return JsonResponse(json_response, status=201)
 
     def put(self, request, server_id):
         """Handles PUT request.
@@ -109,17 +108,14 @@ class ServerView(View):
 
         server = Server.get_by_id(server_id)
 
-        if not server:
-            # Server does not exist
-            json_response['error'] = 'Server was not updated.'
-            return JsonResponse(json_response, status=404)
-
-        if not request.user.id == server.user.id:
-            # Server does not belong to user
-            return HttpResponse(status=403)
-
-        server.update(**server_dict)
-        return HttpResponse(status=200)
+        if server:
+            if server.user.id == request.user.id:
+                server.update(**server_dict)
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=403)
+        json_response['error'] = 'Server was not updated.'
+        return JsonResponse(json_response, status=404)
 
     def delete(self, request, server_id):
         """Handles DELETE request.
@@ -129,16 +125,11 @@ class ServerView(View):
         :param server_id: int - server id
         :return: HttpResponse: Status 200 for success, 400 otherwise.
         """
-
         server = Server.get_by_id(server_id)
-
-        if not server:
-            # Server not found
-            return HttpResponse(status=404)
-
-        if not request.user.id == server.user.id:
-            # Server does not belong to user
-            return HttpResponse(status=403)
-
-        server.delete()
-        return HttpResponse(status=200)
+        if server:
+            if server.user.id == request.user.id:
+                server.delete()
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=403)
+        return HttpResponse(status=404)
