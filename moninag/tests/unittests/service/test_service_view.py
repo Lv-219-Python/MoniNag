@@ -89,9 +89,10 @@ class TestServiceView(TestCase):
         services = Service.objects.filter(server__in=servers)
 
         expected_response = {}
-        expected_response['response'] = [to_dict(service)
+        expected_response['response'] = [service.to_dict()
                                          for service in services]
-
+        expected_response = json.dumps(expected_response)
+        
         self.assertEqual(actual_response.status_code, 200)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
                              expected_response)
@@ -104,6 +105,7 @@ class TestServiceView(TestCase):
         expected_response = {}
         service = Service.objects.get(id=11)
         expected_response['response'] = to_dict(service)
+        expected_response = json.dumps(expected_response)
 
         self.assertEqual(actual_response.status_code, 200)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
@@ -134,6 +136,7 @@ class TestServiceView(TestCase):
         service = Service.objects.get(name='Service')
         expected_response = {}
         expected_response['response'] = to_dict(service)
+        expected_response = json.dumps(expected_response)
 
         self.assertEqual(actual_response.status_code, 201)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
@@ -185,6 +188,7 @@ class TestServiceView(TestCase):
         service = Service.objects.get(id=11)
         expected_response = {}
         expected_response['response'] = to_dict(service)
+        expected_response = json.dumps(expected_response)
 
         self.assertEqual(actual_response.status_code, 200)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
