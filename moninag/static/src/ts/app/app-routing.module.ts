@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ChecksComponent } from './checks.component';
 import { ServersComponent } from './servers.component';
-import { ServicesComponent } from './services.component';
+import { ServicesComponent } from './services/services.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ServiceDetailComponent } from './service-detail.component';
+import { ServiceDetailComponent } from './services/service-detail.component';
 
 const APP_ROUTES: Routes = [
     {

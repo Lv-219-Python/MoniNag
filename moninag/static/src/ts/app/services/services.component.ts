@@ -25,9 +25,19 @@ import { Service } from './services';
             background-color: rgba(80, 100, 170, 0.5);
             position: relative;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            display:table-cell;
+            display: table-cell;
             vertical-align: middle;
             text-align: center;
+            position: relative;
+            padding: 1em;
+            margin: 2em 10px 4em;
+            background: #fff;
+            -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
         }
         ul {
             list-style-type: none;
@@ -45,6 +55,7 @@ export class ServicesComponent implements OnInit {
         private router: Router
         ) {}
 
+
     ngOnInit() { 
         this.getServices(); 
     }
@@ -60,30 +71,3 @@ export class ServicesComponent implements OnInit {
     this.router.navigate(['/services', this.selectedService.id]);
   }
 }
-
-/////////////////////////////////////////////////////
-
-
-
-
-
-/* 
-http://127.0.0.1:8000/api/1/service/21/
-export class ServicesComponent implements OnInit {
-
-    constructor(
-        private router: Router,
-        private servicesService: ServicesService) { }
-
-
-    getServices(): void {
-    this.ServicesService.getHeroes().then(heroes => this.heroes = heroes);
-  }
-
-
-    ngOnInit(): void {
-    this.();
-  }
-
-}
-*/ 

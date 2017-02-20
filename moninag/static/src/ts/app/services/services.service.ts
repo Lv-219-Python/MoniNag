@@ -37,7 +37,16 @@ export class ServicesService {
         return body.response;
     }
 
-
+    // update(service: Service): Observable<Service[]>{
+    //     let headers = new Headers({ 'Content-Type': 'application/json' }); 
+    //     let options = new RequestOptions({ headers: headers }); 
+    //     let updated_service = {
+    //         name: service.name,
+    //         server_id: service.server_id
+    //     }
+    //     return this.http.put(`${this.servicesUrl}/${service['id']}/`, JSON.stringify(updated_service), options)
+    //                     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    // }
 }
 
 

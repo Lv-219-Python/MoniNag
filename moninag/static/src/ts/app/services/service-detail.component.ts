@@ -11,7 +11,8 @@ import { ServicesService } from './services.service';
         <div *ngIf="service">
             <h3>Service Details</h3>
             <div>
-                <label>name: </label>{{service.name}}
+                <label>name: </label>
+                <input [(ngModel)]="service.name" placeholder="name"/>
             </div>
 
             <div>
@@ -55,3 +56,4 @@ export class ServiceDetailComponent implements OnInit {
     }    
 }
 
+        // <button (click)="save()">Save</button>
