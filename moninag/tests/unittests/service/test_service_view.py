@@ -129,15 +129,15 @@ class TestServiceView(TestCase):
         data = json.dumps({'name': 'Service',
                            'status': 'ok',
                            'server_id': 10})
-
         actual_response = self.client.post(url, data=data,
                                            content_type='application/json')
         service = Service.objects.get(name='Service')
+        expected_response = {}
+        expected_response['response'] = to_dict(service)
 
         self.assertEqual(actual_response.status_code, 201)
-        self.assertEqual(service.name, 'Service')
-        self.assertEqual(service.status, 'ok')
-        self.assertEqual(service.server.id, 10)
+        self.assertJSONEqual(actual_response.content.decode('utf-8'),
+                             expected_response)
 
     def test_post_invalid_format(self):
 
@@ -181,11 +181,14 @@ class TestServiceView(TestCase):
 
         actual_response = self.client.put(url, data=data,
                                           content_type='application/json')
+
         service = Service.objects.get(id=11)
+        expected_response = {}
+        expected_response['response'] = to_dict(service)
 
         self.assertEqual(actual_response.status_code, 200)
-        self.assertEqual(service.name, 'Service101')
-        self.assertEqual(service.status, 'fail')
+        self.assertJSONEqual(actual_response.content.decode('utf-8'),
+                             expected_response)
 
     def test_put_invalid_format(self):
 

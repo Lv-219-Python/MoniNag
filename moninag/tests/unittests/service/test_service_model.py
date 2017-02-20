@@ -12,11 +12,6 @@ class ServiceTest(TestCase):
                                          second_name="secondname",
                                          email="email@gmail.com")
 
-        user1 = CustomUser.objects.create(id=2,
-                                          first_name="firstname2",
-                                          second_name="secondname2",
-                                          email="email2@gmail.com")
-
         user2 = CustomUser.objects.create(id=3,
                                           first_name="firstname3",
                                           second_name="secondname3",
@@ -36,12 +31,18 @@ class ServiceTest(TestCase):
 
         Service.objects.create(id=20,
                                name="service1",
-                               status="ok", server=server2)
+                               status="ok",
+                               server=server2)
 
         Service.objects.create(id=30,
                                name="service2",
                                status="Fail",
                                server=server2)
+
+        Service.objects.create(id=40,
+                               name="service3",
+                               status="Fail",
+                               server=server)
 
     def test_service_update(self):
         ser1 = Service.objects.get(name="service1")
@@ -69,9 +70,7 @@ class ServiceTest(TestCase):
         self.assertQuerysetEqual(expect, map(repr, actual), ordered=False)
 
     def test_service_get_by_user_id(self):
-        user = CustomUser.objects.get(id=3)
-        servers = Server.objects.filter(user=user)
-        actual = Service.objects.filter(server__in=servers)
+        actual = Service.objects.filter(server__user__id=3)
         expect = Service.get_by_user_id(3)
         self.assertQuerysetEqual(expect, map(repr, actual), ordered=False)
 
