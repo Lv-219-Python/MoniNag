@@ -10,15 +10,15 @@ import { CheckDetailComponent } from './check-detail.component';
 import { CheckUpdateComponent } from './check-update.component';
 import { CheckAddComponent } from './check-add.component';
 import { ChecksService } from './checks.service';
-import { ServersComponent } from './servers.component';
-import { ServiceDetailComponent } from './service-detail.component';
-import { ServicesComponent } from './services.component';
-import { ServicesService } from './services.service';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { UserProfileService } from './user-profile/user-profile.service';
-import { ContactsListComponent } from './contacts/list.component';
 import { ContactsEditComponent } from './contacts/edit.component';
 import { ContactsEmailComponent } from './contacts/email.component';
+import { ContactsListComponent } from './contacts/list.component';
+import { ServersComponent } from './servers.component';
+import { ServicesService } from './services/services.service';
+import { ServiceDetailComponent } from './services/service-detail.component';
+import { ServicesComponent } from './services/services.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileService } from './user-profile/user-profile.service';
 
 
 @NgModule({
