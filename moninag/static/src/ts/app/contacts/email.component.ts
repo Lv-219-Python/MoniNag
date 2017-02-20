@@ -38,8 +38,9 @@ export class ContactsEmailComponent {
         this.emailForm = fb.group({
             'first_name': '',
             'second_name': '',
-            'email': [null, [Validators.required,Validators.pattern("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")]]
-        })
+            'email':[null, [Validators.required,
+                            Validators.pattern("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")]
+      ]})
     }
 
     submitForm(contact: any) {

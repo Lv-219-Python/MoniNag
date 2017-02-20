@@ -19,9 +19,12 @@ import 'rxjs/add/operator/switchMap';
     <input [(ngModel)]="contact.second_name" placeholder="{{contact.second_name}}" />
     <h5>Email:</h5>
     <input [(ngModel)]="contact.email" placeholder="{{contact.email}}" />
+    <div>
+    <br>
     <button (click)="goBack()">Back</button>
     <button (click)="save()">Save</button>
     <button (click)="delete()">x</button>
+    </div>
     `,
     providers: [
         ContactsService
@@ -35,26 +38,27 @@ export class ContactsEditComponent {
         private route: ActivatedRoute,
         private router: Router,
         private location: Location
-    ){}
+    ) { }
 
-    contact : Contact[];                                 
-    
-    ngOnInit(){
+    contact: Contact[];
+
+    ngOnInit() {
         this.route.params
             .switchMap((params: Params) => this.contactsService.getContact(+params['id']))
             .subscribe(contact => this.contact = contact['response']);
     }
-    
-    save(){
-        this.contactsService.putContact(this.contact)
-        .subscribe(() => this.goBack())
-    }
-    delete(){
-        this.contactsService.deleteContact(this.contact['id'])
-        .subscribe(() => this.goBack())
-    } 
 
-    goBack(){
+    save() {
+        this.contactsService.putContact(this.contact)
+            .subscribe(() => this.goBack())
+    }
+
+    delete() {
+        this.contactsService.deleteContact(this.contact['id'])
+            .subscribe(() => this.goBack())
+    }
+
+    goBack() {
         this.location.back();
-    }    
-}                                           
+    }
+}

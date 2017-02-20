@@ -14,7 +14,7 @@ export class ContactsService {
 
     constructor(private http:Http) {}
 
-    private contactsUrl = '/api/1/contact';
+    private contactsUrl = '/api/1/contact/';
 
     getContacts(): Observable<Contact[]> {
         return this.http.get(this.contactsUrl)
@@ -22,22 +22,23 @@ export class ContactsService {
            .catch((error:any) => Observable.throw(error.json() || 'Server Error'))
           }
 
-    getContact(id:number): Observable<Contact> {
-        const url = `${this.contactsUrl}/${id}`;
+    getContact(id: number): Observable<Contact> {
+        const url = `${this.contactsUrl}${id}`;
         return this.http.get(url)
               .map((response:Response) => response.json())
-              .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+              .catch((error:any) => Observable.throw(error.json()|| 'Server error'));
      }
 
     postContact(contact: any): Observable<Contact[]> {
          let bodyString = JSON.stringify(contact);
-         let headers = new Headers({ 'Content-Type': 'application/json' });
+         let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json'});
          let options = new RequestOptions({ headers: headers });
 
          return this.http.post(this.contactsUrl, contact, options)
-                         .map((response: Response) => response.json()['response'])
-                         .catch((error:any) => Observable.throw(error.json().error || 'Server Error'))
-    };
+                         .map((response: Response) => response.json())
+                         .catch((error:any) => Observable.throw(error.json() || 'Server Error'));
+    }
+
     putContact(contact: any): Observable<Contact[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
@@ -47,22 +48,18 @@ export class ContactsService {
             email: contact.email,
         });
 
-        return this.http.put(`${this.contactsUrl}/${contact['id']}/`, edited_contact, options)
-                         .map((response: any) => {
-
-                             if (response.status === 200){
-                                console.log("Edited!");
-                         };
-                        })
-                         .catch((error:any) => Observable.throw(error.json() || 'Server Error'));
+        return this.http.put(`${this.contactsUrl}${contact['id']}/`, edited_contact, options)
+                         .map((response: Response) => response.json())
+                         .catch((error:any) => Observable.throw(error.json()['error'] || 'Server Error'));
     }
+    
     deleteContact (id:number): Observable<Contact[]> {
-        return this.http.delete(`${this.contactsUrl}/${id}`)
+        return this.http.delete(`${this.contactsUrl}${id}`)
                          .map((response: any) => {
 
                              if (response.status === 200){
-                                console.log("200");
-                             };
+                                console.log("Deleted");
+                             }
                          })
                          .catch((error:any) => Observable.throw(error.json() || 'Server error'));
     }
