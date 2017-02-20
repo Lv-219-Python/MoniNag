@@ -12,6 +12,7 @@ export class ChecksService {
     constructor (private http: Http) {}
      
     private checksUrl = 'api/1/check';
+    private servicesUrl = 'api/1/service/';
     private pluginsUrl = 'api/1/nagplugin';
      
 
@@ -25,6 +26,12 @@ export class ChecksService {
  
     getPlugins() : Observable<Plugin[]> {
         return this.http.get(this.pluginsUrl)
+                        .map((res:Response) => res = res.json())
+                        .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    getServices() : Observable<Plugin[]> {
+        return this.http.get(this.servicesUrl)
                         .map((res:Response) => res = res.json())
                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }

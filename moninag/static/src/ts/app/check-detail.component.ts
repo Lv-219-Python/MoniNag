@@ -16,9 +16,9 @@ import { ChecksService } from './checks.service';
     <div *ngIf="check"><div>
     <h6>Name:{{check.name}}</h6>
     <h6>Run frequency:{{check.run_freq}} min</h6>
-    <h6>Plugin:{{check.plugin_id}}</h6>
+    <h6>Plugin id:{{check.plugin_id}}</h6>
     <h6>Target port:{{check.target_port}}</h6>
-    <h6>Service:{{check.service_id}}</h6>
+    <h6>Service id:{{check.service_id}}</h6>
     <button (click)="goBack()">Back</button>
     <button (click)="update()">Update</button>
     <button (click)="delete()">Delete</button>
