@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { Routes, RouterModule, Router } from '@angular/router';
 
 import { CheckListComponent } from './check-list.component';
 import { CheckDetailComponent } from './check-detail.component';
 import { CheckUpdateComponent } from './check-update.component';
 import { CheckAddComponent } from './check-add.component';
 import { ServersComponent } from './servers.component';
-import { ServicesComponent } from './services.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ServiceDetailComponent } from './service-detail.component';
+import { ServicesComponent } from './services.component';
+import { ContactsListComponent} from './contacts/list.component';
+import { ContactsEditComponent } from './contacts/edit.component';
+
 
 const APP_ROUTES: Routes = [
     {
@@ -20,6 +23,10 @@ const APP_ROUTES: Routes = [
     {
         path: 'profile',
         component: UserProfileComponent
+    },
+    {
+        path: 'servers',
+        component: ServersComponent
     },
     {
         path: 'servers',
@@ -48,8 +55,17 @@ const APP_ROUTES: Routes = [
     { 
         path: 'add', 
         component: CheckAddComponent 
+    },
+
+    {
+        path: 'contacts',
+        component: ContactsListComponent
+    },
+    { 
+        path: 'contact/:id', 
+        component: ContactsEditComponent 
     }
-];
+]
 
 @NgModule({
     imports: [ 

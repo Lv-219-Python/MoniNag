@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,9 @@ import { ServicesComponent } from './services.component';
 import { ServicesService } from './services.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserProfileService } from './user-profile/user-profile.service';
+import { ContactsListComponent } from './contacts/list.component';
+import { ContactsEditComponent } from './contacts/edit.component';
+import { ContactsEmailComponent } from './contacts/email.component';
 
 
 @NgModule({
@@ -24,9 +27,8 @@ import { UserProfileService } from './user-profile/user-profile.service';
         FormsModule,
         HttpModule,
         AppRoutingModule,
-        HttpModule,
-        FormsModule,
-        JsonpModule
+        JsonpModule,                        
+        ReactiveFormsModule,
     ],
 
     declarations: [
@@ -38,7 +40,10 @@ import { UserProfileService } from './user-profile/user-profile.service';
         ServersComponent,
         ServicesComponent,
         UserProfileComponent,
-        ServiceDetailComponent
+        ServiceDetailComponent,
+        ContactsListComponent,
+        ContactsEditComponent,
+        ContactsEmailComponent,
     ],
     providers: [
         ChecksService,
