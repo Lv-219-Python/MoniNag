@@ -4,12 +4,12 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true,        
+        "suppressImplicitAnyIndexErrors": true,
         "types": [
             "node",
             "core-js"
-        ],         
-        "typeroots": [           
+        ],
+        "typeroots": [
             "node_modules/@types"
         ]
     },

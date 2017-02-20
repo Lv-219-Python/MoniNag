@@ -34,6 +34,31 @@ var config = {
                   { loader: 'css-loader', options: { importLoaders: 1 } },
                   'less-loader'
                 ]
+            },
+
+            {
+              test: /.*\.(gif|png|jpe?g|svg)$/i,
+              loaders: [
+                {
+                  loader: 'file-loader',
+                  query: {
+                    name: '[name].[ext]',
+                    outputPath: '../img/compressed/'
+                  }
+                },
+
+                {
+                  loader: 'image-webpack-loader',
+                  query: {
+                    progressive: true,
+                    interlaced: false,
+                    pngquant: {
+                      quality: '65-70',
+                      speed: 4
+                    }
+                  }
+                }
+              ]
             }
 
         ]
@@ -62,7 +87,8 @@ var authConfig = Object.assign({}, config, {
     entry: glob.sync('./static/src/ts/auth/**/*.ts'),
     output: {
         path: './static/js',
-        filename: 'auth_app.js'
+        filename: 'auth_app.js',
+        publicPath: './static/img/compressed/'
     }
 });
 

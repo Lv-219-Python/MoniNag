@@ -4,13 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, BaseRequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
-
-import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { AlertService, AuthenticationService, UserService, ResetPasswordService } from './_services/index';
 import { AuthComponent } from './auth.component'
 import { MessageComponent } from './message/message.component'
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
-
+import { ResetPasswordComponent } from './reset_password/reset_password.component'
+import { ConfirmPasswordResetComponent } from './reset_password/confirm_password_reset.component'
+import { EqualValidator } from './reset_password/equal-validator.directive';
 
 @NgModule({
     imports: [
@@ -18,6 +20,7 @@ import { RegisterComponent } from './register/register.component'
         FormsModule,
         HttpModule,
         MaterialModule.forRoot(),
+        FlexLayoutModule.forRoot(),
         RouterModule.forRoot([
             {
                 path: '',
@@ -31,6 +34,14 @@ import { RegisterComponent } from './register/register.component'
             {
                 path: 'auth/register_user',
                 component: RegisterComponent
+            },
+            {
+                path: 'auth/reset_password',
+                component: ResetPasswordComponent
+            },
+            {
+                path: 'auth/confirm_password_reset/:uidb64/:token',
+                component: ConfirmPasswordResetComponent
             }
         ])
     ],
@@ -39,12 +50,16 @@ import { RegisterComponent } from './register/register.component'
         LoginComponent,
         RegisterComponent,
         MessageComponent,
+        ResetPasswordComponent,
+        ConfirmPasswordResetComponent,
+        EqualValidator
     ],
     providers: [
         AlertService,
         AuthenticationService,
         UserService,
-        BaseRequestOptions,
+        ResetPasswordService,
+        BaseRequestOptions
     ],
     bootstrap: [
         AuthComponent
