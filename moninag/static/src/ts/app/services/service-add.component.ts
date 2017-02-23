@@ -13,20 +13,17 @@ import { ServicesService } from './services.service';
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text"
-                       required
-                       [(ngModel)]="model.name" name="name">
+                       required [(ngModel)]="model.name" name="name">
             </div>
             <div class="form-group">
                 <label for="status">Status</label>
                 <input type="text" 
-                       required
-                       [(ngModel)]="model.status" name="status">
+                       required [(ngModel)]="model.status" name="status">
             </div>
             <div class="form-group">
                 <label for="server_id">Server id</label>
                 <input type="text"
-                        required
-                       [(ngModel)]="model.server_id" name="status">
+                        required [(ngModel)]="model.server_id" name="status">
             </div>
         </form>
         <button (click)="goBack()">Back</button>

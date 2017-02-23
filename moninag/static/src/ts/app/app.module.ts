@@ -49,6 +49,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
         ServicesComponent,
         UserProfileComponent
     ],
+
     providers: [
         ChecksService,
         ServersService,

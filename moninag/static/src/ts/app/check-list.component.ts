@@ -5,14 +5,13 @@ import { CheckAddComponent } from './check-add.component';
 import { ChecksService } from './checks.service';
 import { Observable } from 'rxjs/Observable';
 import { Check } from './check';
-import { Service } from './service';
+import { Service } from './services/services';
 import { Plugin } from './plugin';
 
 
 @Component({ 
     selector:'checks-list',
     template:`
-
     <div class="table-responsive">
         <ul style="list-style-type:none; padding:0">          
             <table class="table">
@@ -34,11 +33,12 @@ import { Plugin } from './plugin';
         </ul>
     </div>
     <button (click)="add()"> Add new check </button>
-            `,
+    `,
 
     providers: [
         ChecksService
     ],
+
     styles: [`
        table, th, td {
            border: 1px solid black;}`
@@ -71,5 +71,4 @@ export class CheckListComponent {
     add(): void {
     this.router.navigate(['add']);
     }
-
 }

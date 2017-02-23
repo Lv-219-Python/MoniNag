@@ -13,7 +13,6 @@ import { CheckUpdateComponent } from './check-update.component';
 @Component({
     selector: 'checkdetail-app',
     template: `
-
     <div *ngIf="check"><div>
     <h6>Name:{{check.name}}</h6>
     <h6>Run frequency:{{check.run_freq}} min</h6>

@@ -3,14 +3,13 @@ import { Location } from '@angular/common';
 
 import { Check } from './check';
 import { ChecksService } from './checks.service';
-import { Service } from './service';
+import { Service } from './services/services';
 
 
 
 @Component({
     selector: 'checkadd-app',
     template: `
-
     <div class="container">
         <form>
             <div class="form-group">

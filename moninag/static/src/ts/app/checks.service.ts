@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Check } from './check';
 import { Observable } from 'rxjs/Rx';
 import { Plugin } from './plugin';
-import { Service } from './service';
+import { Service } from './services/services';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -15,7 +15,6 @@ export class ChecksService {
     private checksUrl = 'api/1/check';
     private servicesUrl = 'api/1/service';
     private pluginsUrl = 'api/1/nagplugin';
-     
 
     getCheck(id: number): Observable<Check> {
         const url = `${this.checksUrl}/${id}`;
@@ -24,7 +23,6 @@ export class ChecksService {
             .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
- 
     getPlugins() : Observable<Plugin[]> {
         return this.http.get(this.pluginsUrl)
                         .map((res:Response) => res = res.json())
@@ -71,6 +69,3 @@ export class ChecksService {
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error')); 
     } 
 }
-            
-
-   

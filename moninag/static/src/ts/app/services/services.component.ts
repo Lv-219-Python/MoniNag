@@ -12,14 +12,14 @@ import { ServicesService } from './services.service';
     template: `
         <h2>Services</h2>  
         <div>  
-        <div *ngIf="server"><div>
-        <ul>
-            <li class="Box" *ngFor="let service of server.Services"
-                (click)="onSelect(service)" (click)="gotoDetail()">
-                {{service.name}}
-            </li>
-        </ul>
-        <button (click)="add()"> Add new service </button>
+            <div *ngIf="server"><div>
+            <ul>
+                <li class="Box" *ngFor="let service of server.Services"
+                    (click)="onSelect(service)" (click)="gotoDetail()">
+                    {{service.name}}
+                </li>
+            </ul>
+            <button (click)="add()"> Add new service </button>
         </div>
     `,
     providers: [ ServicesService ],
@@ -51,9 +51,9 @@ import { ServicesService } from './services.service';
 })
 
 export class ServicesComponent {
+
     services: Service[];
     selectedService: Service;
-
 
     constructor (
         private servicesService: ServicesService,
@@ -65,9 +65,11 @@ export class ServicesComponent {
     onSelect(service: Service): void {
         this.selectedService = service;
     }
+
     gotoDetail(): void {
         this.router.navigate(['/services', this.selectedService.id]);
     }
+
     add() {
         this.router.navigate(['service-add']);
     }

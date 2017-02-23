@@ -12,7 +12,6 @@ import { Plugin } from './plugin';
 @Component({
     selector: 'checkupdate-app',
     template: `
-
     <div *ngIf="check"><div>
     <h6>Name:</h6>
     <input [(ngModel)]="check.name" placeholder="{{check.name}}" />
@@ -45,7 +44,6 @@ import { Plugin } from './plugin';
 
 export class CheckUpdateComponent implements OnInit{
 
-
     constructor(
         private checksService: ChecksService,
         private location: Location
@@ -53,12 +51,10 @@ export class CheckUpdateComponent implements OnInit{
 
     @Input() check: Check;
 
-
     plugins : Plugin[];
 
     loadPlugins(){
          this.checksService.getPlugins().subscribe(plugins => this.plugins = plugins["response"]);
-                                        
     }                                     
     
     ngOnInit(): void {
@@ -71,7 +67,5 @@ export class CheckUpdateComponent implements OnInit{
 
     goBack(): void {
         this.location.back();
-    }
-
-    
-}                                           
+    }    
+}
