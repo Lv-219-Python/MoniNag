@@ -1,13 +1,15 @@
 from json import loads
-
 from django.contrib import auth as authentication
 from django.core.validators import validate_email
+from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from moninag.settings import DEFAULT_FROM_EMAIL, DEFAULT_HOST
-from registration.utils.send_email import generate_activation_key, send_activation_email
+from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
 from registration.models import CustomUser
+from registration.utils.send_email import send_activation_email, generate_activation_key, send_reset_password_email
 
 
 def auth(request):
@@ -61,6 +63,7 @@ def register_user(request):
 
         data = loads(request.body.decode('utf-8'))
         email = data.get('email')
+
         try:
             validate_email(email)
             try:
@@ -86,3 +89,68 @@ def register_user(request):
         return JsonResponse(json)
 
     return render(request, 'registration/register.html')
+
+
+def request_password_reset(request):
+    if request.method == 'POST':
+        json = {
+            'error': {},
+            'message': {},
+            'success': False,
+        }
+
+        data = loads(request.body.decode('utf-8'))
+        email = data.get('email').strip().lower()
+
+        try:
+            validate_email(email)
+            try:
+
+                user = CustomUser.objects.get(email=email)
+
+                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+                token = default_token_generator.make_token(user)
+
+                send_reset_password_email( DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, uidb64, token )
+
+                json['success'] = True
+                json['message'] = "An email has been sent to " + user.email +". Please check its inbox to continue reseting password."
+
+            except CustomUser.DoesNotExist:
+                json['error'] = "No user is associated with this email address"
+
+        except:
+            json['error'] = "The email address you've entered has not a valid format"
+
+        return JsonResponse(json)
+    return render(request, 'registration/password_reset.html')
+
+
+def confirm_password_reset(request, uidb64=None, token=None):
+    if request.method == 'POST':
+        json = {
+            'error': {},
+            'message': {},
+            'success': False,
+        }
+        data = loads(request.body.decode('utf-8'))
+        uidb64 = data.get('uidb64')
+        token = data.get('token')
+
+        assert uidb64 is not None and token is not None
+        try:
+            uid = urlsafe_base64_decode(uidb64)
+            user = CustomUser.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
+            user = None
+        if user is not None and default_token_generator.check_token(user, token):
+            new_password = data.get('password')
+            user.set_password(new_password)
+            user.save()
+            json['message'] = "Password has been reset. In 5 seconds you will be redirected to the login page."
+            json['success'] = True
+            return JsonResponse(json)
+        else:
+            return HttpResponse('The reset password link is no longer valid.', status=403)
+
+    return render(request, 'registration/password_reset_confirm.html')

@@ -1,22 +1,23 @@
-<div class="col-md-4 col-md-offset-4">
-    <h2>Sign In</h2>
+<div class="flex-container auth-form" fxLayout="column" fxFlex="100%" fxFlex.sm="100%">
+    <h2 fxLayout="row" fxLayoutAlign="center" fxFlex="100%">Sign In to MoniNag</h2>
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
-            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+        <div class="form-group" fxLayout="row" fxLayoutAlign="start center" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+            <label for="email" fxFlex="20%">Email</label>
+            <input type="email" fxFlex="80%" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+        <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+        <div class="form-group" fxLayout="row" fxLayoutAlign="start center" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label for="password" fxFlex="20%">Password</label>
+            <input type="password" fxFlex="80%" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
         </div>
-        <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Sign In</button>
-            <div class="pull-right">
-                Don't have an account yet?
-                <a [routerLink]="['/auth/register_user']" class="btn btn-link">Sign Up</a>
+        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+        <div class="form-group margin-top-2em" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+                Don't have an account yet?&nbsp;&nbsp;
+                <a [routerLink]="['/auth/register_user']" class="btn-link">Sign Up</a><br>
+                <a [routerLink]="['/auth/reset_password']" class="btn-link">Forgot your password?</a><br>
             </div>
+            <button [disabled]="loading" class="btn btn-success">Sign In</button>
         </div>
     </form>
 </div>
