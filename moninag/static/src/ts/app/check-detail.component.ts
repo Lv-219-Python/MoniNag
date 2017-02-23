@@ -5,9 +5,9 @@ import { Location } from '@angular/common';
 import { Router }            from '@angular/router';
 
 
-import { CheckUpdateComponent } from './check-update.component';
 import { Check } from './check';
 import { ChecksService } from './checks.service';
+import { CheckUpdateComponent } from './check-update.component';
 
 
 @Component({

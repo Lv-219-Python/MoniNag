@@ -1,12 +1,12 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 import { Check } from './check';
-import { Plugin } from './plugin';
 import { CheckListComponent } from './check-list.component';
 import { ChecksService } from './checks.service';
+import { Plugin } from './plugin';
 
 
 @Component({

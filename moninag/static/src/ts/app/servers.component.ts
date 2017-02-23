@@ -1,9 +1,9 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Server, states } from './servers/model';
 import { ServersService } from './servers/service';
 import { ServersEditComponent } from './servers/edit-server.component'
-import { Server, states } from './servers/model';
 
 
 @Component({

@@ -1,58 +1,58 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module';
 
-import { CheckListComponent } from './check-list.component';
-import { CheckDetailComponent } from './check-detail.component';
-import { CheckUpdateComponent } from './check-update.component';
 import { CheckAddComponent } from './check-add.component';
+import { CheckDetailComponent } from './check-detail.component';
+import { CheckListComponent } from './check-list.component';
+import { CheckUpdateComponent } from './check-update.component';
 import { ChecksService } from './checks.service';
 
+import { ServerComponent } from './servers/server.component';
 import { ServersComponent } from './servers.component';
 import { ServersEditComponent } from './servers/edit-server.component';
 import { ServersService } from './servers/service';
-import { ServerComponent } from './servers/server.component';
 
+import { ServiceAddComponent } from './services/service-add.component';
+import { ServiceDetailComponent } from './services/service-detail.component';
 import { ServicesComponent } from './services/services.component';
 import { ServicesService } from './services/services.service';
-import { ServiceDetailComponent } from './services/service-detail.component';
 
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserProfileService } from './user-profile/user-profile.service';
 
-import { ServiceAddComponent } from './services/service-add.component';
 @NgModule({
     imports: [
+        AppRoutingModule,
         BrowserModule,
         FormsModule,
         HttpModule,
-        AppRoutingModule,
         JsonpModule,
         ReactiveFormsModule
     ],
 
     declarations: [
         AppComponent,
-        CheckListComponent,
-        CheckDetailComponent,
-        CheckUpdateComponent,
         CheckAddComponent,
-        ServersComponent,
+        CheckDetailComponent,
+        CheckListComponent,
+        CheckUpdateComponent,
         ServerComponent,
+        ServersComponent,
         ServersEditComponent,
-        ServicesComponent,
-        UserProfileComponent,
+        ServiceAddComponent,
         ServiceDetailComponent,
-        ServiceAddComponent
+        ServicesComponent,
+        UserProfileComponent
     ],
     providers: [
         ChecksService,
-        ServicesService,
         ServersService,
+        ServicesService,
         UserProfileService,
     ],
 

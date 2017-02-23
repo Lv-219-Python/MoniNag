@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { ServicesService } from './services.service';
 import { Observable } from 'rxjs/Observable';
+
+import { Server } from '../servers/model';
 import { Service } from './services';
 import { ServiceAddComponent } from './service-add.component';
-import { Server } from '../servers/model';
+import { ServicesService } from './services.service';
 
 @Component({
     selector: 'services-app',

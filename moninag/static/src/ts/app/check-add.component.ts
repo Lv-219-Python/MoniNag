@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { Check } from './check';
-import { Service } from './service';
 import { ChecksService } from './checks.service';
+import { Service } from './service';
 
 
 
