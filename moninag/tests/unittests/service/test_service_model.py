@@ -45,11 +45,15 @@ class ServiceTest(TestCase):
                                server=server)
 
     def test_service_update(self):
+        """Ensure that update method updates service"""
+
         ser1 = Service.objects.get(name="service1")
         ser1.update(name="service2")
         self.assertEqual(ser1.name, "service2")
 
     def test_service_create(self):
+        """Ensure that create method creates service"""
+
         server = Server.objects.get(id=1)
         Service.create("service_new", server, "ok")
         service = Service.objects.get(name="service_new")
@@ -59,27 +63,41 @@ class ServiceTest(TestCase):
         self.assertEqual(service.server, server)
 
     def test_service_get_by_id(self):
+        """Ensure that get by id method returns service with specific id"""
+
         actual = Service.objects.get(id=30)
         expect = Service.get_by_id(30)
         self.assertEqual(expect, actual)
 
     def test_service_get_by_server_id(self):
+        """Ensure that get by server id method 
+        returns services of server with specific id"""
+
         server = Server.objects.get(id=1)
         actual = Service.objects.filter(server=server)
         expect = Service.get_by_server_id(1)
         self.assertQuerysetEqual(expect, map(repr, actual), ordered=False)
 
     def test_service_get_by_user_id(self):
+        """Ensure that get by user id method 
+        returns services of user with specific id"""
+
         actual = Service.objects.filter(server__user__id=3)
         expect = Service.get_by_user_id(3)
         self.assertQuerysetEqual(expect, map(repr, actual), ordered=False)
 
     def test_service_get_by_statuses(self):
+        """Ensure that get by statuses method 
+        returns services with specific statuses"""
+
         actual = Service.objects.filter(status__in=["ok"])
         expect = Service.get_by_statuses(["ok"])
         self.assertQuerysetEqual(expect, map(repr, actual), ordered=False)
 
     def test_service_to_dict(self):
+        """Ensure that to_dict methods 
+        creates a proper dict from service"""
+
         service = Service.objects.get(id=30)
         actual = {
             'id': 30,
@@ -91,6 +109,9 @@ class ServiceTest(TestCase):
         self.assertEqual(expect, actual)
 
     def test_service__str__(self):
+        """Ensure that __str__ method 
+        creates a proper str representation of a service"""
+
         service = Service.objects.get(id=20)
         actual = 'Service id: 20, name: service1, status: ok'
         expect = service.__str__()

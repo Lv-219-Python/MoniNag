@@ -8,16 +8,6 @@ from server.models import Server
 from service.models import Service
 
 
-def to_dict(service):
-
-    return {
-        'id': service.id,
-        'name': service.name,
-        'status': service.status,
-        'server_id': service.server.id
-    }
-
-
 class TestServiceView(TestCase):
 
     def setUp(self):
@@ -81,6 +71,8 @@ class TestServiceView(TestCase):
         self.client.login(username='email@gmail.com', password='qwerty')
 
     def test_get_services(self):
+        """Ensure that GET method returns all services 
+        for authenticated user and 200 status"""
 
         url = reverse('service')
         actual_response = self.client.get(url)
@@ -98,13 +90,15 @@ class TestServiceView(TestCase):
                              expected_response)
 
     def test_get_service(self):
+        """Ensure that GET method returns specific service
+        for authenticated user and 200 status"""
 
         url = reverse('service', args=[11])
         actual_response = self.client.get(url)
 
         expected_response = {}
         service = Service.objects.get(id=11)
-        expected_response['response'] = to_dict(service)
+        expected_response['response'] = service.to_dict()
         expected_response = json.dumps(expected_response)
 
         self.assertEqual(actual_response.status_code, 200)
@@ -112,6 +106,8 @@ class TestServiceView(TestCase):
                              expected_response)
 
     def test_get_not_existing_service(self):
+        """Ensure that GET method returns 404 status
+        if the service doesn't exist"""
 
         url = reverse('service', args=[44])
         actual_response = self.client.get(url)
@@ -119,6 +115,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 404)
 
     def test_get_not_user_service(self):
+        """Ensure that GET method returns 403 status
+        if the service doesn't belong to user"""
 
         url = reverse('service', args=[33])
         actual_response = self.client.get(url)
@@ -126,6 +124,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 403)
 
     def test_post(self):
+        """Ensure that POST method updates server
+        and returns 201 status"""
 
         url = reverse('service')
         data = json.dumps({'name': 'Service',
@@ -135,7 +135,7 @@ class TestServiceView(TestCase):
                                            content_type='application/json')
         service = Service.objects.get(name='Service')
         expected_response = {}
-        expected_response['response'] = to_dict(service)
+        expected_response['response'] = service.to_dict()
         expected_response = json.dumps(expected_response)
 
         self.assertEqual(actual_response.status_code, 201)
@@ -143,6 +143,8 @@ class TestServiceView(TestCase):
                              expected_response)
 
     def test_post_invalid_format(self):
+        """Ensure that POST method returns 400 status
+        if json has invalid format"""
 
         url = reverse('service')
         data = json.dumps({'name': 'Service'})
@@ -153,6 +155,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 400)
 
     def test_post_not_existing_server(self):
+        """Ensure that POST method returns 404 status
+        if the server of the service doen't exist"""
 
         url = reverse('service')
         data = json.dumps({'name': 'Service101',
@@ -165,6 +169,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 404)
 
     def test_post_not_user_server(self):
+        """Ensure that POST method returns 403 status
+        if the server of the service doesn't belong to user"""
 
         url = reverse('service')
         data = json.dumps({'name': 'Service101',
@@ -177,6 +183,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 403)
 
     def test_put(self):
+        """Ensure that PUT method creates a new service
+        and returns 200 status"""
 
         url = reverse('service', args=[11])
         data = json.dumps({'name': 'Service101',
@@ -187,7 +195,7 @@ class TestServiceView(TestCase):
 
         service = Service.objects.get(id=11)
         expected_response = {}
-        expected_response['response'] = to_dict(service)
+        expected_response['response'] = service.to_dict()
         expected_response = json.dumps(expected_response)
 
         self.assertEqual(actual_response.status_code, 200)
@@ -195,6 +203,8 @@ class TestServiceView(TestCase):
                              expected_response)
 
     def test_put_invalid_format(self):
+        """Ensure that PUT method returns 400 status
+        if json has invalid format"""
 
         url = reverse('service', args=[11])
         data = json.dumps({'name': 'Service101',
@@ -207,6 +217,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 400)
 
     def test_put_not_existing_service(self):
+        """Ensure that PUT method returns 404 status
+        if the service with given id doesn't exist"""
 
         url = reverse('service', args=[44])
         data = json.dumps({'name': 'Service101',
@@ -218,6 +230,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 404)
 
     def test_put_not_user_service(self):
+        """Ensure that PUT method returns 403 status
+        if the service with given id doesn't belong to user"""
 
         url = reverse('service', args=[33])
         data = json.dumps({'name': 'Service101',
@@ -229,6 +243,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 403)
 
     def test_delete(self):
+        """Ensure that DELETE method deletes the service
+        and returns 200 status"""
 
         url = reverse('service', args=[11])
         actual_response = self.client.delete(url)
@@ -237,6 +253,9 @@ class TestServiceView(TestCase):
         self.assertEqual(len(Service.objects.all()), 2)
 
     def test_delete_not_user_service(self):
+        """Ensure that DELETE method doesnt delete the service
+        and returns 403 status
+        if this service doesn't belong to user"""
 
         url = reverse('service', args=[33])
         actual_response = self.client.delete(url)
@@ -244,6 +263,8 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 403)
 
     def test_delete_not_existing_service(self):
+        """Ensure that DELETE method returns 404 status
+        if the service doesn't exist"""
 
         url = reverse('service', args=[44])
         actual_response = self.client.delete(url)
