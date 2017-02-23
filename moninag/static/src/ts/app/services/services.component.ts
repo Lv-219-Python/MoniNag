@@ -1,22 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { ServicesService } from './services.service';
 import { Observable } from 'rxjs/Observable';
+
+import { Server } from '../servers/model';
 import { Service } from './services';
 import { ServiceAddComponent } from './service-add.component';
+import { ServicesService } from './services.service';
+
 @Component({
     selector: 'services-app',
     template: `
         <h2>Services</h2>  
         <div>  
-        <ul>
-            <li class="Box" *ngFor="let service of services"
-                (click)="onSelect(service)" (click)="gotoDetail()">
-                {{service.name}}
-            </li>
-        </ul>
-        <button (click)="add()"> Add new service </button>
+            <div *ngIf="server"><div>
+            <ul>
+                <li class="Box" *ngFor="let service of server.Services"
+                    (click)="onSelect(service)" (click)="gotoDetail()">
+                    {{service.name}}
+                </li>
+            </ul>
+            <button (click)="add()"> Add new service </button>
         </div>
     `,
     providers: [ ServicesService ],
@@ -47,31 +50,26 @@ import { ServiceAddComponent } from './service-add.component';
     `]
 })
 
-export class ServicesComponent implements OnInit {
+export class ServicesComponent {
+
     services: Service[];
     selectedService: Service;
 
-    
     constructor (
         private servicesService: ServicesService,
         private router: Router
     ) {}
 
-
-    ngOnInit() { 
-        this.getServices(); 
-    }
-
-    getServices() {
-        this.servicesService.getServices().subscribe(services => this.services = services);
-    }    
+    @Input() server: Server[];
 
     onSelect(service: Service): void {
         this.selectedService = service;
     }
+
     gotoDetail(): void {
         this.router.navigate(['/services', this.selectedService.id]);
     }
+
     add() {
         this.router.navigate(['service-add']);
     }

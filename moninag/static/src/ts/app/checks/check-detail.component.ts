@@ -5,15 +5,14 @@ import { Location } from '@angular/common';
 import { Router }            from '@angular/router';
 
 
-import { CheckUpdateComponent } from './check-update.component';
 import { Check } from './check';
 import { ChecksService } from './checks.service';
+import { CheckUpdateComponent } from './check-update.component';
 
 
 @Component({
     selector: 'checkdetail-app',
     template: `
-
     <div *ngIf="check"><div>
     <h6>Name:{{check.name}}</h6>
     <h6>Run frequency:{{check.run_freq}} min</h6>
@@ -26,7 +25,7 @@ import { ChecksService } from './checks.service';
     <button (click)="onSelect(check)">Edit</button>
     <button (click)="delete()">Delete</button>
     <div *ngIf="selectedCheck">
-    <checkupdate-app [check]='check'> </checkupdate-app>
+        <checkupdate-app [check]='check'> </checkupdate-app>
     <div>
     `,
 

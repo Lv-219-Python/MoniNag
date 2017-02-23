@@ -2,15 +2,14 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { Check } from './check';
-import { Service } from './service';
 import { ChecksService } from './checks.service';
+import { Service } from '../services/services';
 
 
 
 @Component({
     selector: 'checkadd-app',
     template: `
-
     <div class="container">
         <form>
             <div class="form-group">
@@ -54,7 +53,7 @@ import { ChecksService } from './checks.service';
 export class CheckAddComponent {
 
     model = new Check(10, '', null, null, null , null);
-    
+
     constructor (
         private checksService: ChecksService,
         private location: Location
@@ -66,7 +65,7 @@ export class CheckAddComponent {
     loadPlugins(){
         this.checksService.getPlugins().subscribe(plugins => this.plugins = plugins["response"]);
                                         
-    } 
+    }
 
     ngOnInit(): void {
         this.loadPlugins();
@@ -82,6 +81,4 @@ export class CheckAddComponent {
     goBack(): void {
         this.location.back();
     }
-
-
 }

@@ -1,17 +1,17 @@
+import { HttpModule, JsonpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HttpModule, JsonpModule } from '@angular/http';
 
-import { CheckListComponent } from './check-list.component';
-import { CheckDetailComponent } from './check-detail.component';
-import { CheckUpdateComponent } from './check-update.component';
 import { CheckAddComponent } from './check-add.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CheckDetailComponent } from './check-detail.component';
+import { CheckListComponent } from './check-list.component';
+import { CheckUpdateComponent } from './check-update.component';
 import { ServersComponent } from './servers.component';
 import { ServersEditComponent } from './servers/edit-server.component';
+import { ServiceAddComponent } from './services/service-add.component';
 import { ServicesComponent } from './services/services.component';
 import { ServiceDetailComponent } from './services/service-detail.component';
-import { ServiceAddComponent } from './services/service-add.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const APP_ROUTES: Routes = [
     {

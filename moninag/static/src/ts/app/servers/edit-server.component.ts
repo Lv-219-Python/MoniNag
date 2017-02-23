@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 
 import { Server, states } from './model';
 import { ServersService } from './service';
-
+import { ServicesComponent } from '../services/services.component';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -20,6 +20,7 @@ import 'rxjs/add/operator/switchMap';
     <button (click)="goBack()">Back</button>
     <button (click)="save()">Save</button>
     <button (click)="delete()">x</button>
+    <services-app [server]='server'></services-app>
     `,
     providers: [
         ServersService

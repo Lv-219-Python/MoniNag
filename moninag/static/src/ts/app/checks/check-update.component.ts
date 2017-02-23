@@ -1,18 +1,17 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 import { Check } from './check';
-import { Plugin } from './plugin';
 import { CheckListComponent } from './check-list.component';
 import { ChecksService } from './checks.service';
+import { Plugin } from './plugin';
 
 
 @Component({
     selector: 'checkupdate-app',
     template: `
-
     <div *ngIf="check"><div>
     <h6>Name:</h6>
     <input [(ngModel)]="check.name" placeholder="{{check.name}}" />
@@ -45,7 +44,6 @@ import { ChecksService } from './checks.service';
 
 export class CheckUpdateComponent implements OnInit{
 
-
     constructor(
         private checksService: ChecksService,
         private location: Location
@@ -53,12 +51,10 @@ export class CheckUpdateComponent implements OnInit{
 
     @Input() check: Check;
 
-
     plugins : Plugin[];
 
     loadPlugins(){
          this.checksService.getPlugins().subscribe(plugins => this.plugins = plugins["response"]);
-                                        
     }                                     
     
     ngOnInit(): void {
@@ -71,7 +67,5 @@ export class CheckUpdateComponent implements OnInit{
 
     goBack(): void {
         this.location.back();
-    }
-
-    
-}                                           
+    }    
+}
