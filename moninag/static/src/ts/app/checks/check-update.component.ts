@@ -36,11 +36,9 @@ import { Plugin } from './plugin';
     <button (click)="goBack()">Cancel</button>
     <button (click)="save()">Save</button>
     `,
-
-    providers: [
-        ChecksService
-    ],
+    providers: [ChecksService],
 })
+
 
 export class CheckUpdateComponent implements OnInit{
 
@@ -54,7 +52,8 @@ export class CheckUpdateComponent implements OnInit{
     plugins : Plugin[];
 
     loadPlugins(){
-         this.checksService.getPlugins().subscribe(plugins => this.plugins = plugins["response"]);
+         this.checksService.getPlugins()
+             .subscribe(plugins => this.plugins = plugins["response"]);
     }                                     
     
     ngOnInit(): void {

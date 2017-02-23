@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Check } from './check';
 import { CheckAddComponent } from './check-add.component';
 import { ChecksService } from './checks.service';
 import { Observable } from 'rxjs/Observable';
-import { Check } from './check';
-import { Service } from '../services/services';
 import { Plugin } from './plugin';
+import { Service } from '../services/services';
 
 
 @Component({ 
@@ -31,50 +31,45 @@ import { Plugin } from './plugin';
                 </tbody>
             </table>
         </ul>
-      
-    <button (click)="add()"> Add new check </button>
-    <button (click)="onSelect(check)">Edit</button>
-    <button (click)="delete()">Delete</button>
-    <div *ngIf="selectedCheck">
-    <checkupdate-app [check]='check'> </checkupdate-app>
+        <button (click)="onSelect2(service)"> Add new check </button>
+        <div *ngIf="selectedService">
+            <checkadd-app></checkadd-app>
+        </div>
     </div>
     `,
-
-    providers: [
-        ChecksService
-    ],
-
+    providers: [ChecksService],
     styles: [`
        table, th, td {
            border: 1px solid black;}`
     ]
 })
 
+
 export class CheckListComponent {
 
     constructor(
         private checksService: ChecksService,
         private router: Router
-    ){}
+    ) {}
 
     @Input() service: Service[];
 
+    checks: Check[];
+    plugin: Plugin;
     
-    checks : Check[];
-    plugin : Plugin;
-    
-    selectedCheck : Check;
+    selectedCheck: Check;
+    selectedService: Service;
 
     onSelect(check: Check): void {
         this.selectedCheck = check;
     }
 
-    gotoDetail(): void {
-    this.router.navigate(['/checks', this.selectedCheck.id]);
+    onSelect2(service: Service): void {
+        this.selectedService = service;
     }
 
-    add(): void {
-    this.router.navigate(['add']);
+    gotoDetail(): void {
+    this.router.navigate(['/checks', this.selectedCheck.id]);
     }
 }
 

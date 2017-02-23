@@ -6,11 +6,11 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module';
 
-import { CheckAddComponent } from './check-add.component';
-import { CheckDetailComponent } from './check-detail.component';
-import { CheckListComponent } from './check-list.component';
-import { CheckUpdateComponent } from './check-update.component';
-import { ChecksService } from './checks.service';
+import { CheckAddComponent } from './checks/check-add.component';
+import { CheckDetailComponent } from './checks/check-detail.component';
+import { CheckListComponent } from './checks/check-list.component';
+import { CheckUpdateComponent } from './checks/check-update.component';
+import { ChecksService } from './checks/checks.service';
 
 import { ServerComponent } from './servers/server.component';
 import { ServersComponent } from './servers.component';

@@ -6,7 +6,6 @@ import { ChecksService } from './checks.service';
 import { Service } from '../services/services';
 
 
-
 @Component({
     selector: 'checkadd-app',
     template: `
@@ -26,8 +25,7 @@ import { Service } from '../services/services';
             </div>
             <div class="form-group">
                 <label for="run_freq">Run frequency</label>
-                <select required
-                        [(ngModel)]="model.run_freq" name="run_freq">
+                <select required [(ngModel)]="model.run_freq" name="run_freq">
                     <option value=1>1 min</option>
                     <option value=5>5 min</option>
                     <option value=15>15 min</option>
@@ -37,9 +35,10 @@ import { Service } from '../services/services';
             </div>
             <div class="form-group">
                 <label for="plugin_id">Plugin</label>
-                <select required
-                        [(ngModel)]="model.plugin_id" name="plugin_id">
-                    <option *ngFor="let plugin of plugins" [value]="plugin.id">{{plugin.name}}</option>
+                <select required [(ngModel)]="model.plugin_id" name="plugin_id">
+                    <option *ngFor="let plugin of plugins" [value]="plugin.id">
+                        {{plugin.name}}
+                    </option>
                 </select>
             </div>
         </form>
@@ -47,24 +46,25 @@ import { Service } from '../services/services';
         <button type="submit" (click)="add(); goBack()">Submit</button>
     </div>
     `,
-    providers: [ ChecksService ]
+    providers: [ChecksService]
 })
+
 
 export class CheckAddComponent {
 
-    model = new Check(10, '', null, null, null , null);
+    model = new Check(10, '', null, null, null, null);
 
-    constructor (
+    constructor(
         private checksService: ChecksService,
         private location: Location
-        ) {}
+    ) {}
 
-    plugins : Plugin[];
-    services : Service[];
+    plugins: Plugin[];
+    services: Service[];
 
-    loadPlugins(){
-        this.checksService.getPlugins().subscribe(plugins => this.plugins = plugins["response"]);
-                                        
+    loadPlugins() {
+        this.checksService.getPlugins()
+            .subscribe(plugins => this.plugins = plugins["response"]);
     }
 
     ngOnInit(): void {
@@ -73,9 +73,7 @@ export class CheckAddComponent {
 
     add() {
         this.checksService.create(this.model)
-                          .subscribe(
-                              model => model = model
-                          );
+            .subscribe(model => model = model);
     }
 
     goBack(): void {

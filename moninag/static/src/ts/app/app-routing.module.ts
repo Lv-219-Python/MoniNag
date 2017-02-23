@@ -2,10 +2,10 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CheckAddComponent } from './check-add.component';
-import { CheckDetailComponent } from './check-detail.component';
-import { CheckListComponent } from './check-list.component';
-import { CheckUpdateComponent } from './check-update.component';
+import { CheckAddComponent } from './checks/check-add.component';
+import { CheckDetailComponent } from './checks/check-detail.component';
+import { CheckListComponent } from './checks/check-list.component';
+import { CheckUpdateComponent } from './checks/check-update.component';
 import { ServersComponent } from './servers.component';
 import { ServersEditComponent } from './servers/edit-server.component';
 import { ServiceAddComponent } from './services/service-add.component';

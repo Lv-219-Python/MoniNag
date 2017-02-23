@@ -1,17 +1,20 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Check } from './check';
 import { Observable } from 'rxjs/Rx';
-import { Plugin } from './plugin';
-import { Service } from '../services/services';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { Check } from './check';
+import { Plugin } from './plugin';
+import { Service } from '../services/services';
+
+
 @Injectable()
+
 export class ChecksService {
 
     constructor (private http: Http) {}
-     
+    
     private checksUrl = 'api/1/check';
     private servicesUrl = 'api/1/service';
     private pluginsUrl = 'api/1/nagplugin';

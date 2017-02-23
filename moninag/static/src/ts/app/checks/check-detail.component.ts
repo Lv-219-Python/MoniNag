@@ -1,9 +1,7 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { Router }            from '@angular/router';
-
+import 'rxjs/add/operator/switchMap';
 
 import { Check } from './check';
 import { ChecksService } from './checks.service';
@@ -13,7 +11,7 @@ import { CheckUpdateComponent } from './check-update.component';
 @Component({
     selector: 'checkdetail-app',
     template: `
-    <div *ngIf="check"><div>
+    <div *ngIf="check">
     <h6>Name:{{check.name}}</h6>
     <h6>Run frequency:{{check.run_freq}} min</h6>
     <h6>Plugin id:{{check.plugin_id}}</h6>
@@ -28,24 +26,20 @@ import { CheckUpdateComponent } from './check-update.component';
         <checkupdate-app [check]='check'> </checkupdate-app>
     <div>
     `,
-
-    providers: [
-        ChecksService
-    ],
+    providers: [ChecksService]
 })
 
-export class CheckDetailComponent implements OnInit{
 
+export class CheckDetailComponent implements OnInit{
 
     constructor(
         private checksService: ChecksService,
         private route: ActivatedRoute,
-        private location: Location,
-        private router: Router
+        private location: Location
     ) {}
 
     check: Check;
-    selectedCheck : Check;
+    selectedCheck: Check;
                                                 
     ngOnInit(): void {
         this.route.params
@@ -57,10 +51,6 @@ export class CheckDetailComponent implements OnInit{
         this.selectedCheck = check;
     }
 
-    update(): void {
-        this.router.navigate(['/checks/update', this.check.id]);
-    }
-
     delete(): void {
         this.checksService.remove(this.check.id)
             .subscribe(() => this.goBack());
@@ -70,3 +60,4 @@ export class CheckDetailComponent implements OnInit{
         this.location.back();
     }
 }
+ 

@@ -2,7 +2,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { CheckListComponent} from '../check-list.component';
+import { CheckListComponent} from '../checks/check-list.component';
 import { Service } from './services';
 import { ServicesService } from './services.service';
 
