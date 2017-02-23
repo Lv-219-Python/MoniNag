@@ -55,7 +55,15 @@ class ServiceView(View):
 
         checks = Check.get_by_service(service)
         data = service.to_dict()
-        data['checks'] = [check.to_dict() for check in checks]
+        data['checks'] = [{
+                            'id': check.id,
+                            'name': check.name,
+                            'plugin_id': check.plugin.id,
+                            'plugin_name': check.plugin.name,
+                            'target_port': check.target_port,
+                            'run_freq': check.run_freq,
+                            'service_id': check.service.id,
+                            } for check in checks]
         json_response['response'] = data
         # json_response['response'] = service.to_dict()
         # json_response['response'].append(check.to_dict() for check in checks)
@@ -90,7 +98,7 @@ class ServiceView(View):
 
         REQUIREMENTS = {'name', 'status', 'server_id'}
 
-        service_params = json.loads(request.body.decode('utf-8'))
+        service_params = json.loads(request.body.decode('utf-8')) 
 
         if not validate_dict(service_params, REQUIREMENTS):
             json_response['error'] = 'Incorrect JSON format.'

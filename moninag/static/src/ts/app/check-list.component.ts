@@ -26,14 +26,18 @@ import { Plugin } from './plugin';
                 <tbody>
                     <tr>
                         <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.name}}</li></td>
-                        <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.plugin_id}}</li></td>
+                        <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.plugin_name}}</li></td>
                         <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.status}}</li></td>
                     </tr>
                 </tbody>
             </table>
         </ul>
-    </div>
+      
     <button (click)="add()"> Add new check </button>
+    <button (click)="onSelect(check)">Edit</button>
+    <button (click)="delete()">Delete</button>
+    <div *ngIf="selectedCheck">
+    <checkupdate-app [check]='check'> </checkupdate-app>
             `,
 
     providers: [
@@ -66,10 +70,6 @@ export class CheckListComponent {
 
     gotoDetail(): void {
     this.router.navigate(['/checks', this.selectedCheck.id]);
-    }
-
-    add(): void {
-    this.router.navigate(['add']);
     }
 
 }

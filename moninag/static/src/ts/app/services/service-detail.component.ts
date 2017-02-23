@@ -27,11 +27,11 @@ import { CheckListComponent} from '../check-list.component';
             <div>
                 <label>server id: </label>{{service.server_id}}
             </div>
-        </div>
         <button (click)="goBack()">Back</button>
         <button (click)="save()">Save</button>
         <button (click)="delete()">Delete</button>
         <checks-list [service]='service'> </checks-list>
+        </div>
     `,
     providers: [ ServicesService ]
 })
