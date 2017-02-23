@@ -19,6 +19,7 @@ import { ServicesService } from './services/services.service';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ServiceDetailComponent } from './services/service-detail.component';
+import { ServiceAddComponent } from './services/service-add.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -37,7 +38,8 @@ import { ServiceDetailComponent } from './services/service-detail.component';
         ServersComponent,
         ServicesComponent,
         UserProfileComponent,
-        ServiceDetailComponent
+        ServiceDetailComponent,
+        ServiceAddComponent
     ],
     providers: [
         ChecksService,

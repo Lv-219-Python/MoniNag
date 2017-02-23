@@ -67,13 +67,11 @@ export class ChecksService {
             service_id: check.service_id
         }
         return this.http.post(url, new_check, options)
-
                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     remove(id:number): Observable<Check[]> {
         return this.http.delete(`${this.checksUrl}/${id}`)
-
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error')); 
     } 
 }

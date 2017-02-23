@@ -12,7 +12,7 @@ import { ServicesService } from './services.service';
             <h3>Service Details</h3>
             <div>
                 <label>name: </label>
-                <input [(ngModel)]="service.name" placeholder="name"/>
+                <input [(ngModel)]="service.name" placeholder="{{service.name}}"/>
             </div>
 
             <div>
@@ -28,6 +28,8 @@ import { ServicesService } from './services.service';
             </div>
         </div>
         <button (click)="goBack()">Back</button>
+        <button (click)="save()">Save</button>
+        <button (click)="delete()">Delete</button>
     `,
     providers: [ ServicesService ]
 })
@@ -41,7 +43,7 @@ export class ServiceDetailComponent implements OnInit {
         private servicesService: ServicesService
         ) {}
 
-    service: Service[];
+    service: Service;
     selectedService: Service;
 
     ngOnInit(): void {
@@ -55,6 +57,13 @@ export class ServiceDetailComponent implements OnInit {
     onSelect(service: Service): void {
         this.selectedService = service;
     }    
+    save(): void {
+        this.servicesService.update(this.service)
+                            .subscribe(() => this.goBack());
+    }
+    delete(): void {
+        this.servicesService.remove(this.service.id)
+            .subscribe(() => this.goBack());
+    } 
 }
 
-        // <button (click)="save()">Save</button>

@@ -50,7 +50,7 @@ export class CheckDetailComponent implements OnInit{
     }
 
     update(): void {
-    this.router.navigate(['/checks/update', this.check.id]);
+        this.router.navigate(['/checks/update', this.check.id]);
     }
 
     delete(): void {
@@ -59,6 +59,6 @@ export class CheckDetailComponent implements OnInit{
     } 
 
     goBack(): void {
-    this.location.back();
+        this.location.back();
     }
 }
