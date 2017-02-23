@@ -6,6 +6,8 @@ from django.views.generic.base import View
 from check.models import Check
 from nagplugin.models import NagPlugin
 from service.models import Service
+from server.models import Server
+
 from utils.validators import validate_dict, validate_subdict
 
 
