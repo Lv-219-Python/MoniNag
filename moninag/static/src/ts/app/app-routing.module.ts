@@ -33,9 +33,9 @@ const APP_ROUTES: Routes = [
         path: 'services/:id', 
         component: ServiceDetailComponent 
     },
-    {
-        path: 'checks',
-        component: CheckListComponent
+    { 
+        path: 'checks', 
+        component: CheckListComponent 
     },
     { 
         path: 'checks/:id', 

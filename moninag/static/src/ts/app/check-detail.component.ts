@@ -1,10 +1,11 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Router }            from '@angular/router';
 
 
+import { CheckUpdateComponent } from './check-update.component';
 import { Check } from './check';
 import { ChecksService } from './checks.service';
 
@@ -18,10 +19,15 @@ import { ChecksService } from './checks.service';
     <h6>Run frequency:{{check.run_freq}} min</h6>
     <h6>Plugin id:{{check.plugin_id}}</h6>
     <h6>Target port:{{check.target_port}}</h6>
-    <h6>Service id:{{check.service_id}}</h6>
-    <button (click)="goBack()">Back</button>
-    <button (click)="update()">Update</button>
+    <h6>Last run:</h6>
+    <h6>Output:</h6>
+    <h6>Status:</h6>
+    <h6>Active:</h6>
+    <button (click)="onSelect(check)">Edit</button>
     <button (click)="delete()">Delete</button>
+    <div *ngIf="selectedCheck">
+    <checkupdate-app [check]='check'> </checkupdate-app>
+    <div>
     `,
 
     providers: [
@@ -39,14 +45,17 @@ export class CheckDetailComponent implements OnInit{
         private router: Router
     ) {}
 
-
-    check : Check;
+    check: Check;
     selectedCheck : Check;
                                                 
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.checksService.getCheck(+params['id']))
             .subscribe(check => this.check = check["response"]); 
+    }
+
+     onSelect(check: Check): void {
+        this.selectedCheck = check;
     }
 
     update(): void {

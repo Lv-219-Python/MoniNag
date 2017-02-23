@@ -1,9 +1,7 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-
 
 import { Check } from './check';
 import { Plugin } from './plugin';
@@ -34,7 +32,9 @@ import { ChecksService } from './checks.service';
     </select>
     <h6>Target port:</h6>
     <input [(ngModel)]="check.target_port" placeholder="{{check.target_port}}" />
-    <button (click)="goBack()">Back</button>
+    <h6>Active:</h6>
+    <input type="checkbox" name="not-active" value="False"> Deactivate <br>
+    <button (click)="goBack()">Cancel</button>
     <button (click)="save()">Save</button>
     `,
 
@@ -48,13 +48,13 @@ export class CheckUpdateComponent implements OnInit{
 
     constructor(
         private checksService: ChecksService,
-        private route: ActivatedRoute,
         private location: Location
     ) {}
 
+    @Input() check: Check;
+
 
     plugins : Plugin[];
-    check : Check;
 
     loadPlugins(){
          this.checksService.getPlugins().subscribe(plugins => this.plugins = plugins["response"]);
@@ -63,14 +63,10 @@ export class CheckUpdateComponent implements OnInit{
     
     ngOnInit(): void {
         this.loadPlugins();
-        this.route.params
-            .switchMap((params: Params) => this.checksService.getCheck(+params['id']))
-            .subscribe(check => this.check = check["response"]); 
-        
     }
+
     save(): void {
         this.checksService.update(this.check)
-            .subscribe(() => this.goBack());
     } 
 
     goBack(): void {

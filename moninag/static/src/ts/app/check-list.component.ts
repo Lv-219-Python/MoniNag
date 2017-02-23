@@ -1,48 +1,64 @@
-import { Component, OnInit } from '@angular/core';
-import { Router }            from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CheckAddComponent } from './check-add.component';
 import { ChecksService } from './checks.service';
 import { Observable } from 'rxjs/Observable';
 import { Check } from './check';
+import { Service } from './service';
+import { Plugin } from './plugin';
+
 
 @Component({ 
-    selector:'checks-app',
+    selector:'checks-list',
     template:`
-            <ul>
-                <li *ngFor="let check of checks" (click)="onSelect(check); gotoDetail()" value= {{check.id}> 
-                {{check.name}}
-                </li>   
-            </ul>
-            <button (click)="add()"> Add new check </button>
+
+    <div class="table-responsive">
+        <ul style="list-style-type:none; padding:0">          
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Plugin name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.name}}</li></td>
+                        <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.plugin_id}}</li></td>
+                        <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.status}}</li></td>
+                    </tr>
+                </tbody>
+            </table>
+        </ul>
+    </div>
+    <button (click)="add()"> Add new check </button>
             `,
 
     providers: [
         ChecksService
     ],
+    styles: [`
+       table, th, td {
+           border: 1px solid black;}`
+    ]
 })
 
-export class CheckListComponent  implements OnInit {
+export class CheckListComponent {
 
     constructor(
         private checksService: ChecksService,
         private router: Router
     ){}
 
+    @Input() service: Service[];
+
     
     checks : Check[];
+    plugin : Plugin;
     
     selectedCheck : Check;
-
-    loadChecks(){
-        this.checksService.getChecks().subscribe(checks => this.checks = checks["response"]);
-                                        
-    }     
-
-    ngOnInit() {
-        this.loadChecks();
-            
-    }
 
     onSelect(check: Check): void {
         this.selectedCheck = check;
