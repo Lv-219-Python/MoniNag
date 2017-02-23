@@ -1,3 +1,4 @@
+"""This module holds collector daemon class"""
 import os
 import sys
 import time
@@ -58,14 +59,20 @@ class CollectorDaemon(Daemon):
             self.logger.info('Fetching Data')
             checks = Check.objects.all().order_by('id')
             for check in checks:
-                self.logger.debug('Check #{id}: (Name: {name}) (Service #:{service_id}) '
-                                  '(Plugin Name: {pluginname}) (Target Port: {targ_port}) '
-                                  '(Run Frequency: {run_freq}sec) '.format(id=check.id,
-                                                                           name=check.name,
-                                                                           service_id=check.service.id,
-                                                                           pluginname=check.plugin_name,
-                                                                           targ_port=check.target_port,
-                                                                           run_freq=check.run_freq))
+                self.logger.debug('Check #{id}: (Name: {name}) '
+                                  '(Check Status: {status}) '
+                                  '(Service #:{service_id}) '
+                                  '(Last Run: {last_run}) '
+                                  '(Plugin Name: {pluginname}) '
+                                  '(Target Port: {targ_port}) '
+                                  '(Frequency: {run_freq}sec)'.format(id=check.id,
+                                                                      name=check.name,
+                                                                      status=check.status,
+                                                                      service_id=check.service.id,
+                                                                      last_run=check.last_run,
+                                                                      pluginname=check.plugin.name,
+                                                                      targ_port=check.target_port,
+                                                                      run_freq=check.run_freq))
 
             self.logger.info('Fetching Finished. Number of '
                              'records: {amount}'.format(amount=Check.objects.all().count()))
