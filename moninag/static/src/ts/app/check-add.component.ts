@@ -54,7 +54,7 @@ import { ChecksService } from './checks.service';
 export class CheckAddComponent {
 
     model = new Check(10, '', null, null, null , null);
-    
+
     constructor (
         private checksService: ChecksService,
         private location: Location
@@ -66,7 +66,7 @@ export class CheckAddComponent {
     loadPlugins(){
         this.checksService.getPlugins().subscribe(plugins => this.plugins = plugins["response"]);
                                         
-    } 
+    }
 
     ngOnInit(): void {
         this.loadPlugins();
@@ -82,6 +82,4 @@ export class CheckAddComponent {
     goBack(): void {
         this.location.back();
     }
-
-
 }

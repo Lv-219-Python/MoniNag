@@ -54,21 +54,13 @@ export class ServicesComponent {
     services: Service[];
     selectedService: Service;
 
-    
+
     constructor (
         private servicesService: ServicesService,
         private router: Router
     ) {}
 
     @Input() server: Server[];
-
-    // ngOnInit() { 
-    //     this.getServices(); 
-    // }
-
-    // getServices() {
-    //     this.servicesService.getServices().subscribe(services => this.services = services);
-    // }    
 
     onSelect(service: Service): void {
         this.selectedService = service;

@@ -8,7 +8,6 @@ import { ServicesService } from './services.service';
 @Component({
     selector: 'serviceadd-app',
     template: `
-
     <div class="container">
         <form>
             <div class="form-group">
@@ -39,15 +38,12 @@ import { ServicesService } from './services.service';
 
 export class ServiceAddComponent {
 
-    model = new Service(10, '', null, null);
-    
+    model = new Service(0, '', null, null);
+
     constructor (
         private servicesService: ServicesService,
         private location: Location
         ) {}
-
-    ngOnInit(): void {
-    }
 
     add() {
         this.servicesService.create(this.model)
@@ -59,6 +55,4 @@ export class ServiceAddComponent {
     goBack(): void {
         this.location.back();
     }
-
-
 }
