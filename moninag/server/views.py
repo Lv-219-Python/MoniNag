@@ -50,9 +50,9 @@ class ServerView(View):
         if not server.user.id == request.user.id:
             # Server belongs to another user
             return HttpResponse(status=403)
-        service = Service.get_by_server(server)
+        services = Service.get_by_server(server)
         data = server.to_dict()
-        data['Service'] = [service.to_dict() for service in services]
+        data['Services'] = [service.to_dict() for service in services]
         json_response['response'] = data
         return JsonResponse(json_response, status=200)
 

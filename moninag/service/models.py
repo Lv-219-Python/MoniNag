@@ -80,6 +80,11 @@ class Service(models.Model):
         return service
 
     @staticmethod
+    def get_by_server(server):
+        services = Service.objects.filter(server=server)
+        return services
+
+    @staticmethod
     def get_by_user_id(user_id):
         """Get services for given user id.
 
