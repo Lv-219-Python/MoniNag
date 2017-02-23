@@ -7,4 +7,4 @@ export class Server {
     public userid: number
   ){}
 }
-export const states = ['NotSelected', 'Production', 'Stageing'];
+export const states = ['NotSelected', 'Production', 'Staging'];
