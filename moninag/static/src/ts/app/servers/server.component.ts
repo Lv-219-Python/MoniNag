@@ -29,6 +29,7 @@ import { Server, states } from './model';
   </div>
   `,
 providers: [ServersService]
+
 })
 export class ServerComponent {
 

@@ -26,7 +26,7 @@ import { ChecksService } from './checks.service';
     <button (click)="onSelect(check)">Edit</button>
     <button (click)="delete()">Delete</button>
     <div *ngIf="selectedCheck">
-    <checkupdate-app [check]='check'> </checkupdate-app>
+        <checkupdate-app [check]='check'> </checkupdate-app>
     <div>
     `,
 

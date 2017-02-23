@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ServicesService } from './services.service';
 import { Observable } from 'rxjs/Observable';
 import { Service } from './services';
 import { ServiceAddComponent } from './service-add.component';
+import { Server } from '../servers/model';
+
 @Component({
     selector: 'services-app',
     template: `
         <h2>Services</h2>  
         <div>  
+        <div *ngIf="server"><div>
         <ul>
-            <li class="Box" *ngFor="let service of services"
+            <li class="Box" *ngFor="let service of server.Services"
                 (click)="onSelect(service)" (click)="gotoDetail()">
                 {{service.name}}
             </li>
@@ -47,7 +50,7 @@ import { ServiceAddComponent } from './service-add.component';
     `]
 })
 
-export class ServicesComponent implements OnInit {
+export class ServicesComponent {
     services: Service[];
     selectedService: Service;
 
@@ -57,14 +60,15 @@ export class ServicesComponent implements OnInit {
         private router: Router
     ) {}
 
+    @Input() server: Server[];
 
-    ngOnInit() { 
-        this.getServices(); 
-    }
+    // ngOnInit() { 
+    //     this.getServices(); 
+    // }
 
-    getServices() {
-        this.servicesService.getServices().subscribe(services => this.services = services);
-    }    
+    // getServices() {
+    //     this.servicesService.getServices().subscribe(services => this.services = services);
+    // }    
 
     onSelect(service: Service): void {
         this.selectedService = service;
