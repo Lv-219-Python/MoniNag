@@ -3,11 +3,10 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
 
+from check.models import Check
 from server.models import Server
 from service.models import Service
 from utils.validators import validate_dict, validate_subdict
-
-from check.models import Check
 
 
 class ServiceView(View):
