@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Plugin } from './plugin';
 import { Check } from './check';
+import { Service } from './service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -12,7 +13,7 @@ export class ChecksService {
     constructor (private http: Http) {}
      
     private checksUrl = 'api/1/check';
-    private servicesUrl = 'api/1/service/';
+    private servicesUrl = 'api/1/service';
     private pluginsUrl = 'api/1/nagplugin';
      
 
@@ -30,16 +31,11 @@ export class ChecksService {
                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    getServices() : Observable<Plugin[]> {
-        return this.http.get(this.servicesUrl)
+    getChecks(id: number): Observable<Service> {
+        const url = `${this.servicesUrl}/${id}`;
+        return this.http.get(url)
                         .map((res:Response) => res = res.json())
                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-    }
-
-    getChecks() : Observable<Check[]> {
-        return this.http.get(this.checksUrl)
-                        .map((res:Response) => res = res.json())
-                        .catch((error:any) => Observable.throw(error.json().error || 'Server error'));                   
     }
 
     update(check:Check): Observable<Check[]> {

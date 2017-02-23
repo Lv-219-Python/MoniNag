@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Service } from './services';
 import { ServicesService } from './services.service';
+import { CheckListComponent} from '../check-list.component';
 
 @Component({
     selector: 'services-detail',
@@ -30,6 +31,7 @@ import { ServicesService } from './services.service';
         <button (click)="goBack()">Back</button>
         <button (click)="save()">Save</button>
         <button (click)="delete()">Delete</button>
+        <checks-list [service]='service'> </checks-list>
     `,
     providers: [ ServicesService ]
 })
@@ -43,6 +45,8 @@ export class ServiceDetailComponent implements OnInit {
         private servicesService: ServicesService
         ) {}
 
+
+
     service: Service;
     selectedService: Service;
 
@@ -50,10 +54,11 @@ export class ServiceDetailComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.servicesService.getService(+params['id']))
             .subscribe(service => this.service = service["response"]); 
-}
+    }
     goBack(): void {
         this.location.back();
     }
+
     onSelect(service: Service): void {
         this.selectedService = service;
     }    

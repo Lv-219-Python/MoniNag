@@ -43,13 +43,6 @@ import { ChecksService } from './checks.service';
                     <option *ngFor="let plugin of plugins" [value]="plugin.id">{{plugin.name}}</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="service_id">Service id</label>
-                <select required
-                        [(ngModel)]="model.service_id" name="service_id">
-                    <option *ngFor="let service of services" [value]="service.id">{{service.name}}</option>
-                </select>
-            </div>
         </form>
         <button (click)="goBack()">Back</button>
         <button type="submit" (click)="add(); goBack()">Submit</button>
@@ -75,14 +68,8 @@ export class CheckAddComponent {
                                         
     } 
 
-    loadServices(){
-        this.checksService.getServices().subscribe(services => this.services = services["response"]);
-
-    }                                    
-    
     ngOnInit(): void {
         this.loadPlugins();
-        this.loadServices();
     }
 
     add() {
