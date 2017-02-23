@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ServicesService } from './services.service';
 import { Observable } from 'rxjs/Observable';
 import { Service } from './services';
+import { ServiceAddComponent } from './service-add.component';
 @Component({
     selector: 'services-app',
     template: `
@@ -15,6 +16,7 @@ import { Service } from './services';
                 {{service.name}}
             </li>
         </ul>
+        <button (click)="add()"> Add new service </button>
         </div>
     `,
     providers: [ ServicesService ],
@@ -53,7 +55,7 @@ export class ServicesComponent implements OnInit {
     constructor (
         private servicesService: ServicesService,
         private router: Router
-        ) {}
+    ) {}
 
 
     ngOnInit() { 
@@ -68,6 +70,9 @@ export class ServicesComponent implements OnInit {
         this.selectedService = service;
     }
     gotoDetail(): void {
-    this.router.navigate(['/services', this.selectedService.id]);
-  }
+        this.router.navigate(['/services', this.selectedService.id]);
+    }
+    add() {
+        this.router.navigate(['service-add']);
+    }
 }

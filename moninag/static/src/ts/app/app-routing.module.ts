@@ -6,10 +6,12 @@ import { CheckListComponent } from './check-list.component';
 import { CheckDetailComponent } from './check-detail.component';
 import { CheckUpdateComponent } from './check-update.component';
 import { CheckAddComponent } from './check-add.component';
-import { ServersComponent } from './servers.component';
-import { ServicesComponent } from './services/services.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ServersComponent } from './servers.component';
+import { ServersEditComponent } from './servers/edit-server.component';
+import { ServicesComponent } from './services/services.component';
 import { ServiceDetailComponent } from './services/service-detail.component';
+import { ServiceAddComponent } from './services/service-add.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -26,33 +28,41 @@ const APP_ROUTES: Routes = [
         component: ServersComponent
     },
     {
+       path: 'server/:id',
+       component: ServersEditComponent
+    },
+    {
         path: 'services',
         component: ServicesComponent
     },
     {
-        path: 'services/:id', 
-        component: ServiceDetailComponent 
+        path: 'services/:id',
+        component: ServiceDetailComponent
     },
     { 
         path: 'checks', 
         component: CheckListComponent 
     },
-    { 
-        path: 'checks/:id', 
-        component: CheckDetailComponent 
+    {
+        path: 'checks/:id',
+        component: CheckDetailComponent
     },
-    { 
-        path: 'checks/update/:id', 
-        component: CheckUpdateComponent 
+    {
+        path: 'checks/update/:id',
+        component: CheckUpdateComponent
     },
     { 
         path: 'add', 
         component: CheckAddComponent 
+    },
+    { 
+        path: 'service-add', 
+        component: ServiceAddComponent 
     }
 ];
 
 @NgModule({
-    imports: [ 
+    imports: [
         RouterModule.forRoot(APP_ROUTES),
         HttpModule,
         JsonpModule
@@ -61,4 +71,3 @@ const APP_ROUTES: Routes = [
 })
 
 export class AppRoutingModule { }
-

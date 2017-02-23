@@ -3,8 +3,10 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
 
-
+from check.models import Check
+from service.models import Service
 from server.models import Server
+
 from utils.validators import validate_dict, validate_subdict
 
 REQUIREMENTS = {'name', 'address', 'state'}
@@ -48,8 +50,10 @@ class ServerView(View):
         if not server.user.id == request.user.id:
             # Server belongs to another user
             return HttpResponse(status=403)
-
-        json_response['response'] = server.to_dict()
+        services = Service.get_by_server(server)
+        data = server.to_dict()
+        data['Services'] = [service.to_dict() for service in services]
+        json_response['response'] = data
         return JsonResponse(json_response, status=200)
 
     def post(self, request):
@@ -82,8 +86,9 @@ class ServerView(View):
             json_response['error'] = 'Incorect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        Server.create(user=request.user, **server_dict)
-        return HttpResponse(status=201)
+        server = Server.create(user=request.user, **server_dict)
+        json_response['response'] = server.to_dict()
+        return JsonResponse(json_response, status=201)
 
     def put(self, request, server_id):
         """Handles PUT request.
