@@ -18,6 +18,7 @@ from django.conf.urls import include, url
 
 urlpatterns = [
     url(r'^api/1/check/', include('check.urls')),
+    url(r'^api/1/contact/', include('contact.urls')),
     url(r'^api/1/nagplugin/', include('nagplugin.urls')),
     url(r'^api/1/profile/', include('user_profile.urls')),
     url(r'^api/1/server/', include('server.urls')),
