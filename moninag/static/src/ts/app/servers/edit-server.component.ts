@@ -17,6 +17,12 @@ import 'rxjs/add/operator/switchMap';
     <input [(ngModel)]="server.name" placeholder="{{server.name}}" />
     <h5>Address:</h5>
     <input [(ngModel)]="server.address" placeholder="{{server.address}}" />
+    <h5>State:</h5>
+    <select [(ngModel)]="state">
+        <option *ngFor="let state of states" value= {{states}}>
+            {{state}}
+        </option>
+    </select>
     <button (click)="goBack()">Back</button>
     <button (click)="save()">Save</button>
     <button (click)="delete()">x</button>
@@ -37,7 +43,7 @@ export class ServersEditComponent {
     ){}
 
     server : Server[];
-
+    states = states;
     ngOnInit(){
         this.route.params
             .switchMap((params: Params) => this.serversService.getServer(+params['id']))

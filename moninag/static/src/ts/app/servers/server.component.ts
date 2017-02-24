@@ -1,5 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+
 import { ServersService } from './service';
 import { Server, states } from './model';
 
@@ -23,7 +25,7 @@ import { Server, states } from './model';
             </label>
           </div>
       <div class="form-group">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" (click)="goBack()" class="btn btn-primary">Submit</button>
      </div>
     </form>
   </div>
@@ -36,8 +38,9 @@ export class ServerComponent {
   servers : Server[];
   serverForm : FormGroup;
   states = states;
+  @Output() serverAdded = new EventEmitter();
 
-  constructor(private serversService: ServersService, fb: FormBuilder){
+  constructor(private serversService: ServersService, fb: FormBuilder, private location: Location){
     this.serverForm = fb.group({
       'name' : '',
       'address': '',
@@ -51,5 +54,8 @@ export class ServerComponent {
                         .subscribe(servers => {
                         this.servers = servers['response'];
                         })
+    }
+    goBack(): void {
+        this.location.back();
     }
    }

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module';

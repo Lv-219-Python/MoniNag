@@ -7,6 +7,7 @@ import { CheckDetailComponent } from './checks/check-detail.component';
 import { CheckListComponent } from './checks/check-list.component';
 import { CheckUpdateComponent } from './checks/check-update.component';
 import { ServersComponent } from './servers.component';
+import { ServerComponent } from './servers/server.component';
 import { ServersEditComponent } from './servers/edit-server.component';
 import { ServiceAddComponent } from './services/service-add.component';
 import { ServicesComponent } from './services/services.component';
@@ -39,9 +40,9 @@ const APP_ROUTES: Routes = [
         path: 'services/:id',
         component: ServiceDetailComponent
     },
-    { 
-        path: 'checks', 
-        component: CheckListComponent 
+    {
+        path: 'checks',
+        component: CheckListComponent
     },
     {
         path: 'checks/:id',
@@ -51,13 +52,17 @@ const APP_ROUTES: Routes = [
         path: 'checks/update/:id',
         component: CheckUpdateComponent
     },
-    { 
-        path: 'add', 
-        component: CheckAddComponent 
+    {
+        path: 'add',
+        component: CheckAddComponent
     },
-    { 
-        path: 'service-add', 
-        component: ServiceAddComponent 
+    {
+        path: 'server-add',
+        component: ServerComponent
+    },
+    {
+        path: 'service-add',
+        component: ServiceAddComponent
     }
 ];
 

@@ -10,8 +10,8 @@ import { ServicesService } from './services.service';
 @Component({
     selector: 'services-app',
     template: `
-        <h2>Services</h2>  
-        <div>  
+        <h2>Services</h2>
+        <div>
             <div *ngIf="server"><div>
             <ul>
                 <li class="Box" *ngFor="let service of server.Services"
