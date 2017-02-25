@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import 'rxjs/add/operator/switchMap';
 
 
 import { Server, states } from './model';
 import { ServersService } from './service';
 import { ServicesComponent } from '../services/services.component';
-import 'rxjs/add/operator/switchMap';
+
 
 @Component({
     selector: 'servers-edit',
@@ -33,6 +34,7 @@ import 'rxjs/add/operator/switchMap';
     ],
 })
 
+
 export class ServersEditComponent {
 
     constructor(
@@ -42,8 +44,9 @@ export class ServersEditComponent {
         private location: Location
     ){}
 
-    server : Server[];
+    server: Server[];
     states = states;
+
     ngOnInit(){
         this.route.params
             .switchMap((params: Params) => this.serversService.getServer(+params['id']))
@@ -52,11 +55,11 @@ export class ServersEditComponent {
 
     save(){
         this.serversService.putServer(this.server)
-        .subscribe(() => this.goBack())
+            .subscribe(() => this.goBack())
     }
     delete(){
         this.serversService.deleteServer(this.server['id'])
-        .subscribe(() => this.goBack())
+            .subscribe(() => this.goBack())
     }
 
     goBack(){

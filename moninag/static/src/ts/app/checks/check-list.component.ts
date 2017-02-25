@@ -72,4 +72,3 @@ export class CheckListComponent {
     this.router.navigate(['/checks', this.selectedCheck.id]);
     }
 }
-
