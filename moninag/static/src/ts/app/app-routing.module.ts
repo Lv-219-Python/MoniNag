@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ChecksComponent } from './checks.component';
 import { ServersComponent } from './servers.component';
+import { ServersEditComponent } from './servers/edit-server.component';
 import { ServicesComponent } from './services.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
@@ -20,6 +21,10 @@ const APP_ROUTES: Routes = [
     {
         path: 'servers',
         component: ServersComponent
+    },
+    {
+       path: 'server/:id',
+       component: ServersEditComponent
     },
     {
         path: 'services',
