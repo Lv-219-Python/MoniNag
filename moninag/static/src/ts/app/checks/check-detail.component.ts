@@ -10,22 +10,7 @@ import { CheckUpdateComponent } from './check-update.component';
 
 @Component({
     selector: 'checkdetail-app',
-    template: `
-    <div *ngIf="check">
-    <h6>Name:{{check.name}}</h6>
-    <h6>Run frequency:{{check.run_freq}} min</h6>
-    <h6>Plugin id:{{check.plugin_id}}</h6>
-    <h6>Target port:{{check.target_port}}</h6>
-    <h6>Last run:</h6>
-    <h6>Output:</h6>
-    <h6>Status:</h6>
-    <h6>Active:</h6>
-    <button (click)="onSelect(check)">Edit</button>
-    <button (click)="delete()">Delete</button>
-    <div *ngIf="selectedCheck">
-        <checkupdate-app [check]='check'> </checkupdate-app>
-    <div>
-    `,
+    template: require('./check-detail.component.html'),
     providers: [ChecksService]
 })
 
@@ -44,7 +29,7 @@ export class CheckDetailComponent implements OnInit{
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.checksService.getCheck(+params['id']))
-            .subscribe(check => this.check = check["response"]); 
+            .subscribe(check => this.check = check['response']); 
     }
 
      onSelect(check: Check): void {

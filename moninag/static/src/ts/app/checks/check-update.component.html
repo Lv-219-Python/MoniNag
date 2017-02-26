@@ -1,0 +1,33 @@
+<div *ngIf="check"><div>
+<div>
+    <label>Name:</label>
+    <input [(ngModel)]="check.name" placeholder="{{check.name}}" />
+</div>
+<div>
+    <label>Run frequency:</label>
+    <select [(ngModel)]="check.run_freq">
+        <option value=1>1 min</option>
+        <option value=5>5 min</option>
+        <option value=15>15 min</option>
+        <option value=30>30 min</option>
+        <option value=1>1 hour</option>
+    </select>
+</div>
+<div>
+    <label>Plugin:</label>
+    <select [(ngModel)]="check.plugin_id">
+        <option *ngFor="let plugin of plugins" value= {{plugin.id}}>
+            {{plugin.name}}
+        </option>
+    </select>
+</div>
+<div>
+    <label>Target port:</label>
+    <input [(ngModel)]="check.target_port" placeholder="{{check.target_port}}" />
+</div>
+<div>
+    <label>Active:</label>
+    <input type="checkbox" name="not-active" value="False"> Deactivate <br>
+</div>
+<button (click)="goBack()">Cancel</button>
+<button (click)="save()">Save</button>

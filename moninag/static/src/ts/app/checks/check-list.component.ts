@@ -11,32 +11,7 @@ import { Service } from '../services/services';
 
 @Component({ 
     selector:'checks-list',
-    template:`
-    <div class="table-responsive">
-        <ul style="list-style-type:none; padding:0">          
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Plugin name</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.name}}</li></td>
-                        <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.plugin_name}}</li></td>
-                        <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.status}}</li></td>
-                    </tr>
-                </tbody>
-            </table>
-        </ul>
-        <button (click)="onSelect2(service)"> Add new check </button>
-        <div *ngIf="selectedService">
-            <checkadd-app></checkadd-app>
-        </div>
-    </div>
-    `,
+    template: require('./check-list.component.html'),
     providers: [ChecksService],
     styles: [`
        table, th, td {

@@ -1,0 +1,31 @@
+<div *ngIf="check">
+    <div>
+        <label>Name:</label>{{check.name}}
+    </div>
+    <div>
+        <label>Run frequency:</label>{{check.run_freq}} min
+    </div>
+    <div>
+        <label>Plugin:</label>{{check.plugin_id}}
+    </div>
+    <div>
+        <label>Target port:</label>{{check.target_port}}
+    </div>
+    <div>
+        <label>Last run:</label>
+    </div>
+    <div>
+        <label>Output:</label>
+    </div>
+    <div>
+         <label>Status:</label>
+    </div>
+    <div>
+        <label>Active:</label>
+    </div>
+    <button (click)="onSelect(check)">Edit</button>
+    <button (click)="delete()">Delete</button>
+    <div *ngIf="selectedCheck">
+        <checkupdate-app [check]='check'> </checkupdate-app>
+    <div>
+</div>
