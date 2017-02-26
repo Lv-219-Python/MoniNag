@@ -7,29 +7,7 @@ import { ServicesService } from './services.service';
 
 @Component({
     selector: 'serviceadd-app',
-    template: `
-    <div class="container">
-        <form>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text"
-                       required [(ngModel)]="model.name" name="name">
-            </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" 
-                       required [(ngModel)]="model.status" name="status">
-            </div>
-            <div class="form-group">
-                <label for="server_id">Server id</label>
-                <input type="text"
-                        required [(ngModel)]="model.server_id" name="status">
-            </div>
-        </form>
-        <button (click)="goBack()">Back</button>
-        <button type="submit" (click)="add(); goBack()">Submit</button>
-    </div>
-    `,
+    template: require('./service-add.component.html'),
     providers: [ ServicesService ]
 })
 

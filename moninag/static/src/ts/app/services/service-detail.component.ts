@@ -8,32 +8,7 @@ import { ServicesService } from './services.service';
 
 @Component({
     selector: 'services-detail',
-    template: `
-        <div *ngIf="service">
-            <h3>Service Details</h3>
-            <div>
-                <label>name: </label>
-                <input [(ngModel)]="service.name" placeholder="{{service.name}}"/>
-            </div>
-
-            <div>
-                <label>status: </label>{{service.status}}
-            </div>
-
-            <div>
-                <label>id: </label>{{service.id}}
-            </div>
-
-            <div>
-                <label>server id: </label>{{service.server_id}}
-            </div>
-            <button (click)="goBack()">Back</button>
-            <button (click)="save()">Save</button>
-            <button (click)="delete()">Delete</button>
-            <checks-list [service]='service'> </checks-list>
-
-        </div>
-    `,
+    template: require('./service-detail.component.html'),
     providers: [ ServicesService ]
 })
 
