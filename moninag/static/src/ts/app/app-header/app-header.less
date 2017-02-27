@@ -1,0 +1,56 @@
+@header-height: 100px;
+
+app-header {    
+    display: block;
+    height: @header-height;
+    padding: 5px 10px;
+}
+
+#left-block {
+    align-items: baseline;
+    height: @header-height;
+}
+
+#left-block a {
+    text-decoration: none;
+}
+
+#left-block a:hover,
+#left-block a:link,
+#left-block a:active,
+#left-block a:visited {
+    color: inherit;
+}
+
+#title {
+    align-self: center;
+    font-size: 3em;    
+    margin: 0 0 0 20px;    
+}
+
+#logo-img {
+    margin: 5px;
+    height: calc(0.9 * @header-height);
+}
+
+.cdk-overlay-container {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}  
+
+.cdk-overlay-pane {
+    position: absolute;
+    pointer-events: auto;
+    box-sizing: border-box;
+    z-index: 1000;    
+}
+
+#user-block img {
+    margin-right: 10px;
+    max-height: 30px;
+    max-width: 30px;
+}   

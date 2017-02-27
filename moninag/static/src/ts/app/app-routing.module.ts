@@ -20,7 +20,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 const APP_ROUTES: Routes = [
     {
         path: '',
-        redirectTo: '/profile',
+        redirectTo: '/servers',
         pathMatch: 'full'
     },
     {
