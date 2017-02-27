@@ -14,7 +14,7 @@ import { CheckUpdateComponent } from './checks/check-update.component';
 import { ChecksService } from './checks/checks.service';
 
 import { ServerComponent } from './servers/server.component';
-import { ServersComponent } from './servers.component';
+import { ServersComponent } from './servers/servers.component';
 import { ServersEditComponent } from './servers/edit-server.component';
 import { ServersService } from './servers/service';
 
@@ -33,7 +33,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
         FormsModule,
         HttpModule,
         JsonpModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
 
     declarations: [
@@ -48,7 +48,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
         ServiceAddComponent,
         ServiceDetailComponent,
         ServicesComponent,
-        UserProfileComponent
+        UserProfileComponent,
     ],
 
     providers: [

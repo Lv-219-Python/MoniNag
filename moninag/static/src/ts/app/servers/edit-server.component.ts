@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
 
@@ -12,25 +12,9 @@ import { ServicesComponent } from '../services/services.component';
 
 @Component({
     selector: 'servers-edit',
-    template: `
-    <div *ngIf="server"><div>
-    <h5>Server:</h5>
-    <input [(ngModel)]="server.name" placeholder="{{server.name}}" />
-    <h5>Address:</h5>
-    <input [(ngModel)]="server.address" placeholder="{{server.address}}" />
-    <h5>State:</h5>
-    <select [(ngModel)]="state">
-        <option *ngFor="let state of states" value= {{states}}>
-            {{state}}
-        </option>
-    </select>
-    <button (click)="goBack()">Back</button>
-    <button (click)="save()">Save</button>
-    <button (click)="delete()">x</button>
-    <services-app [server]='server'></services-app>
-    `,
+    template: require('./edit-server.component.html'),
     providers: [
-        ServersService
+        ServersService,
     ],
 })
 
@@ -42,27 +26,27 @@ export class ServersEditComponent {
         private route: ActivatedRoute,
         private router: Router,
         private location: Location
-    ){}
+    ) { }
 
     server: Server[];
     states = states;
 
-    ngOnInit(){
+    ngOnInit() {
         this.route.params
             .switchMap((params: Params) => this.serversService.getServer(+params['id']))
             .subscribe(server => this.server = server['response']);
     }
 
-    save(){
+    save() {
         this.serversService.putServer(this.server)
             .subscribe(() => this.goBack())
     }
-    delete(){
+    delete() {
         this.serversService.deleteServer(this.server['id'])
             .subscribe(() => this.goBack())
     }
 
-    goBack(){
+    goBack() {
         this.location.back();
     }
 }

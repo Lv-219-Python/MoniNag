@@ -20,7 +20,7 @@ export class CheckAddComponent {
     constructor(
         private checksService: ChecksService,
         private location: Location
-    ) {}
+    ) { }
 
     plugins: Plugin[];
     services: Service[];

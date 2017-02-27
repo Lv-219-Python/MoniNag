@@ -16,31 +16,31 @@ import { Plugin } from './plugin';
 })
 
 
-export class CheckUpdateComponent implements OnInit{
+export class CheckUpdateComponent implements OnInit {
 
     constructor(
         private checksService: ChecksService,
         private location: Location
-    ) {}
+    ) { }
 
     @Input() check: Check;
 
-    plugins : Plugin[];
+    plugins: Plugin[];
 
-    loadPlugins(){
-         this.checksService.getPlugins()
-             .subscribe(plugins => this.plugins = plugins['response']);
-    }                                     
-    
+    loadPlugins() {
+        this.checksService.getPlugins()
+            .subscribe(plugins => this.plugins = plugins['response']);
+    }
+
     ngOnInit(): void {
         this.loadPlugins();
     }
 
     save(): void {
         this.checksService.update(this.check)
-    } 
+    }
 
     goBack(): void {
         this.location.back();
-    }    
+    }
 }

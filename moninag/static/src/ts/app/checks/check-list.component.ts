@@ -9,8 +9,8 @@ import { Plugin } from './plugin';
 import { Service } from '../services/services';
 
 
-@Component({ 
-    selector:'checks-list',
+@Component({
+    selector: 'checks-list',
     template: require('./check-list.component.html'),
     providers: [ChecksService],
     styles: [`
@@ -25,13 +25,13 @@ export class CheckListComponent {
     constructor(
         private checksService: ChecksService,
         private router: Router
-    ) {}
+    ) { }
 
     @Input() service: Service[];
 
     checks: Check[];
     plugin: Plugin;
-    
+
     selectedCheck: Check;
     selectedService: Service;
 
@@ -44,6 +44,6 @@ export class CheckListComponent {
     }
 
     gotoDetail(): void {
-    this.router.navigate(['/checks', this.selectedCheck.id]);
+        this.router.navigate(['/checks', this.selectedCheck.id]);
     }
 }

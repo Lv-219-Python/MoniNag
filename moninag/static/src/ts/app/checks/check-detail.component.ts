@@ -15,34 +15,33 @@ import { CheckUpdateComponent } from './check-update.component';
 })
 
 
-export class CheckDetailComponent implements OnInit{
+export class CheckDetailComponent implements OnInit {
 
     constructor(
         private checksService: ChecksService,
         private route: ActivatedRoute,
         private location: Location
-    ) {}
+    ) { }
 
     check: Check;
     selectedCheck: Check;
-                                                
+
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.checksService.getCheck(+params['id']))
-            .subscribe(check => this.check = check['response']); 
+            .subscribe(check => this.check = check['response']);
     }
 
-     onSelect(check: Check): void {
+    onSelect(check: Check): void {
         this.selectedCheck = check;
     }
 
     delete(): void {
         this.checksService.remove(this.check.id)
             .subscribe(() => this.goBack());
-    } 
+    }
 
     goBack(): void {
         this.location.back();
     }
 }
- 

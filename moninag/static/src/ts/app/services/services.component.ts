@@ -10,8 +10,8 @@ import { ServicesService } from './services.service';
 @Component({
     selector: 'services-app',
     template: require('./services.component.html'),
-    providers: [ ServicesService ],
-    styles: [ require('./services.component.css') ]
+    providers: [ServicesService],
+    styles: [require('./services.component.css')]
 })
 
 export class ServicesComponent {
@@ -19,10 +19,10 @@ export class ServicesComponent {
     services: Service[];
     selectedService: Service;
 
-    constructor (
+    constructor(
         private servicesService: ServicesService,
         private router: Router
-    ) {}
+    ) { }
 
     @Input() server: Server[];
 

@@ -3,7 +3,6 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
 
-from check.models import Check
 from service.models import Service
 from server.models import Server
 

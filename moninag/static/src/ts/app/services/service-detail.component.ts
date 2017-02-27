@@ -2,14 +2,14 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { CheckListComponent} from '../checks/check-list.component';
+import { CheckListComponent } from '../checks/check-list.component';
 import { Service } from './services';
 import { ServicesService } from './services.service';
 
 @Component({
     selector: 'services-detail',
     template: require('./service-detail.component.html'),
-    providers: [ ServicesService ]
+    providers: [ServicesService]
 })
 
 export class ServiceDetailComponent implements OnInit {
@@ -19,7 +19,7 @@ export class ServiceDetailComponent implements OnInit {
         private location: Location,
         private router: Router,
         private servicesService: ServicesService
-        ) {}
+    ) { }
 
     service: Service;
     selectedService: Service;
@@ -27,7 +27,7 @@ export class ServiceDetailComponent implements OnInit {
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.servicesService.getService(+params['id']))
-            .subscribe(service => this.service = service["response"]); 
+            .subscribe(service => this.service = service["response"]);
     }
 
     goBack(): void {
@@ -40,11 +40,11 @@ export class ServiceDetailComponent implements OnInit {
 
     save(): void {
         this.servicesService.update(this.service)
-                            .subscribe(() => this.goBack());
+            .subscribe(() => this.goBack());
     }
 
     delete(): void {
         this.servicesService.remove(this.service.id)
-                            .subscribe(() => this.goBack());
-    } 
+            .subscribe(() => this.goBack());
+    }
 }

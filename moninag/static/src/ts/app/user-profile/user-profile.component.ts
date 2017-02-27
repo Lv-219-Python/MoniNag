@@ -24,6 +24,6 @@ export class UserProfileComponent implements OnInit {
     getUser(): void {
         this.userService.getUserProfile().subscribe(
             user => this.user = user,
-            error => this.errorMessage = <any>error);        
+            error => this.errorMessage = <any>error);
     }
 }
