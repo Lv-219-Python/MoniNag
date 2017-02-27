@@ -3,6 +3,7 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
 
+from check.models import Check
 from server.models import Server
 from service.models import Service
 from utils.validators import validate_dict, validate_subdict
@@ -51,7 +52,21 @@ class ServiceView(View):
         if not request.user.id == service.server.user.id:
             return HttpResponse(status=403)
 
-        json_response['response'] = service.to_dict()
+        checks = Check.get_by_service(service)
+        data = service.to_dict()
+        data['checks'] = [
+            {
+                'id': check.id,
+                'name': check.name,
+                'plugin_id': check.plugin.id,
+                'plugin_name': check.plugin.name,
+                'target_port': check.target_port,
+                'run_freq': check.run_freq,
+                'service_id': check.service.id,
+            } for check in checks]
+
+        json_response['response'] = data
+
         return JsonResponse(json_response, status=200)
 
     def post(self, request):

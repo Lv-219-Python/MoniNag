@@ -1,0 +1,11 @@
+<h2>Services</h2>
+<div>
+    <div *ngIf="server"><div>
+    <ul>
+        <li class="box" *ngFor="let service of server.Services"
+            (click)="onSelect(service)" (click)="gotoDetail()">
+            {{service.name}}
+        </li>
+    </ul>
+    <button (click)="add()"> Add new service </button>
+</div>

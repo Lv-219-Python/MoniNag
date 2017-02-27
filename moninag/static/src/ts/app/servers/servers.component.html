@@ -1,0 +1,26 @@
+<div class="table-responsive">
+    <ul style="list-style-type:none; padding:0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>State</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let server of servers">
+                    <td>{{ server.name }}</td>
+                    <td>{{ server.address }}</td>
+                    <td>{{ server.state }}</td>
+                    <td>
+                        <button (click)="onSelect(server)" (click)="gotoEdit()" value={{server.id}}>Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+    <button (click)="onSelect(server)" (click)="add()">Add</button>
+</div>
