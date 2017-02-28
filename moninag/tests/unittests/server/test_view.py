@@ -7,6 +7,7 @@ from django.test import TestCase
 
 from registration.models import CustomUser
 from server.models import Server
+from service.models import Service
 
 
 # Helper function
@@ -103,7 +104,10 @@ class TestServerView(TestCase):
         # Create expected specific server response
         expected_json_response = {}
         server = Server.objects.get(id=1)
-        expected_json_response['response'] = to_dict(server)
+        services = Service.objects.filter(server=server)
+        data = server.to_dict()
+        data['Services'] = [service.to_dict() for service in services]
+        expected_json_response['response'] = data
 
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content.decode('utf-8'), expected_json_response)
