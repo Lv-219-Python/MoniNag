@@ -8,6 +8,7 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module';
 import { AppHeaderComponent } from './app-header/app-header.component'
+import { MainNavComponent } from './navs/main-nav/main-nav.component'
 
 import { CheckAddComponent } from './checks/check-add.component';
 import { CheckDetailComponent } from './checks/check-detail.component';
@@ -47,6 +48,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
         CheckDetailComponent,
         CheckListComponent,
         CheckUpdateComponent,
+        MainNavComponent,
         ServerComponent,
         ServersComponent,
         ServersEditComponent,
