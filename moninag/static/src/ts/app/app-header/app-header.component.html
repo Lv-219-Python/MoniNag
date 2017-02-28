@@ -1,5 +1,4 @@
 <div class="flex-container" fxLayout="row" fxLayoutAlign="space-between start">
-
     <div id="left-block" class="flex-container" fxLayout="row" fxLayoutAlign="start center">
         <a class="flex-container" fxLayout="row" fxLayoutAlign="start center" href="/">
             <img id="logo-img" src="./static/img/logo.png"/>        
@@ -10,9 +9,9 @@
     <div *ngIf="user" id="user-block">        
         <button md-button [mdMenuTriggerFor]="menu">
             <img alt="User picture" src="https://www.gravatar.com/avatar/{{ user.avatar }}">
-            <span>{{ user.first_name }} {{ user.second_name }}</span>
+            <span>{{ user.first_name }} {{ user.second_name }}</span>            
         </button>
-        <md-menu #menu="mdMenu">
+        <md-menu x-position="before" #menu="mdMenu">
             <button md-menu-item (click)="viewProfile()">
                 <md-icon>account_circle</md-icon>
                 <span>Profile</span>
