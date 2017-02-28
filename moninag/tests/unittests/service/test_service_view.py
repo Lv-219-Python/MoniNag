@@ -118,7 +118,7 @@ class TestServiceView(TestCase):
         self.assertEqual(actual_response.status_code, 200)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
                              expected_response)
-        
+
     def test_get_not_existing_service(self):
         """Ensure that GET method returns 404 status
         if the service doesn't exist"""
