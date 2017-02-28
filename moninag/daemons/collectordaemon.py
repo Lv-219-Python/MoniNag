@@ -1,4 +1,5 @@
 """This module holds collector daemon class"""
+
 import os
 import sys
 import time

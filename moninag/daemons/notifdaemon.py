@@ -1,3 +1,5 @@
+"""This module holds notification daemon class"""
+
 import os
 import sys
 import time
@@ -6,7 +8,6 @@ import django
 
 from daemon import Daemon
 
-
 # Path to project directory where manage.py is located
 PROJECT_PATH = '../'
 sys.path.append(PROJECT_PATH)
@@ -14,7 +15,6 @@ sys.path.append(PROJECT_PATH)
 # This is so Django knows where to find stuff
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moninag.settings')
 django.setup()
-
 
 from service.models import Service
 

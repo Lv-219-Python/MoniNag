@@ -1,4 +1,7 @@
+"""This module holds basic daemon class which will be inherited by specific child daemons"""
+
 import atexit
+import logging
 import os
 import signal
 import sys
@@ -39,6 +42,21 @@ class Daemon(object):
 
         os.remove(self.pid_file)
 
+    def signal_handler(self, signum, frame):
+        """Signal Handler
+
+        Change Log level for daemon with SIGUSR1 (kill -USR1 PID).
+        If logger has INFO level it will be switched to DEBUG,
+        otherwise (if level is DEBUG) it will be switched to INFO
+        """
+
+        if self.logger.level == 20:
+            self.logger.info('Switched Log level INFO -> DEBUG')
+            self.logger.setLevel(logging.DEBUG)
+        else:
+            self.logger.info('Switched Log level DEBUG -> INFO')
+            self.logger.setLevel(logging.INFO)
+
     def daemonize(self):
         """Create daemon."""
 
@@ -52,7 +70,6 @@ class Daemon(object):
 
         # Clear the session id to clear the controlling TTY.
         os.setsid()
-
         # Set the umask so we have access to all files created by the daemon.
         os.umask(0)
 
@@ -70,6 +87,10 @@ class Daemon(object):
         # Write pid file
         # Before file creation, make sure we'll delete the pid file on exit!
         atexit.register(self.delete_pid)
+
+        # Bind signal to handler
+        signal.signal(signal.SIGUSR1, self.signal_handler)
+        signal.siginterrupt(signal.SIGUSR1, False)
 
         pid = str(os.getpid())
         self.logger.debug('Daemon created with pid {0}.'.format(pid))
@@ -95,7 +116,6 @@ class Daemon(object):
             sys.exit(1)
 
         print('Starting {0} ...'.format(self.daemon_name))
-
         self.daemonize()
         self.run()
 
@@ -103,8 +123,8 @@ class Daemon(object):
         """Get daemon Status """
 
         if self.get_pid_by_file():
-            pf = open(self.pid_file, 'r')
-            print('Daemon is currently running. PID: {}'.format(pf.read()))
+            pidfile = open(self.pid_file, 'r')
+            print('Daemon is currently running. PID: {}'.format(pidfile.read()))
         else:
             print('Daemon is not running.')
 
