@@ -19,6 +19,7 @@
         </tbody>
     </table>
 </div>
-<div *ngIf="errorMessage">
-    {{ errorMessage }}
+<div *ngIf="errorMessage" class="flex-container" fxLayout="column" fxLayoutAlign="start center">
+    <h3>Something go wrong.</h3> 
+    <p>Error message: {{ errorMessage }}</p>
 </div>

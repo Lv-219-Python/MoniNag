@@ -1,15 +1,17 @@
-<div class="flex-container" fxLayout="row" fxLayoutAlign="space-between start">
+<div id="header-wrapper" class="flex-container" fxLayout="row" fxLayoutAlign="space-between center">
     <div id="left-block" class="flex-container" fxLayout="row" fxLayoutAlign="start center">
-        <a class="flex-container" fxLayout="row" fxLayoutAlign="start center" href="/">
-            <img id="logo-img" src="./static/img/logo.png"/>        
-            <h1 id="title">{{ title }}</h1>
+        <a class="flex-container" fxLayout="row" fxLayoutAlign="start center" href="/" title="Home">
+            <img id="logo-img" src="./static/img/logo.png"/>                    
+            <h1 id="title">{{ title }}</h1>            
         </a>
     </div>
+    <h3 id="motto">{{ motto }}</h3>
 
     <div *ngIf="user" id="user-block">        
         <button md-button [mdMenuTriggerFor]="menu">
             <img alt="User picture" src="https://www.gravatar.com/avatar/{{ user.avatar }}">
-            <span>{{ user.first_name }} {{ user.second_name }}</span>            
+            <span id="user-name">{{ user.first_name }} {{ user.second_name }}</span>
+            <md-icon>menu</md-icon>            
         </button>
         <md-menu x-position="before" #menu="mdMenu">
             <button md-menu-item (click)="viewProfile()">
@@ -21,5 +23,9 @@
                 <span>Log Out</span>
             </button>
         </md-menu>
+    </div>
+    <div *ngIf="errorMessage" class="flex-container" fxLayout="column" fxLayoutAlign="center center">
+        <h3>Something go wrong.</h3> 
+        <p>Error message: {{ errorMessage }}</p>
     </div>
 </div>

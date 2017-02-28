@@ -13,11 +13,13 @@ import { UserProfileService } from '../user-profile/user-profile.service';
 
 export class AppHeaderComponent implements OnInit {
     title = 'Moninag';
+    motto = 'Your monitoring friend';
     user: UserProfile;
+    errorMessage: any;
 
     constructor(
         private userService: UserProfileService,
-        private router: Router,        
+        private router: Router,
     ) { }
 
     ngOnInit(): void {
@@ -27,14 +29,14 @@ export class AppHeaderComponent implements OnInit {
     getUser(): void {
         this.userService.getUserProfile().subscribe(
             user => this.user = user,
-            error => console.log(error));
+            error => this.errorMessage = <any>error);
     }
 
     viewProfile(): void {
-        this.router.navigateByUrl('/profile');        
+        this.router.navigateByUrl('/profile');
     }
 
-    logOut(): void {        
+    logOut(): void {
         window.location.href = '/auth/logout/';
     }
 }
