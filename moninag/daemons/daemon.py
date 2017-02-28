@@ -1,3 +1,5 @@
+"""This module holds basic daemon class which will be inherited by specific child daemons"""
+
 import atexit
 import os
 import signal
@@ -52,7 +54,6 @@ class Daemon(object):
 
         # Clear the session id to clear the controlling TTY.
         os.setsid()
-
         # Set the umask so we have access to all files created by the daemon.
         os.umask(0)
 
@@ -95,7 +96,6 @@ class Daemon(object):
             sys.exit(1)
 
         print('Starting {0} ...'.format(self.daemon_name))
-
         self.daemonize()
         self.run()
 
@@ -103,8 +103,8 @@ class Daemon(object):
         """Get daemon Status """
 
         if self.get_pid_by_file():
-            pf = open(self.pid_file, 'r')
-            print('Daemon is currently running. PID: {}'.format(pf.read()))
+            pidfile = open(self.pid_file, 'r')
+            print('Daemon is currently running. PID: {}'.format(pidfile.read()))
         else:
             print('Daemon is not running.')
 
