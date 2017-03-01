@@ -21,7 +21,6 @@ omit =
     */middleware/*
 
     # omit __init__.py, manage.py, apps.py and urls.py
-    *admin*
     *apps*
     *__init__*
     *tests*

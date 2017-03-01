@@ -1,4 +1,8 @@
 coverage==4.3.4
 Django==1.10.5
+pep8==1.7.0
 psycopg2==2.6.2
+pylint==1.6.5
+pylint-django==0.7.2
+pylint-plugin-utils==0.2.4
 setproctitle==1.1.10
