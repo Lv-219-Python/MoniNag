@@ -21,7 +21,7 @@ class CustomUser(AbstractBaseUser):
     def get_full_name(self):
         """Returns the first_name plus the last_name, with a space in between."""
 
-        full_name = '{} {}'.format(self.first_name, self.last_name)
+        full_name = '{} {}'.format(self.first_name, self.second_name)
         return full_name
 
     def save(self, *args, **kwargs):
