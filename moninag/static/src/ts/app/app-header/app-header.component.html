@@ -5,8 +5,10 @@
             <h1 id="title">{{ title }}</h1>            
         </a>
     </div>
-    <h3 id="motto">{{ motto }}</h3>
-
+    <div id="motto" class="flex-container" fxLayout="row" fxLayoutAlign="center center">
+        <h3>{{ motto }}</h3>
+        <md-icon>pets</md-icon>
+    </div>
     <div *ngIf="user" id="user-block">        
         <button md-button [mdMenuTriggerFor]="menu">
             <img alt="User picture" src="https://www.gravatar.com/avatar/{{ user.avatar }}">
