@@ -38,6 +38,7 @@ export class CheckUpdateComponent implements OnInit {
 
     save(): void {
         this.checksService.update(this.check)
+            .subscribe(() => this.goBack());
     }
 
     goBack(): void {

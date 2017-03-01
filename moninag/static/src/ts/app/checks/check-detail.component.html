@@ -12,17 +12,18 @@
         <label>Target port:</label>{{check.target_port}}
     </div>
     <div>
-        <label>Last run:</label>
+        <label>Last run:</label>{{check.last_run}}
     </div>
     <div>
-        <label>Output:</label>
+        <label>Output:</label>{{check.output}}
     </div>
     <div>
-         <label>Status:</label>
+         <label>Status:</label>{{check.status}}
     </div>
     <div>
-        <label>Active:</label>
+        <label>Active:</label>{{check.state}}
     </div>
+    <button (click)="deactivate()">Deactivate</button>
     <button (click)="onSelect(check)">Edit</button>
     <button (click)="delete()">Delete</button>
     <div *ngIf="selectedCheck">

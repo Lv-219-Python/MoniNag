@@ -153,12 +153,14 @@ class CheckView(View):
         OPTIONAL_REQUIREMENTS = {'name',
                                  'plugin_id',
                                  'run_freq',
-                                 'target_port'
+                                 'target_port',
+                                 'state',
                                  }
 
         json_response = {}
 
         check_params = json.loads(request.body.decode('utf-8'))
+        print(check_params)
 
         if not validate_subdict(check_params, OPTIONAL_REQUIREMENTS):
             json_response['error'] = 'Incorrect JSON format.'

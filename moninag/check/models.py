@@ -17,6 +17,7 @@ class Check(models.Model):
     :attribute target_port: int - Define target port.
     :attribute run_freq: int - Define run frequency of plugin.
     :attribute service: int - ForeignKey to service id value.
+    :attribute state: state of current check.
     """
 
     name = models.CharField(max_length=20, default=0)
@@ -27,6 +28,7 @@ class Check(models.Model):
     target_port = models.IntegerField(default=0)
     run_freq = models.IntegerField(default=0)
     service = models.ForeignKey(Service)
+    state = models.BooleanField(default=True)
 
     @staticmethod
     def create(name, plugin, target_port, run_freq, service):
@@ -53,15 +55,15 @@ class Check(models.Model):
 
         return check
 
-    def update(self, name=None, plugin=None, target_port=None, run_freq=None):
+    def update(self, name=None, plugin=None, target_port=None, run_freq=None, state=None):
         """Update check data.
 
         :param name: str - Check name.
         :param plugin: NagPlugin - Nagios plugin.
         :param target_port: int - Target port.
         :param run_freq: int - Run frequency.
+        :param state: boolean - Run frequency.
         """
-
         if name:
             self.name = name
         if plugin:
@@ -70,6 +72,8 @@ class Check(models.Model):
             self.target_port = target_port
         if run_freq:
             self.run_freq = run_freq
+        if state == False:
+            self.state = state
 
         self.save()
 
@@ -148,7 +152,11 @@ class Check(models.Model):
             'id': self.id,
             'name': self.name,
             'plugin_id': self.plugin.id,
+            'status': self.status,
+            'last_run': self.last_run,
+            'output': self.output,
             'target_port': self.target_port,
             'run_freq': self.run_freq,
             'service_id': self.service.id,
+            'state': self.state,
         }
