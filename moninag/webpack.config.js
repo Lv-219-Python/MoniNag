@@ -67,9 +67,13 @@ var config = {
             allChunks: false
         }),
         new CopyWebpackPlugin([
-            { from: 'node_modules/rxjs/bundles/Rx.js', to: '../lib' },
-            { from: 'node_modules/zone.js/dist/zone.js', to: '../lib' },
-            { from: 'node_modules/reflect-metadata/Reflect.js', to: '../lib' }
+            { from: 'node_modules/rxjs/bundles/Rx.min.js', to: '../lib' },
+            { from: 'node_modules/rxjs/bundles/Rx.min.js.map', to: '../lib' },
+            { from: 'node_modules/zone.js/dist/zone.min.js', to: '../lib' },
+            { from: 'node_modules/reflect-metadata/Reflect.js', to: '../lib' },
+            { from: 'node_modules/reflect-metadata/Reflect.js.map', to: '../lib' },
+            { from: 'node_modules/hammerjs/hammer.min.js', to: '../lib' },
+            { from: 'node_modules/hammerjs/hammer.min.js.map', to: '../lib' },
         ])
     ]
 }

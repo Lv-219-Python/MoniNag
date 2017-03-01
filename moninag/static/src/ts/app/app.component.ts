@@ -5,13 +5,10 @@ import { Component } from '@angular/core';
     selector: 'moninag-app',
     styles: [require('../../less/styles.less').toString()],
     template: `
-        <h1>{{title}}</h1>
-        <a routerLink="/servers">Servers</a>
-        <a routerLink="/profile">Profile</a>
+        <app-header></app-header>
+        <a routerLink="/servers">Servers</a>        
         <router-outlet></router-outlet>
     `
 })
 
-export class AppComponent {
-    title = 'Moninag';
-}
+export class AppComponent { }

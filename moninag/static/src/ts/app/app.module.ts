@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
@@ -6,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module';
+import { AppHeaderComponent } from './app-header/app-header.component'
 
 import { CheckAddComponent } from './checks/check-add.component';
 import { CheckDetailComponent } from './checks/check-detail.component';
@@ -30,14 +32,17 @@ import { UserProfileService } from './user-profile/user-profile.service';
     imports: [
         AppRoutingModule,
         BrowserModule,
+        FlexLayoutModule.forRoot(),
         FormsModule,
         HttpModule,
         JsonpModule,
+        MaterialModule.forRoot(),
         ReactiveFormsModule,
     ],
 
     declarations: [
         AppComponent,
+        AppHeaderComponent,
         CheckAddComponent,
         CheckDetailComponent,
         CheckListComponent,

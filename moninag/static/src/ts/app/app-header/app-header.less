@@ -1,0 +1,87 @@
+@import '../../../less/common/variables.less';
+@import '../../../less/common/mixins/mixins.less';
+
+app-header {    
+    background-color: @app-header-bg-color;
+    display: block;
+    height: @app-header-height;    
+    min-height: 65px;
+    max-height: 120px;
+    .box-shadow(@app-header-box-shadow);
+}
+
+#header-wrapper {    
+    height: 100%;
+}
+
+#left-block {
+    height: 100%;
+    margin: 0;
+
+    a {
+        text-decoration: none;
+        height: 80%;
+    }
+
+    a:hover,
+    a:link,
+    a:active,
+    a:visited {
+        color: inherit;
+    }
+}
+
+#logo-img {
+    margin: 5px 15px;
+    height: 100%;
+}
+
+#title {
+    color: @app-header-title-color;
+    font-family: @font-family-sans-serif;
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0;    
+    text-shadow: @app-header-text-shadow;
+}
+
+#motto {
+    color: @app-header-motto-color;
+    font-family: @font-family-monospace;
+    font-size: 1.5em;
+    margin: 0;
+    font-style: italic;
+    text-shadow: @app-header-text-shadow;
+}
+
+#user-name {
+    color: @app-header-title-color;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-right: 10px;
+    text-shadow: @app-header-text-shadow;
+}
+
+#user-block {
+    img {
+        border-radius: 50%;
+        margin-right: 10px;
+        max-height: 40px;
+        max-width: 40px;
+    }
+
+    button {
+        background-color: @app-header-user-bg-color;
+        border-radius: 20px;
+        margin-right: 10px;
+        padding: 2px 5px;
+    }
+
+    button:hover {    
+        background-color: @app-header-user-hover-color;    
+    }
+
+    md-icon {
+        color: @app-header-title-color;
+    }
+}
