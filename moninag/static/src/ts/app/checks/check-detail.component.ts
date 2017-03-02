@@ -41,6 +41,16 @@ export class CheckDetailComponent implements OnInit {
             .subscribe(() => this.goBack());
     }
 
+    deactivate(): void {
+        this.checksService.deactivate(this.check)
+            .subscribe(() => this.goBack());
+    }
+
+    activate(): void {
+        this.checksService.activate(this.check)
+            .subscribe(() => this.goBack());
+    }
+
     goBack(): void {
         this.location.back();
     }

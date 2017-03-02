@@ -1,4 +1,4 @@
-<div *ngIf="check"><div>
+<div *ngIf="check">
 <div>
     <label>Name:</label>
     <input [(ngModel)]="check.name" placeholder="{{check.name}}" />
@@ -25,9 +25,6 @@
     <label>Target port:</label>
     <input [(ngModel)]="check.target_port" placeholder="{{check.target_port}}" />
 </div>
-<div>
-    <label>Active:</label>
-    <input type="checkbox" name="not-active" value="False"> Deactivate <br>
-</div>
 <button (click)="goBack()">Cancel</button>
 <button (click)="save()">Save</button>
+</div>

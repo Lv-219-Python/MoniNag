@@ -60,9 +60,8 @@ class ServiceView(View):
                 'name': check.name,
                 'plugin_id': check.plugin.id,
                 'plugin_name': check.plugin.name,
-                'target_port': check.target_port,
-                'run_freq': check.run_freq,
-                'service_id': check.service.id,
+                'status': check.status,
+                'state': check.state,
             } for check in checks]
 
         json_response['response'] = data

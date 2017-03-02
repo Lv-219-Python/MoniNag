@@ -153,7 +153,8 @@ class CheckView(View):
         OPTIONAL_REQUIREMENTS = {'name',
                                  'plugin_id',
                                  'run_freq',
-                                 'target_port'
+                                 'target_port',
+                                 'state',
                                  }
 
         json_response = {}
