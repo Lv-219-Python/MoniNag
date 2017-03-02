@@ -7,11 +7,16 @@ customizable approach towards monitoring.
 We are assuming that you're using bash & you have to install or clone such packages:
 
 * Install PostgreSQL server on local machine
-  
+
   ```
   sudo apt-get install postgresql postgresql-contrib
   sudo apt-get install python-psycopg2
   sudo apt-get install libpq-dev
+  ```
+* Install RRD tool on local machine
+ 
+  ```
+  sudo apt-get install librrds-perl librrd-dev rrdtool
   ```
 * Clone this repository to your local machine
   
