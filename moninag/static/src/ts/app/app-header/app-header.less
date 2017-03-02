@@ -39,25 +39,32 @@ app-header {
 #title {
     color: @app-header-title-color;
     font-family: @font-family-sans-serif;
-    font-size: 3em;
+    font-size: @app-header-title-font-size;
     font-weight: bold;
     margin: 0;    
     text-shadow: @app-header-text-shadow;
 }
 
 #motto {
-    color: @app-header-motto-color;
-    font-family: @font-family-monospace;
-    font-size: 1.5em;
-    margin: 0;
-    font-style: italic;
-    text-shadow: @app-header-text-shadow;
+    h3 {
+        color: @app-header-motto-color;
+        font-family: @font-family-monospace;
+        font-size: @app-header-motto-font-size;
+        margin: 0;
+        text-shadow: @app-header-text-shadow;
+    }
+
+    md-icon {
+        color: @app-header-motto-color;
+        margin-left: 10px;
+    }
 }
 
 #user-name {
     color: @app-header-title-color;
+    font-family: @font-family-roboto;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: @app-header-username-font-size;
     margin-right: 10px;
     text-shadow: @app-header-text-shadow;
 }

@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     styles: [require('../../less/styles.less').toString()],
     template: `
         <app-header></app-header>
-        <a routerLink="/servers">Servers</a>        
+        <main-nav></main-nav>
         <router-outlet></router-outlet>
     `
 })
