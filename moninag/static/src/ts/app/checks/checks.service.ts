@@ -47,7 +47,6 @@ export class ChecksService {
             plugin_id: check.plugin_id,
             run_freq: check.run_freq,
             target_port: check.target_port,
-            state: check.state
         }
         return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updated_check), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -57,8 +56,17 @@ export class ChecksService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let updated_check = {
-            name: 'check5',
             state: false
+        }
+        return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updated_check), options)
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    activate(check: Check): Observable<Check[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let updated_check = {
+            state: true
         }
         return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updated_check), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

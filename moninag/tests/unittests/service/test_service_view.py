@@ -7,6 +7,7 @@ from registration.models import CustomUser
 from server.models import Server
 from service.models import Service
 from check.models import Check
+from nagplugin.models import NagPlugin
 
 
 class TestServiceView(TestCase):
@@ -68,11 +69,25 @@ class TestServiceView(TestCase):
             server=Server.objects.get(id=20)
         )
 
+        NagPlugin.objects.create(
+            id=50,
+            name='Plugin1',
+            template='template'
+        )
+
+        Check.objects.create(
+            name='Check1',
+            plugin=NagPlugin.objects.get(id=50),
+            status='ok',
+            service=Service.objects.get(id=11),
+            state=False
+        )
+
         self.client = Client()
         self.client.login(username='email@gmail.com', password='qwerty')
 
     def test_get_services(self):
-        """Ensure that GET method returns all services 
+        """Ensure that GET method returns all services
         for authenticated user and 200 status"""
 
         url = reverse('service')
@@ -85,7 +100,7 @@ class TestServiceView(TestCase):
         expected_response['response'] = [service.to_dict()
                                          for service in services]
         expected_response = json.dumps(expected_response)
-        
+
         self.assertEqual(actual_response.status_code, 200)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
                              expected_response)
@@ -107,9 +122,8 @@ class TestServiceView(TestCase):
                 'name': check.name,
                 'plugin_id': check.plugin.id,
                 'plugin_name': check.plugin.name,
-                'target_port': check.target_port,
-                'run_freq': check.run_freq,
-                'service_id': check.service.id,
+                'status': check.status,
+                'state': check.state,
             } for check in checks]
 
         expected_response['response'] = data

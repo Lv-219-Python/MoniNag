@@ -62,8 +62,9 @@ class Check(models.Model):
         :param plugin: NagPlugin - Nagios plugin.
         :param target_port: int - Target port.
         :param run_freq: int - Run frequency.
-        :param state: boolean - Run frequency.
+        :param state: boolean - State.
         """
+        
         if name:
             self.name = name
         if plugin:
@@ -72,7 +73,7 @@ class Check(models.Model):
             self.target_port = target_port
         if run_freq:
             self.run_freq = run_freq
-        if state == False:
+        if state is not None:
             self.state = state
 
         self.save()
@@ -142,9 +143,13 @@ class Check(models.Model):
                     'id': check id,
                     'name': check name,
                     'plugin_id': nagios plugin id,
+                    'status': status,
+                    'last_run': last run,
+                    'output': output,
                     'target_port': target port,
                     'run_freq': run frequency,
-                    'service_id': service id
+                    'service_id': service id,
+                    'state': state
                 }
         """
 
@@ -152,6 +157,7 @@ class Check(models.Model):
             'id': self.id,
             'name': self.name,
             'plugin_id': self.plugin.id,
+            'plugin_name': self.plugin.name,
             'status': self.status,
             'last_run': self.last_run,
             'output': self.output,

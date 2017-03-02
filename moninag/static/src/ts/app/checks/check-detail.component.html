@@ -1,32 +1,39 @@
 <div *ngIf="check">
-    <div>
-        <label>Name:</label>{{check.name}}
-    </div>
-    <div>
-        <label>Run frequency:</label>{{check.run_freq}} min
-    </div>
-    <div>
-        <label>Plugin:</label>{{check.plugin_id}}
-    </div>
-    <div>
-        <label>Target port:</label>{{check.target_port}}
-    </div>
-    <div>
-        <label>Last run:</label>{{check.last_run}}
-    </div>
-    <div>
-        <label>Output:</label>{{check.output}}
-    </div>
-    <div>
-         <label>Status:</label>{{check.status}}
-    </div>
-    <div>
-        <label>Active:</label>{{check.state}}
-    </div>
-    <button (click)="deactivate()">Deactivate</button>
-    <button (click)="onSelect(check)">Edit</button>
-    <button (click)="delete()">Delete</button>
-    <div *ngIf="selectedCheck">
-        <checkupdate-app [check]='check'> </checkupdate-app>
-    <div>
+    <md-card>
+        <md-card-content>
+            <div>
+                <label>Name:</label>{{check.name}}
+            </div>
+            <div>
+                <label>Run frequency:</label>{{check.run_freq}} min
+            </div>
+            <div>
+                <label>Plugin:</label>{{check.plugin_name}}
+            </div>
+            <div>
+                <label>Target port:</label>{{check.target_port}}
+            </div>
+            <div>
+                <label>Last run:</label>{{check.last_run}}
+            </div>
+            <div>
+                <label>Output:</label>{{check.output}}
+            </div>
+            <div>
+                <label>Status:</label>{{check.status}}
+            </div>
+            <div>
+                <label>Active:</label>{{check.state}}
+            </div>
+        </md-card-content>
+        <md-card-actions>
+            <button *ngIf="check.state == true" (click)="deactivate()">Deactivate</button>
+            <button *ngIf="check.state == false"(click)="activate()">Activate</button>
+            <button (click)="onSelect(check)">Edit</button>
+            <button (click)="delete()">Delete</button>
+            <div *ngIf="selectedCheck">
+                <checkupdate-app [check]='check'> </checkupdate-app>
+            </div>
+        </md-card-actions>
+    </md-card>
 </div>
