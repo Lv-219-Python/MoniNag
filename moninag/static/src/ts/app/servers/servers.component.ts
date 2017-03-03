@@ -1,10 +1,10 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { Server, states } from './model';
 import { ServersService } from './service';
-import { ServersEditComponent } from './edit-server.component'
+import { ServerEditComponent } from './edit-server.component'
 import { ServerComponent } from './server.component'
 
 @Component({
@@ -35,7 +35,7 @@ export class ServersComponent implements OnInit {
         this.selectedServer = server;
     }
 
-    gotoEdit(): void {
+    gotoDetail(): void {
         this.router.navigate(['server', this.selectedServer.id]);
     }
     handleServerAdded(server: Server) {

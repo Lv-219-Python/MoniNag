@@ -63,4 +63,24 @@ export class ServersService {
             })
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
+    deactivate(server: Server): Observable<Server[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let edited_server = {
+            state: false
+        }
+        return this.http.put(`${this.serversUrl}/${server['id']}/`, JSON.stringify(edited_server), options)
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    activate(server: Server): Observable<Server[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let edited_server = {
+            state: true
+        }
+        return this.http.put(`${this.serversUrl}/${server['id']}/`, JSON.stringify(edited_server), options)
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
 }

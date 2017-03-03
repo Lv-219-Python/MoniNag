@@ -1,4 +1,3 @@
-import { HttpModule, JsonpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -9,7 +8,8 @@ import { CheckUpdateComponent } from './checks/check-update.component';
 
 import { ServersComponent } from './servers/servers.component';
 import { ServerComponent } from './servers/server.component';
-import { ServersEditComponent } from './servers/edit-server.component';
+import { ServerEditComponent } from './servers/edit-server.component';
+import { ServerDetailComponent } from './servers/server-detail.component';
 
 import { ServiceAddComponent } from './services/service-add.component';
 import { ServicesComponent } from './services/services.component';
@@ -34,7 +34,11 @@ const APP_ROUTES: Routes = [
     },
     {
         path: 'server/:id',
-        component: ServersEditComponent
+        component: ServerDetailComponent
+    },
+    {
+        path: 'server/edit/:id',
+        component: ServerEditComponent
     },
     {
         path: 'services',
@@ -76,8 +80,6 @@ const APP_ROUTES: Routes = [
 
 @NgModule({
     imports: [
-        HttpModule,
-        JsonpModule,
         RouterModule.forRoot(APP_ROUTES, { useHash: true }),
     ],
     exports: [RouterModule]

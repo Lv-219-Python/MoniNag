@@ -1,0 +1,12 @@
+<div *ngIf="server" class="form-group">
+
+    <label>Server:</label>
+    <div>Name: {{server.name}} </div>
+    <div>Address: {{server.address}} </div>
+    <div>State: {{server.state}} </div>
+
+    <button (click)="goBack()">Back</button>
+    <button (click)="gotoEdit()">Edit</button>
+    <button (click)="delete()">x</button>
+    <services-app [server]='server'></services-app>
+<div>
