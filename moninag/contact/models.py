@@ -1,3 +1,5 @@
+"""This module contains Contact model class and basic functions"""
+
 from django.db import models
 
 from registration.models import CustomUser
@@ -47,7 +49,7 @@ class Contact(models.Model):
         try:
             Contact.objects.get(id=contact_id)
             return Contact.objects.get(id=contact_id)
-        except:
+        except:  # pylint: disable=bare-except
             return None
 
     @staticmethod

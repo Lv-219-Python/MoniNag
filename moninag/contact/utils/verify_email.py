@@ -1,3 +1,5 @@
+"""This module contains verification method for contact"""
+
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 

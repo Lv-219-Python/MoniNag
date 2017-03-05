@@ -1,4 +1,4 @@
-"""This module holds Check model class and basic functions"""
+"""This module contains Check model class and basic functions"""
 
 from django.db import models
 
@@ -107,7 +107,7 @@ class Check(models.Model):
 
         try:
             check = Check.objects.get(id=check_id)
-        except: # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except
             return None
 
         return check
