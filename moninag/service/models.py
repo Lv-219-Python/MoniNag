@@ -24,19 +24,23 @@ class Service(models.Model):
     name = models.CharField(default='', max_length=200)
     status = models.CharField(default='', choices=SERVICE_STATUS_CHOICES, max_length=10)
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
+    state = models.BooleanField(default=True)
 
-    def update(self, name=None, status=None):
+    def update(self, name=None, status=None, state=None):
         """Update service data.
 
         Args:
             name(str, optional): service name. Defaults to None.
             status(str, optional): service status. Defaults to None.
+            state(boolean): active/not active.
         """
 
         if name:
             self.name = name
         if status:
             self.status = status
+        if state is not None:
+            self.state = state
 
         self.save()
 
@@ -153,7 +157,8 @@ class Service(models.Model):
             'id': self.id,
             'name': self.name,
             'status': self.status,
-            'server_id': self.server.id
+            'server_id': self.server.id,
+            'state': self.state
         }
 
     def __str__(self):
