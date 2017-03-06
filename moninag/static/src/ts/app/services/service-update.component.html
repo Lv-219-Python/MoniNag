@@ -1,0 +1,8 @@
+<div *ngIf="service">
+<div>
+    <label>Name:</label>
+    <input [(ngModel)]="service.name" placeholder="{{service.name}}" />
+</div>
+<button (click)="goBack()">Cancel</button>
+<button (click)="save()">Save</button>
+</div>

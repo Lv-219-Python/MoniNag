@@ -25,6 +25,7 @@ import { ServiceAddComponent } from './services/service-add.component';
 import { ServiceDetailComponent } from './services/service-detail.component';
 import { ServicesComponent } from './services/services.component';
 import { ServicesService } from './services/services.service';
+import { ServiceUpdateComponent } from './services/service-update.component'
 
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserProfileService } from './user-profile/user-profile.service';
@@ -55,6 +56,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
         ServiceAddComponent,
         ServiceDetailComponent,
         ServicesComponent,
+        ServiceUpdateComponent,
         UserProfileComponent,
     ],
 

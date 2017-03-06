@@ -40,11 +40,31 @@ export class ServicesService {
         let updated_service = {
             name: service.name,
             status: service.status,
+            state: service.state,
         }
         return this.http.put(`${this.servicesUrl}/${service['id']}/`, JSON.stringify(updated_service), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
+    deactivate(service: Service): Observable<Service[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let updated_service = {
+            state: false
+        }
+        return this.http.put(`${this.servicesUrl}/${service['id']}/`, JSON.stringify(updated_service), options)
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    activate(service: Service): Observable<Service[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let updated_service = {
+            state: true
+        }
+        return this.http.put(`${this.servicesUrl}/${service['id']}/`, JSON.stringify(updated_service), options)
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
     remove(id: number): Observable<Service[]> {
         return this.http.delete(`${this.servicesUrl}/${id}`)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

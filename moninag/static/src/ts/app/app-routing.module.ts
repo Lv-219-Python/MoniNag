@@ -14,6 +14,7 @@ import { ServersEditComponent } from './servers/edit-server.component';
 import { ServiceAddComponent } from './services/service-add.component';
 import { ServicesComponent } from './services/services.component';
 import { ServiceDetailComponent } from './services/service-detail.component';
+import { ServiceUpdateComponent } from './services/service-update.component'
 
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
@@ -42,6 +43,10 @@ const APP_ROUTES: Routes = [
     {
         path: 'services/:id',
         component: ServiceDetailComponent
+    },
+    {
+        path: 'service/update/:id',
+        component: ServiceUpdateComponent,
     },
     {
         path: 'checks',
