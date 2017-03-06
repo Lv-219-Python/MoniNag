@@ -9,13 +9,14 @@ import subprocess
 import sys
 import time
 from multiprocessing import Process
+from pathlib import Path
 
 import django
 import django.db
 from django.utils import timezone
 
 # Path to project directory where manage.py is located
-PROJECT_PATH = '../'
+PROJECT_PATH = str(Path(__file__).parents[1])
 sys.path.append(PROJECT_PATH)
 
 # This is so Django knows where to find stuff
@@ -23,6 +24,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moninag.settings')
 django.setup()
 
 from check.models import Check  # pylint: disable=wrong-import-position
+from performance import check_rrd  # pylint: disable=wrong-import-position
 
 
 def retry_query(tries=3, delay=1):
@@ -58,11 +60,12 @@ def retry_query(tries=3, delay=1):
 
 
 @retry_query()
-def status_change(check_id, output):
+def status_change(check_id, output, sleep_time=1):
     """
     Method which changes check and service status according to output of the command.
     :param check_id: id of the check for which the
     :param output: command output from terminal
+    :param sleep_time: sleep time after status change
     """
 
     output_list = output[0].split()
@@ -84,7 +87,11 @@ def status_change(check_id, output):
     this_check.last_run = timezone.now()
     this_check.save()
     this_check.update_service_status()
-    time.sleep(1)
+
+    # Update check RRD
+    check_rrd.update(this_check.id, this_check.output)
+
+    time.sleep(sleep_time)
 
 
 def perform_check(check_id, command, freq):
@@ -142,10 +149,16 @@ def check_sync(storage):
             storage[key]['command'] = check_dict[key]['command']
             storage[key]['freq'] = check_dict[key]['freq']
 
+            # Create check RRD
+            check_rrd.create(key, storage[key]['freq'])
+
     # synchronize deleted items
     if storage_keys - check_keys:
         for key in storage_keys - check_keys:
             del storage[key]
+
+            # Remove check RRD
+            check_rrd.remove(key)
 
     # synchronize update items
     for check_id in check_dict:
@@ -154,6 +167,9 @@ def check_sync(storage):
 
         if check_dict[check_id]['freq'] != storage[check_id]['freq']:
             storage[check_id]['freq'] = check_dict[check_id]['freq']
+
+            # Set check RRD heartbeat
+            check_rrd.set_heartbeat(check_id, storage[check_id]['freq'])
 
 
 def start_process(check_id, storage, processes):
