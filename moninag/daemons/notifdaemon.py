@@ -6,7 +6,7 @@ import time
 
 import django
 
-from daemon import Daemon
+from daemon import Daemon  # pylint: disable=import-error
 
 # Path to project directory where manage.py is located
 PROJECT_PATH = '../'
@@ -16,7 +16,7 @@ sys.path.append(PROJECT_PATH)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moninag.settings')
 django.setup()
 
-from service.models import Service
+from service.models import Service  # pylint: disable=wrong-import-position
 
 
 class NotificationDaemon(Daemon):
@@ -51,7 +51,7 @@ class NotificationDaemon(Daemon):
         self.frequency = frequency
         self.statuses = statuses
 
-    def run(self):
+    def run(self):  # pylint: disable=duplicate-code
         """The main loop of the daemon."""
 
         while True:
@@ -82,7 +82,8 @@ class NotificationDaemon(Daemon):
                                                            user_id=service.server.user.id,
                                                            user_email=service.server.user.email))
 
-            self.logger.debug('..fetching finished.'.format(self.statuses))
+            self.logger.debug('..fetching finished.'.format(
+                self.statuses))  # pylint: disable=too-many-format-args
 
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             self.logger.error(str(error))

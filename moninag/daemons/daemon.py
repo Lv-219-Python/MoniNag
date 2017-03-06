@@ -34,7 +34,7 @@ class Daemon(object):
         try:
             import setproctitle
             setproctitle.setproctitle(self.daemon_name)
-        except Exception as err:
+        except Exception as err:  # pylint: disable=broad-except
             self.logger.error('Can not set daemon name. Error: {0}'.format(err))
 
     def delete_pid(self):
@@ -42,7 +42,7 @@ class Daemon(object):
 
         os.remove(self.pid_file)
 
-    def signal_handler(self, signum, frame):
+    def signal_handler(self, signum, frame):  # pylint: disable=unused-argument
         """Signal Handler
 
         Change Log level for daemon with SIGUSR1 (kill -USR1 PID).

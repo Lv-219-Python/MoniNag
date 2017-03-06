@@ -6,7 +6,7 @@ import time
 
 import django
 
-from daemon import Daemon
+from daemon import Daemon  # pylint:disable=import-error
 
 # Path to project directory where manage.py is located
 PROJECT_PATH = '../'
@@ -16,7 +16,7 @@ sys.path.append(PROJECT_PATH)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moninag.settings')
 django.setup()
 
-from check.models import Check
+from check.models import Check  # pylint: disable=wrong-import-position
 
 
 class CollectorDaemon(Daemon):
@@ -46,7 +46,7 @@ class CollectorDaemon(Daemon):
         super(CollectorDaemon, self).__init__(daemon_name, pid_file_path, logger)
         self.frequency = frequency
 
-    def run(self):
+    def run(self):  # pylint: disable=duplicate-code
         """ The main loop of the daemon. """
 
         while True:
@@ -77,5 +77,5 @@ class CollectorDaemon(Daemon):
 
             self.logger.info('Fetching Finished. Number of '
                              'records: {amount}'.format(amount=Check.objects.all().count()))
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             self.logger.error(str(error))

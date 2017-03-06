@@ -22,7 +22,7 @@ sys.path.append(PROJECT_PATH)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moninag.settings')
 django.setup()
 
-from check.models import Check
+from check.models import Check  # pylint: disable=wrong-import-position
 
 
 def retry_query(tries=3, delay=1):
@@ -47,7 +47,7 @@ def retry_query(tries=3, delay=1):
             while mtries:
                 try:
                     return func(*args, **kwargs)
-                except Exception as error:
+                except Exception as error:  # pylint: disable=broad-except, unused-variable
                     if mtries:
                         time.sleep(mdelay)
                 mtries -= 1

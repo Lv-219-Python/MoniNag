@@ -1,11 +1,10 @@
 """This module contains notifier daemon starting script"""
 
-
 import argparse
 import logging
 import os
 
-from notifdaemon import NotificationDaemon
+from notifdaemon import NotificationDaemon  # pylint: disable=import-error
 
 # Absolute path to this script
 CURRENT_PATH = os.path.abspath(os.curdir)
@@ -42,6 +41,7 @@ HANDLER = logging.FileHandler('{0}/{1}.log'.format(LOG_FILE_PATH, DAEMON_NAME))
 HANDLER.setFormatter(FORMATTER)
 LOGGER.addHandler(HANDLER)
 
+# pylint: disable=duplicate-code
 # Starting daemon with command line
 if __name__ == '__main__':
 
