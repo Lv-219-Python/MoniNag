@@ -16,9 +16,9 @@ import { CheckListComponent } from './checks/check-list.component';
 import { CheckUpdateComponent } from './checks/check-update.component';
 import { ChecksService } from './checks/checks.service';
 
-import { ServerComponent } from './servers/server.component';
+import { ServerAddComponent } from './servers/server-add.component';
 import { ServersComponent } from './servers/servers.component';
-import { ServerEditComponent } from './servers/edit-server.component';
+import { ServerEditComponent } from './servers/server-edit.component';
 import { ServerDetailComponent } from './servers/server-detail.component';
 import { ServersService } from './servers/service';
 
@@ -51,7 +51,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
         CheckListComponent,
         CheckUpdateComponent,
         MainNavComponent,
-        ServerComponent,
+        ServerAddComponent,
         ServerDetailComponent,
         ServersComponent,
         ServerEditComponent,

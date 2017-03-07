@@ -12,7 +12,7 @@ import { ServicesComponent } from '../services/services.component';
 
 @Component({
     selector: 'servers-edit',
-    template: require('./edit-server.component.html'),
+    template: require('./server-edit.component.html'),
     providers: [
         ServersService,
     ],

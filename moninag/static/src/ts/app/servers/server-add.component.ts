@@ -8,12 +8,12 @@ import { Server, states } from './model';
 
 @Component({
     selector: 'server-add',
-    template: require('./server.component.html'),
+    template: require('./server-add.component.html'),
     providers: [ServersService]
 })
 
 
-export class ServerComponent {
+export class ServerAddComponent {
 
     servers: Server[];
     serverForm: FormGroup;

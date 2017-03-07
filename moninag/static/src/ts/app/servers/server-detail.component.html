@@ -1,12 +1,26 @@
-<div *ngIf="server" class="form-group">
-
-    <label>Server:</label>
-    <div>Name: {{server.name}} </div>
-    <div>Address: {{server.address}} </div>
-    <div>State: {{server.state}} </div>
-
-    <button (click)="goBack()">Back</button>
-    <button (click)="gotoEdit()">Edit</button>
-    <button (click)="delete()">x</button>
-    <services-app [server]='server'></services-app>
-<div>
+<md-card>
+    <md-card-title>
+        Your Server
+    </md-card-title>
+    <md-card-content>
+        <div *ngIf="server" class="form-group">
+            <label>
+                <div>Name: {{server.name}} </div>
+            </label>
+            <label>
+                <div>Address: {{server.address}} </div>
+            </label>
+            <label>
+                <div>State: {{server.state}} </div>
+            </label>
+            <md-card-actions>
+                <button md-button (click)="goBack()">Back</button>
+                <button md-button (click)="gotoEdit()">Edit</button>
+                <button md-button (click)="delete()">Delete</button>
+            </md-card-actions>
+            <md-card>
+                <services-app [server]='server'></services-app>
+            </md-card>
+        </div>
+    </md-card-content>
+</md-card>

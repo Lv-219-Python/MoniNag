@@ -19,12 +19,14 @@ export class ServersService {
             .map((response: Response) => response = response.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
     }
+
     getServer(id: number): Observable<Server> {
         const url = `${this.serversUrl}${id}`;
         return this.http.get(url)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
+
     putServer(server: any): Observable<Server[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
@@ -63,6 +65,7 @@ export class ServersService {
             })
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
+
     deactivate(server: Server): Observable<Server[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

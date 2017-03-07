@@ -4,8 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Server, states } from './model';
 import { ServersService } from './service';
-import { ServerEditComponent } from './edit-server.component'
-import { ServerComponent } from './server.component'
+import { ServerAddComponent } from './server-add.component'
 
 @Component({
     selector: 'servers-app',

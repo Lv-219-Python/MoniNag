@@ -5,7 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { Server, states } from './model';
 import { ServersService } from './service';
-import { ServerEditComponent } from './edit-server.component'
+import { ServerEditComponent } from './server-edit.component'
 import { ServicesComponent } from '../services/services.component';
 
 

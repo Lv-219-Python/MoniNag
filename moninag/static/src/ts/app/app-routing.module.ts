@@ -7,8 +7,8 @@ import { CheckListComponent } from './checks/check-list.component';
 import { CheckUpdateComponent } from './checks/check-update.component';
 
 import { ServersComponent } from './servers/servers.component';
-import { ServerComponent } from './servers/server.component';
-import { ServerEditComponent } from './servers/edit-server.component';
+import { ServerAddComponent } from './servers/server-add.component';
+import { ServerEditComponent } from './servers/server-edit.component';
 import { ServerDetailComponent } from './servers/server-detail.component';
 
 import { ServiceAddComponent } from './services/service-add.component';
@@ -70,7 +70,7 @@ const APP_ROUTES: Routes = [
     },
     {
         path: 'server-add',
-        component: ServerComponent
+        component: ServerAddComponent
     },
     {
         path: 'service-add',
