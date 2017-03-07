@@ -1,4 +1,5 @@
-"""This module holds Server model class"""
+"""This module contains Check model class and basic functions"""
+
 from django.db import models
 
 from registration.models import CustomUser
@@ -64,7 +65,7 @@ class Server(models.Model):
         self.save()
 
     @staticmethod
-    def get_by_id(id):
+    def get_by_id(server_id):
         """Get server with given id.
 
         :param id: int - server id
@@ -72,8 +73,8 @@ class Server(models.Model):
         """
 
         try:
-            server = Server.objects.get(id=id)
-        except Exception as error:
+            server = Server.objects.get(id=server_id)
+        except Exception as error:  # pylint: disable=broad-except, unused-variable
             return None
 
         return server
@@ -110,7 +111,8 @@ class Server(models.Model):
         }
 
     def __str__(self):
-        return "ServerId: {}, ServerName: {}, ServerAddress: {}, ServerState {}".format(self.id,
-                                                                                        self.name,
-                                                                                        self.address,
-                                                                                        self.state)
+        return "ServerId: {}, ServerName: {}, ServerAddress: {}, " \
+               "ServerState {}".format(self.id,
+                                       self.name,
+                                       self.address,
+                                       self.state)
