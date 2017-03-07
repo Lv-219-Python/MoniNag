@@ -107,7 +107,7 @@ class Check(models.Model):
 
         try:
             check = Check.objects.get(id=check_id)
-        except:  # pylint: disable=bare-except
+        except Check.DoesNotExist:
             return None
 
         return check

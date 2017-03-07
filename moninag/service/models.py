@@ -76,7 +76,7 @@ class Service(models.Model):
 
         try:
             service = Service.objects.get(id=service_id)
-        except Exception as error:  # pylint: disable=broad-except,unused-variable
+        except Service.DoesNotExist:
             return None
 
         return service

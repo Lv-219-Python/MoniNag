@@ -115,6 +115,7 @@ class ContactView(View):
 
     def verify(request, activation_key):  # pylint: disable=no-self-argument
         """Making contact active (active=False -> active=True)"""
+
         contact = Contact.objects.get(activation_key=activation_key)
         contact.is_active = True
         contact.save()

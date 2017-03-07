@@ -104,7 +104,7 @@ class ServiceView(View):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        server = Server.get_by_id(id=service_params['server_id'])
+        server = Server.get_by_id(server_id=service_params['server_id'])
 
         if not server:
             json_response['error'] = 'Server with given id was not found.'

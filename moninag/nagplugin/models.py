@@ -30,7 +30,7 @@ class NagPlugin(models.Model):
 
         try:
             plugin = NagPlugin.objects.get(id=plugin_id)
-        except Exception as error:  # pylint: disable=broad-except, unused-variable
+        except NagPlugin.DoesNotExist:
             return None
 
         return plugin

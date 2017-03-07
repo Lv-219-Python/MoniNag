@@ -71,7 +71,7 @@ class CustomUser(AbstractBaseUser):
 
         try:
             user = CustomUser.objects.get(id=user_id)
-        except Exception as error:  # pylint: disable=broad-except,unused-variable
+        except CustomUser.DoesNotExist:
             return None
 
         return user

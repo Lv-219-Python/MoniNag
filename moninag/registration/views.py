@@ -131,9 +131,8 @@ def request_password_reset(request):
                                           token)
 
                 json['success'] = True
-                json[
-                    'message'] = "An email has been sent to " + user.email + \
-                                 ". Please check its inbox to continue reseting password."
+                json['message'] = "An email has been sent to " + user.email + \
+                                  ". Please check its inbox to continue reseting password."
 
             except CustomUser.DoesNotExist:
                 json['error'] = "No user is associated with this email address"

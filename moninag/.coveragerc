@@ -20,6 +20,9 @@ omit =
     # omit middleware directory
     */middleware/*
 
+    # omit daemons directory
+    */daemons/*
+
     # omit __init__.py, manage.py, apps.py and urls.py
     *apps*
     *__init__*

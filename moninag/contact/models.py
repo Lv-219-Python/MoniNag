@@ -49,7 +49,7 @@ class Contact(models.Model):
         try:
             Contact.objects.get(id=contact_id)
             return Contact.objects.get(id=contact_id)
-        except:  # pylint: disable=bare-except
+        except Contact.DoesNotExist:
             return None
 
     @staticmethod
