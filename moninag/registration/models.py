@@ -7,6 +7,17 @@ from django.db import models
 
 
 class CustomUser(AbstractBaseUser):
+    """
+    Custom User
+    with such fields:
+        firstname
+        secondname
+        email
+        is_active/is_admin/is_staff/is_superuser
+        avatar
+        activation-key
+    """
+
     first_name = models.CharField(max_length=254, blank=True)
     second_name = models.CharField(max_length=254, blank=True)
     email = models.EmailField(blank=False, unique=True)
