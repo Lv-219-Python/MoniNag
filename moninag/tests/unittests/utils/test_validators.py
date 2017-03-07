@@ -1,9 +1,13 @@
+"""This module holds Unit Tests for validators"""
+
 from django.test import TestCase
 
 import utils.validators as validator
 
 
 class TestServer(TestCase):
+    """Tests for validators"""
+
     def test_validate_dict_sucess(self):
         """Ensure that validate_dict method returns TRUE if data fits requirements"""
 

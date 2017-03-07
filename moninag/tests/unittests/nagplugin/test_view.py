@@ -10,7 +10,7 @@ from registration.models import CustomUser
 
 
 class TestNagPluginView(TestCase):
-    """Tests for Nagios Plugin model"""
+    """Tests for Nagios Plugin view"""
 
     def setUp(self):
         self.user = CustomUser.objects.create(

@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for Service app models"""
+
 from django.test import TestCase
 
 from service.models import Service
@@ -6,6 +8,8 @@ from registration.models import CustomUser
 
 
 class ServiceTest(TestCase):
+    """Tests for Service model"""
+
     def setUp(self):
         user = CustomUser.objects.create(id=1,
                                          first_name="firstname",
@@ -70,7 +74,7 @@ class ServiceTest(TestCase):
         self.assertEqual(expect, actual)
 
     def test_service_get_by_server_id(self):
-        """Ensure that get by server id method 
+        """Ensure that get by server id method
         returns services of server with specific id"""
 
         server = Server.objects.get(id=1)
@@ -79,7 +83,7 @@ class ServiceTest(TestCase):
         self.assertQuerysetEqual(expect, map(repr, actual), ordered=False)
 
     def test_service_get_by_user_id(self):
-        """Ensure that get by user id method 
+        """Ensure that get by user id method
         returns services of user with specific id"""
 
         actual = Service.objects.filter(server__user__id=3)
@@ -87,7 +91,7 @@ class ServiceTest(TestCase):
         self.assertQuerysetEqual(expect, map(repr, actual), ordered=False)
 
     def test_service_get_by_statuses(self):
-        """Ensure that get by statuses method 
+        """Ensure that get by statuses method
         returns services with specific statuses"""
 
         actual = Service.objects.filter(status__in=["ok"])
@@ -95,7 +99,7 @@ class ServiceTest(TestCase):
         self.assertQuerysetEqual(expect, map(repr, actual), ordered=False)
 
     def test_service_to_dict(self):
-        """Ensure that to_dict methods 
+        """Ensure that to_dict methods
         creates a proper dict from service"""
 
         service = Service.objects.get(id=30)
@@ -109,7 +113,7 @@ class ServiceTest(TestCase):
         self.assertEqual(expect, actual)
 
     def test_service__str__(self):
-        """Ensure that __str__ method 
+        """Ensure that __str__ method
         creates a proper str representation of a service"""
 
         service = Service.objects.get(id=20)
