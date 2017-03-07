@@ -40,8 +40,9 @@ class TestPlugin(TestCase):
         result = plugin.to_dict()
         expected = {
             'id': 1,
-            'name': "check_dns",
-            'template': "/usr/lib/nagios/plugins/check_dns -H {host}",
+            'name': 'check_dns',
+            'template': '/usr/lib/nagios/plugins/check_dns -H {host}',
+            'description': ''
         }
 
         self.assertDictEqual(result, expected)
@@ -51,8 +52,9 @@ class TestPlugin(TestCase):
 
         plugin = NagPlugin.objects.get(id=1)
         result = str(plugin)
-        expected = 'Plugin id: {}, name: {}, template: {}'.format(plugin.id,
-                                                                  plugin.name,
-                                                                  plugin.template)
+        expected = 'Plugin id: {}, name: {}, template: {}, description: {}'.format(plugin.id,
+                                                                                   plugin.name,
+                                                                                   plugin.template,
+                                                                                   plugin.description)
 
         self.assertEqual(result, expected)
