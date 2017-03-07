@@ -90,10 +90,9 @@ def register_user(request):
 
                 user.save()
                 json['success'] = True
-                json[
-                    'message'] = "Thank you for your time. The confirmation code has" \
-                                 " been sent to your email. In order to confirm the " \
-                                 "registration, simply click on the link given in it."
+                json['message'] = "Thank you for your time. The confirmation code has" \
+                                  " been sent to your email. In order to confirm the " \
+                                  "registration, simply click on the link given in it."
 
                 send_activation_email(
                     DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, activation_key)

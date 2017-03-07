@@ -12,9 +12,8 @@ class AuthCheckerMiddleware(MiddlewareMixin):  # pylint: disable=too-few-public-
 
         if request.user.is_authenticated:
 
-            if (request.path_info.startswith('/auth') and not
-                request.path_info.startswith('/auth/logout')):
-
+            if (request.path_info.startswith('/auth') and
+                    not request.path_info.startswith('/auth/logout')):
                 return redirect("/")
         else:
             if not request.path_info.startswith('/auth'):
