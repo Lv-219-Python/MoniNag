@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for Registration app views"""
+
 import json
 
 from django.core.urlresolvers import reverse
@@ -15,6 +17,7 @@ def mock_uidb64(self):
 
 class FakeToken(object):
     """ Mock token for password reset"""
+
     # pylint: disable=too-few-public-methods
 
     def __init__(self, *args, **kwargs):
@@ -84,8 +87,7 @@ class LoginViewTest(TestCase):
         """Ensure that login() method works properly"""
 
         user_data = json.dumps({'email': 'testmail@test.so',
-                                'password': 'rootroot',
-                               })
+                                'password': 'rootroot',})
         url = reverse('login')
         response = self.client.post(url, data=user_data, content_type='application/json')
 
@@ -115,7 +117,7 @@ class LoginViewTest(TestCase):
 
         self.assertEqual(response.status_code, 403)
 
-    def test_login_method_GET(self):
+    def test_login_method_get(self):
         """Ensure we get a right response when using !=POST method"""
 
         url = reverse('login')
@@ -229,7 +231,7 @@ class LoginViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(str(response.content, encoding='utf8'), expected_json)
 
-    def test_request_password_reset_method_GET(self):
+    def test_request_password_reset_method_get(self):
         """Ensure that method GET renders the right page"""
 
         url = reverse('reset_password')

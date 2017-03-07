@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for Nagios Plugin app views"""
+
 import json
 
 from django.core.urlresolvers import reverse
@@ -8,6 +10,8 @@ from registration.models import CustomUser
 
 
 class TestNagPluginView(TestCase):
+    """Tests for Nagios Plugin model"""
+
     def setUp(self):
         self.user = CustomUser.objects.create(
             id=1,
@@ -31,7 +35,7 @@ class TestNagPluginView(TestCase):
         expected_json_response = {}
         plugins = NagPlugin.get()
         expected_json_response['response'] = [plugin.to_dict() for plugin in plugins]
-        expected_json_response = json.dumps(expected_json_response)
+        expected_json_response = json.dumps(expected_json_response) # pylint: disable=redefined-variable-type
 
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content.decode('utf-8'), expected_json_response)

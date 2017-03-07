@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for Contact app models"""
+
 from django.test import TestCase
 
 from contact.models import Contact
@@ -5,8 +7,10 @@ from registration.models import CustomUser
 
 
 class ContactTest(TestCase):
+    """Tests for contacts"""
 
     def setUp(self):
+        """Tests for Contact model"""
 
         CustomUser.objects.create(
             id=1,
@@ -59,7 +63,7 @@ class ContactTest(TestCase):
         self.assertEqual(result.second_name, 'new_second_name')
         self.assertEqual(result.email, 'new_email@gmail.com')
 
-    def test_get_by_id_is_None(self):
+    def test_get_by_id_is_none(self):
         """Ensure that get_by_id method returns none if contact does not exist."""
 
         result = Contact.get_by_id(None)
