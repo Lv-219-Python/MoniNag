@@ -1,3 +1,5 @@
+"""This module contains Service model class and basic functions"""
+
 from django.db import models
 
 from server.models import Server
@@ -62,7 +64,7 @@ class Service(models.Model):
         return service
 
     @staticmethod
-    def get_by_id(id):
+    def get_by_id(service_id):
         """Get service with given id.
 
         Args:
@@ -73,14 +75,20 @@ class Service(models.Model):
         """
 
         try:
-            service = Service.objects.get(id=id)
-        except Exception as error:
+            service = Service.objects.get(id=service_id)
+        except Exception as error:  # pylint: disable=broad-except,unused-variable
             return None
 
         return service
 
     @staticmethod
     def get_by_server(server):
+        """Get services with given server
+
+        :param server: specific server
+        :return: all services for specific server
+        """
+
         services = Service.objects.filter(server=server)
         return services
 

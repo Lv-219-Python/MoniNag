@@ -1,4 +1,4 @@
-"""This module contains Check model class and basic functions"""
+"""This module contains Server model class and basic functions"""
 
 from django.db import models
 
