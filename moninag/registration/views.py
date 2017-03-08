@@ -167,9 +167,8 @@ def confirm_password_reset(request, uidb64=None, token=None):
             new_password = data.get('password')
             user.set_password(new_password)
             user.save()
-            json[
-                'message'] = "Password has been reset. In 5 seconds you will be redirected" \
-                             " to the login page."
+            json['message'] = "Password has been reset. In 5 seconds you will be redirected" \
+                              " to the login page."
             json['success'] = True
             return JsonResponse(json)
         else:
