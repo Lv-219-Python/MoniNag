@@ -63,8 +63,6 @@ class TestServer(TestCase):
         result = Server.create(user=user, **data)
         expected = Server.objects.get(id=1)
 
-        import pdb; pdb.set_trace()
-
         self.assertEqual(result, expected)
 
     def test_get_by_id(self):

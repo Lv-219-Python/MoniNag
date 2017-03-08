@@ -189,4 +189,4 @@ class CheckView(View):
             return HttpResponse(json_response, status=403)
 
         json_response['error'] = 'Check with given id was not found.'
-        return HttpResponse(json_response, status=404)
+        return JsonResponse(json_response, status=404)
