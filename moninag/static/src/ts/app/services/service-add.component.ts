@@ -13,7 +13,7 @@ import { ServicesService } from './services.service';
 
 export class ServiceAddComponent {
 
-    model = new Service(0, '', null, null);
+    model = new Service(0, '', null, null, null);
 
     constructor(
         private servicesService: ServicesService,

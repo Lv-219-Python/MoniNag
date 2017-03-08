@@ -1,24 +1,26 @@
+<h3>Service Details</h3>
 <div *ngIf="service">
-    <h3>Service Details</h3>
-    <div>
-        <label>name: </label>
-        <input [(ngModel)]="service.name" placeholder="{{service.name}}"/>
-    </div>
-
-    <div>
-        <label>status: </label>{{service.status}}
-    </div>
-
-    <div>
-        <label>id: </label>{{service.id}}
-    </div>
-
-    <div>
-        <label>server id: </label>{{service.server_id}}
-    </div>
-
-    <button (click)="goBack()">Back</button>
-    <button (click)="save()">Save</button>
-    <button (click)="delete()">Delete</button>
-    <checks-list [service]='service'> </checks-list>
+    <md-card>
+        <md-card-content>
+            <div>
+                <label>Name:</label>{{service.name}}
+            </div>
+            <div>
+                <label>Status:</label>{{service.status}}
+            </div>
+            <div>
+                <label>State:</label>{{service.state}}
+            </div>
+        </md-card-content>
+        <md-card-actions>
+            <button (click)="onSelect(service)">Edit</button>
+            <button (click)="delete()">Delete</button>
+            <button *ngIf="service.state == true" (click)="deactivate()">Deactivate</button>
+            <button *ngIf="service.state == false" (click)="activate()">Activate</button>
+            <div *ngIf="selectedService">
+                <serviceupdate-app [service]='service'></serviceupdate-app>
+            </div>
+        </md-card-actions>
+    </md-card>
+    <checks-list [service]='service'></checks-list>
 </div>
