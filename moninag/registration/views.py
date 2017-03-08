@@ -2,6 +2,7 @@
 
 from json import loads
 from django.contrib import auth as authentication
+from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse, JsonResponse
@@ -96,7 +97,7 @@ def register_user(request):
 
                 send_activation_email(
                     DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, activation_key)
-        except:  # pylint: disable=bare-except
+        except ValidationError:
             json['error'] = "The email address you've entered has not a valid format"
 
         return JsonResponse(json)
@@ -136,7 +137,7 @@ def request_password_reset(request):
             except CustomUser.DoesNotExist:
                 json['error'] = "No user is associated with this email address"
 
-        except:  # pylint: disable=bare-except
+        except ValidationError:
             json['error'] = "The email address you've entered has not a valid format"
 
         return JsonResponse(json)

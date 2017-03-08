@@ -2,6 +2,7 @@
 
 import json
 
+from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.http import JsonResponse, HttpResponse
 from django.views.generic.base import View
@@ -109,7 +110,7 @@ class ContactView(View):
                 json_response['response'] = contact.to_dict()
                 return JsonResponse(json_response, status=201)
 
-        except:  # pylint: disable=bare-except
+        except ValidationError:
             json_response['error'] = 'Invalid email format.'
             return JsonResponse(json_response, status=400)
 
@@ -161,7 +162,7 @@ class ContactView(View):
             json_response['response'] = contact.to_dict()
             return JsonResponse(json_response, status=200)
 
-        except:  # pylint: disable=bare-except
+        except ValidationError:
             json_response['error'] = 'Invalid email format.'
             return JsonResponse(json_response, status=400)
 

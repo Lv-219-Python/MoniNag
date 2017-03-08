@@ -47,7 +47,7 @@ def retry_query(tries=3, delay=1):
             while mtries:
                 try:
                     return func(*args, **kwargs)
-                except Exception as error:  # pylint: disable=broad-except, unused-variable
+                except Exception:  # pylint: disable=broad-except
                     if mtries:
                         time.sleep(mdelay)
                 mtries -= 1

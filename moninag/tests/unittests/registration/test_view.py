@@ -8,9 +8,8 @@ from django.test import TestCase, Client, mock
 from registration.models import CustomUser
 
 
-def mock_uidb64(self):
+def mock_uidb64(self):  # pylint: disable=unused-argument
     """ Mock uidb64 for password reset"""
-    # pylint: disable=unused-argument
 
     return '1000'
 
@@ -18,18 +17,17 @@ def mock_uidb64(self):
 class FakeToken(object):
     """ Mock token for password reset"""
 
-    # pylint: disable=too-few-public-methods
-
     def __init__(self, *args, **kwargs):
         pass
 
-    def check_token(self, a):
-        # pylint: disable=unused-argument, invalid-name, no-self-use, missing-docstring
+    def check_token(self, arg):  # pylint: disable=unused-argument,no-self-use
+        """Fake token"""
+
         return True
 
 
 class LoginViewTest(TestCase):
-    # pylint: disable=missing-docstring
+    """Tests for login View"""
 
     def setUp(self):
         self.user = CustomUser.objects.create(id=1000,
@@ -87,7 +85,7 @@ class LoginViewTest(TestCase):
         """Ensure that login() method works properly"""
 
         user_data = json.dumps({'email': 'testmail@test.so',
-                                'password': 'rootroot',})
+                                'password': 'rootroot', })
         url = reverse('login')
         response = self.client.post(url, data=user_data, content_type='application/json')
 

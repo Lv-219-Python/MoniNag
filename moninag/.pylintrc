@@ -75,7 +75,7 @@ disable=raw_input-builtin,indexing-exception,unpacking-in-except,range-builtin-n
     parameter-unpacking,print-statement,reduce-builtin,basestring-builtin,map-builtin-not-iterating,
     round-builtin,useless-suppression,buffer-builtin,backtick,old-division,nonzero-method,
     old-ne-operator,setslice-method,file-builtin,using-cmp-argument,logging-format-interpolation,
-    no-member
+    no-member, too-few-public-methods
 
 
 [REPORTS]
