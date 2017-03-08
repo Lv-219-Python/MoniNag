@@ -1,5 +1,8 @@
+"""This module contains Registration methods"""
+
 from json import loads
 from django.contrib import auth as authentication
+from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse, JsonResponse
@@ -9,14 +12,18 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from moninag.settings import DEFAULT_HOST, DEFAULT_FROM_EMAIL
 from registration.models import CustomUser
-from registration.utils.send_email import send_activation_email, generate_activation_key, send_reset_password_email
+from registration.utils.send_email import generate_activation_key
+from registration.utils.send_email import send_activation_email, send_reset_password_email
 
 
 def auth(request):
+    """Initial landing page for login"""
+
     return render(request, 'registration/login.html')
 
 
 def activate(request, activation_key):
+    """Activation method for activation of CustomUser"""
 
     user = CustomUser.objects.get(activation_key=activation_key)
     if not user.is_active:
@@ -28,6 +35,7 @@ def activate(request, activation_key):
 
 
 def login(request):
+    """Login method for authentication"""
 
     if request.method == 'POST':
         data = loads(request.body.decode('utf-8'))
@@ -49,11 +57,15 @@ def login(request):
 
 
 def logout(request):
+    """Logout method"""
+
     authentication.logout(request)
     return redirect('/auth/')
 
 
 def register_user(request):
+    """Registration method for CustomUser registration"""
+
     if request.method == 'POST':
         json = {
             'error': {},
@@ -79,11 +91,13 @@ def register_user(request):
 
                 user.save()
                 json['success'] = True
-                json['message'] = "Thank you for your time. The confirmation code has been sent to your email. In order to confirm the registration, simply click on the link given in it."
+                json['message'] = "Thank you for your time. The confirmation code has" \
+                                  " been sent to your email. In order to confirm the " \
+                                  "registration, simply click on the link given in it."
 
                 send_activation_email(
                     DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, activation_key)
-        except:
+        except ValidationError:
             json['error'] = "The email address you've entered has not a valid format"
 
         return JsonResponse(json)
@@ -92,6 +106,8 @@ def register_user(request):
 
 
 def request_password_reset(request):
+    """Request password method"""
+
     if request.method == 'POST':
         json = {
             'error': {},
@@ -111,15 +127,17 @@ def request_password_reset(request):
                 uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
                 token = default_token_generator.make_token(user)
 
-                send_reset_password_email( DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, uidb64, token )
+                send_reset_password_email(DEFAULT_HOST, DEFAULT_FROM_EMAIL, user.email, uidb64,
+                                          token)
 
                 json['success'] = True
-                json['message'] = "An email has been sent to " + user.email +". Please check its inbox to continue reseting password."
+                json['message'] = "An email has been sent to " + user.email + \
+                                  ". Please check its inbox to continue reseting password."
 
             except CustomUser.DoesNotExist:
                 json['error'] = "No user is associated with this email address"
 
-        except:
+        except ValidationError:
             json['error'] = "The email address you've entered has not a valid format"
 
         return JsonResponse(json)
@@ -127,6 +145,8 @@ def request_password_reset(request):
 
 
 def confirm_password_reset(request, uidb64=None, token=None):
+    """Confirmation of password"""
+
     if request.method == 'POST':
         json = {
             'error': {},
@@ -147,7 +167,8 @@ def confirm_password_reset(request, uidb64=None, token=None):
             new_password = data.get('password')
             user.set_password(new_password)
             user.save()
-            json['message'] = "Password has been reset. In 5 seconds you will be redirected to the login page."
+            json['message'] = "Password has been reset. In 5 seconds you will be redirected" \
+                              " to the login page."
             json['success'] = True
             return JsonResponse(json)
         else:

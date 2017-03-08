@@ -1,21 +1,24 @@
+"""This module contains contact view with methods for CRUD operations"""
+
 import json
 
+from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.http import JsonResponse, HttpResponse
 from django.views.generic.base import View
 from django.shortcuts import render
 
 from contact.models import Contact
-from moninag.settings import DEFAULT_FROM_EMAIL, DEFAULT_HOST
-from utils.validators import validate_dict, validate_subdict
-from registration.utils.send_email import generate_activation_key
 from contact.utils.verify_email import send_verification_email
+from moninag.settings import DEFAULT_FROM_EMAIL, DEFAULT_HOST
+from registration.utils.send_email import generate_activation_key
+from utils.validators import validate_dict, validate_subdict
 
-
-REQUIREMENTS = {'first_name',
-                'second_name',
-                'email'
-                }
+REQUIREMENTS = {
+    'first_name',
+    'second_name',
+    'email'
+}
 
 
 class ContactView(View):
@@ -37,7 +40,6 @@ class ContactView(View):
         json_response = {}
 
         if not contact_id:
-
             contacts = Contact.get_by_user_id(request.user.id)
             json_response['response'] = [contact.to_dict()
                                          for contact in contacts]
@@ -108,11 +110,12 @@ class ContactView(View):
                 json_response['response'] = contact.to_dict()
                 return JsonResponse(json_response, status=201)
 
-        except:
+        except ValidationError:
             json_response['error'] = 'Invalid email format.'
             return JsonResponse(json_response, status=400)
 
-    def verify(request, activation_key):
+    def verify(request, activation_key):  # pylint: disable=no-self-argument
+        """Making contact active (active=False -> active=True)"""
 
         contact = Contact.objects.get(activation_key=activation_key)
         contact.is_active = True
@@ -120,7 +123,7 @@ class ContactView(View):
 
         return render(request, 'contact/verified.html')
 
-    def put(self, request, contact_id):
+    def put(self, request, contact_id):  # pylint: disable=no-self-use
         """Handles PUT request.
         Get contact data from PUT request and update contact with given id in database.
         In response return updated contact or error if contact was not updated.
@@ -159,11 +162,11 @@ class ContactView(View):
             json_response['response'] = contact.to_dict()
             return JsonResponse(json_response, status=200)
 
-        except:
+        except ValidationError:
             json_response['error'] = 'Invalid email format.'
             return JsonResponse(json_response, status=400)
 
-    def delete(self, request, contact_id):
+    def delete(self, request, contact_id):  # pylint: disable=no-self-use
         """Handles DELETE request.
         Delete contact with given id from database.
         :param contact_id: int - contact id

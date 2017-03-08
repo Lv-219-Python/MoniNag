@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for Service app views"""
+
 import json
 
 from django.core.urlresolvers import reverse
@@ -11,6 +13,7 @@ from nagplugin.models import NagPlugin
 
 
 class TestServiceView(TestCase):
+    """Tests for Service view"""
 
     def setUp(self):
         self.user = CustomUser.objects.create(
@@ -99,7 +102,7 @@ class TestServiceView(TestCase):
         expected_response = {}
         expected_response['response'] = [service.to_dict()
                                          for service in services]
-        expected_response = json.dumps(expected_response)
+        expected_response = json.dumps(expected_response) # pylint: disable=redefined-variable-type
 
         self.assertEqual(actual_response.status_code, 200)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
@@ -127,7 +130,7 @@ class TestServiceView(TestCase):
             } for check in checks]
 
         expected_response['response'] = data
-        expected_response = json.dumps(expected_response)
+        expected_response = json.dumps(expected_response) # pylint: disable=redefined-variable-type
 
         self.assertEqual(actual_response.status_code, 200)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
@@ -164,7 +167,7 @@ class TestServiceView(TestCase):
         service = Service.objects.get(name='Service')
         expected_response = {}
         expected_response['response'] = service.to_dict()
-        expected_response = json.dumps(expected_response)
+        expected_response = json.dumps(expected_response) # pylint: disable=redefined-variable-type
 
         self.assertEqual(actual_response.status_code, 201)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),
@@ -224,7 +227,7 @@ class TestServiceView(TestCase):
         service = Service.objects.get(id=11)
         expected_response = {}
         expected_response['response'] = service.to_dict()
-        expected_response = json.dumps(expected_response)
+        expected_response = json.dumps(expected_response) # pylint: disable=redefined-variable-type
 
         self.assertEqual(actual_response.status_code, 200)
         self.assertJSONEqual(actual_response.content.decode('utf-8'),

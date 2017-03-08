@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for Server app views"""
+
 import json
 
 from django.contrib.auth import authenticate
@@ -34,6 +36,8 @@ def to_dict(server):
 
 
 class TestServerView(TestCase):
+    """Tests for Server model"""
+
     def setUp(self):
         self.user = CustomUser.objects.create(
             id=1,
@@ -113,7 +117,9 @@ class TestServerView(TestCase):
         self.assertJSONEqual(response.content.decode('utf-8'), expected_json_response)
 
     def test_get_server_permission_denied(self):
-        """Ensure that GET for server which doesn't belong to authenticated user returns 403 status"""
+        """Ensure that GET for server which doesn't belong to
+        authenticated user returns 403 status
+        """
 
         url = reverse('server', args=[4])
         response = self.client.get(url)
@@ -146,7 +152,8 @@ class TestServerView(TestCase):
         self.assertEqual(server.user.id, 1)
 
     def test_post_incorrect_format(self):
-        """Ensure that POST fails to create server with invalid data on input and returns 404 status"""
+        """Ensure that POST fails to create server with invalid data on input
+        and returns 404 status"""
 
         url = reverse('servers')
         data = json.dumps({'name': 'ServerName',
@@ -173,7 +180,8 @@ class TestServerView(TestCase):
         self.assertEqual(server.state, 'Staging')
 
     def test_put_incorrect_format(self):
-        """Ensure that PUT method fails to update server with incorrect input data format and returns 400 status"""
+        """Ensure that PUT method fails to update server with incorrect input
+        data format and returns 400 status"""
 
         url = reverse('server', args=[4])
         data = json.dumps({'name': 'NewName',
@@ -197,7 +205,8 @@ class TestServerView(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_put_permission_denied(self):
-        """Ensure that PUT method fails to update server with another user owner and returns 403 status"""
+        """Ensure that PUT method fails to update server with another user owner
+         and returns 403 status"""
 
         url = reverse('server', args=[4])
         data = json.dumps({'name': 'NewName',
@@ -218,7 +227,8 @@ class TestServerView(TestCase):
         self.assertEqual(len(Server.objects.all()), 2)
 
     def test_delete_permission_denied(self):
-        """Ensure that DELETE method fails to delete server with another user owner and returns 403 status"""
+        """Ensure that DELETE method fails to delete server with another
+        user owner and returns 403 status"""
 
         url = reverse('server', args=[4])
         response = self.client.delete(url)

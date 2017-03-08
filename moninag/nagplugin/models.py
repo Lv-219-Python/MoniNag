@@ -1,3 +1,5 @@
+"""This module contains Nagios Plugin model class and basic functions"""
+
 from django.db import models
 
 
@@ -16,7 +18,7 @@ class NagPlugin(models.Model):
     description = models.CharField(default='', max_length=255)
 
     @staticmethod
-    def get_by_id(id):
+    def get_by_id(plugin_id):
         """Get nagios plugin with given id.
 
         Args:
@@ -27,8 +29,8 @@ class NagPlugin(models.Model):
         """
 
         try:
-            plugin = NagPlugin.objects.get(id=id)
-        except Exception as error:
+            plugin = NagPlugin.objects.get(id=plugin_id)
+        except NagPlugin.DoesNotExist:
             return None
 
         return plugin

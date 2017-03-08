@@ -1,6 +1,7 @@
+"""This module contains Unit Tests for Contact app views"""
+
 import json
 
-from django.contrib.auth import authenticate
 from django.core.urlresolvers import reverse
 from django.test import Client
 from django.test import TestCase
@@ -10,6 +11,16 @@ from registration.models import CustomUser
 
 
 def to_dict(contact):
+    """Convert model object to dictionary.
+            :return: dict:
+                    {
+                        'id': contact id,
+                        'first_name': first name,
+                        'second_name': second name,
+                        'email': email,
+                        'is_active': contact status.
+                    }
+    """
 
     return {
         'id': contact.id,
@@ -21,8 +32,9 @@ def to_dict(contact):
 
 
 class ContactViewTest(TestCase):
-    def setUp(self):
+    """Tests for Contact model"""
 
+    def setUp(self):
         self.user = CustomUser.objects.create(
             id=1,
             first_name='Test',

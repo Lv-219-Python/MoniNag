@@ -1,3 +1,5 @@
+"""This module contains custom validators"""
+
 def validate_dict(dictionary, requirements):
     """Validate given dictionary for required keys.
 

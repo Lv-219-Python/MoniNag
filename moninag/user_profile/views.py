@@ -1,3 +1,5 @@
+"""This module contains User Profile view with methods for CRUD operations"""
+
 import json
 
 from django.http import JsonResponse
@@ -44,7 +46,7 @@ class UserProfileView(View):
         json_response['response'] = user.to_dict()
         return JsonResponse(json_response, status=200)
 
-    def put(self, request):
+    def put(self, request):  # pylint: disable=no-self-use
         """Handles PUT request.
 
         Get user data from PUT request and update user from request profile in database.
@@ -61,11 +63,11 @@ class UserProfileView(View):
 
         json_response = {}
 
-        OPTIONAL_REQUIREMENTS = {'first_name', 'second_name'}
+        optional_requirements = {'first_name', 'second_name'}
 
         user_params = json.loads(request.body.decode('utf-8'))
 
-        if not validate_subdict(user_params, OPTIONAL_REQUIREMENTS):
+        if not validate_subdict(user_params, optional_requirements):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 

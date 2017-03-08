@@ -1,6 +1,9 @@
 # MoniNag
+**MoniNag** is a monitoring system that performs server monitoring. MoniNag offers monitoring, 
+alerting user via Email and visualized statistics for servers. The system provides highly 
+customizable approach towards monitoring.
 
-## Install
+## Installation
 We are assuming that you're using bash & you have to install or clone such packages:
 
 * Install PostgreSQL server on local machine
@@ -64,3 +67,44 @@ We are assuming that you're using bash & you have to install or clone such packa
   ```
   sudo apt-get install nagios-plugins
   ```
+
+## Tests
+* Back-end Unit Tests for entire project are in **tests/unittests/** directory. In order to launch 
+tests use:
+
+    ```
+    python manage.py test
+    ```
+* For test effectiveness estimation our team used **coverage py**. Main configuration for 
+coverage are in **.coveragerc** config file where you can customize run/report/html/... sections.
+In order to omit some file or directory which is not intented to be covered with tests add them 
+in **[run]** section:
+
+    ```
+    omit = filename.py
+    ```
+    
+    In order to run coverage use:
+    ```sh
+    coverage run manage.py test
+    ```
+    
+    To get report output you can store it in html/xml or simply print it into console:
+    ```sh
+    coverage report 
+    coverage report html
+    coverage report xml
+    ```
+    
+    More information at [Coverage](https://coverage.readthedocs.io/en/coverage-4.3.4/)
+   
+
+## Other
+* Code Convention. For analyzing and establishing clean code (according to PEP8) we use **pylint**. 
+In addition since project uses Django **pylint_django** plugin for pylint is used. All pylint 
+configurations are in **.pylintrc** config file. To check specific  file or package use:
+  
+    ```sh
+    pylint --rcfile=/path/.pylintrc filename.py
+    ```
+    Additional information: [Pylint User Manual](https://pylint.readthedocs.io/en/latest/)

@@ -1,3 +1,5 @@
+"""This module contains Service view with methods for CRUD operations"""
+
 import json
 
 from django.http import HttpResponse, JsonResponse
@@ -94,15 +96,15 @@ class ServiceView(View):
 
         json_response = {}
 
-        REQUIREMENTS = {'name', 'status', 'server_id'}
+        requirements = {'name', 'status', 'server_id'}
 
         service_params = json.loads(request.body.decode('utf-8'))
 
-        if not validate_dict(service_params, REQUIREMENTS):
+        if not validate_dict(service_params, requirements):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        server = Server.get_by_id(id=service_params['server_id'])
+        server = Server.get_by_id(server_id=service_params['server_id'])
 
         if not server:
             json_response['error'] = 'Server with given id was not found.'
@@ -118,7 +120,7 @@ class ServiceView(View):
         json_response['response'] = service.to_dict()
         return JsonResponse(json_response, status=201)
 
-    def put(self, request, service_id):
+    def put(self, request, service_id):  # pylint: disable=no-self-use
         """Handles PUT request.
 
         Get service data from PUT request and update service with given id in database.
@@ -146,11 +148,11 @@ class ServiceView(View):
 
         json_response = {}
 
-        OPTIONAL_REQUIREMENTS = {'name', 'status'}
+        optional_requirements = {'name', 'status'}
 
         service_params = json.loads(request.body.decode('utf-8'))
 
-        if not validate_subdict(service_params, OPTIONAL_REQUIREMENTS):
+        if not validate_subdict(service_params, optional_requirements):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
@@ -168,7 +170,7 @@ class ServiceView(View):
         json_response['response'] = service.to_dict()
         return JsonResponse(json_response, status=200)
 
-    def delete(self, request, service_id):
+    def delete(self, request, service_id): # pylint: disable=no-self-use
         """Handles DELETE request.
 
         Delete service with given id from database.

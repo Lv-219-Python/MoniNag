@@ -1,3 +1,5 @@
+"""This module contains Server view with methods for CRUD operations"""
+
 import json
 
 from django.http import HttpResponse, JsonResponse
@@ -89,7 +91,7 @@ class ServerView(View):
         json_response['response'] = server.to_dict()
         return JsonResponse(json_response, status=201)
 
-    def put(self, request, server_id):
+    def put(self, request, server_id):  # pylint: disable=no-self-use
         """Handles PUT request.
 
         Get server data from PUT request and update server with given id in database.
@@ -126,7 +128,7 @@ class ServerView(View):
         server.update(**server_dict)
         return HttpResponse(status=200)
 
-    def delete(self, request, server_id):
+    def delete(self, request, server_id):  # pylint: disable=no-self-use
         """Handles DELETE request.
 
         Delete server with given id from database.

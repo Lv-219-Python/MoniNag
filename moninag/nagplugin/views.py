@@ -1,3 +1,5 @@
+"""This module contains Nagios Plugin view with methods for CRUD operations"""
+
 from django.http import JsonResponse
 from django.views.generic.base import View
 

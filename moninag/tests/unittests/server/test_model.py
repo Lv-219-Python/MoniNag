@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for Server app models"""
+
 from django.test import TestCase
 
 from registration.models import CustomUser
@@ -5,6 +7,8 @@ from server.models import Server
 
 
 class TestServer(TestCase):
+    """Tests for Contact view"""
+
     def setUp(self):
         CustomUser.objects.create(
             id=1,
@@ -112,9 +116,10 @@ class TestServer(TestCase):
 
         server = Server.objects.get(id=2)
         result = str(server)
-        expected = 'ServerId: {}, ServerName: {}, ServerAddress: {}, ServerState {}'.format(server.id,
-                                                                                            server.name,
-                                                                                            server.address,
-                                                                                            server.state)
+        expected = 'ServerId: {}, ServerName: {}, ServerAddress: {},' \
+                   ' ServerState {}'.format(server.id,
+                                            server.name,
+                                            server.address,
+                                            server.state)
 
         self.assertEqual(result, expected)

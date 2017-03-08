@@ -1,4 +1,5 @@
-"""This module holds Check model class and basic functions"""
+"""This module contains Check model class and basic functions"""
+
 from django.db import models
 
 from nagplugin.models import NagPlugin
@@ -64,7 +65,7 @@ class Check(models.Model):
         :param run_freq: int - Run frequency.
         :param state: boolean - State.
         """
-        
+
         if name:
             self.name = name
         if plugin:
@@ -96,7 +97,7 @@ class Check(models.Model):
         self.service.save()
 
     @staticmethod
-    def get_by_id(id):
+    def get_by_id(check_id):
         """Get check with given id.
 
         :param id: int - Check id.
@@ -105,8 +106,8 @@ class Check(models.Model):
         """
 
         try:
-            check = Check.objects.get(id=id)
-        except:
+            check = Check.objects.get(id=check_id)
+        except Check.DoesNotExist:
             return None
 
         return check
@@ -122,7 +123,7 @@ class Check(models.Model):
         checks = Check.objects.filter(service__server__user__id=user_id)
 
         return checks
-    
+
     @staticmethod
     def get_by_service(service):
         """Get checks by user id.

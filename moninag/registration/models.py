@@ -1,3 +1,5 @@
+"""This module contains Registration model class and basic functions"""
+
 from hashlib import md5
 
 from django.contrib.auth.models import AbstractBaseUser
@@ -5,6 +7,16 @@ from django.db import models
 
 
 class CustomUser(AbstractBaseUser):
+    """
+    Custom User
+    with such fields:
+        firstname
+        secondname
+        email
+        is_active/is_admin/is_staff/is_superuser
+        avatar
+        activation-key
+    """
 
     first_name = models.CharField(max_length=254, blank=True)
     second_name = models.CharField(max_length=254, blank=True)
@@ -47,7 +59,7 @@ class CustomUser(AbstractBaseUser):
         self.save()
 
     @staticmethod
-    def get_by_id(id):
+    def get_by_id(user_id):
         """Get user with given id.
 
         Args:
@@ -58,8 +70,8 @@ class CustomUser(AbstractBaseUser):
         """
 
         try:
-            user = CustomUser.objects.get(id=id)
-        except Exception as error:
+            user = CustomUser.objects.get(id=user_id)
+        except CustomUser.DoesNotExist:
             return None
 
         return user

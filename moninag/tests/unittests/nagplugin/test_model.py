@@ -1,9 +1,13 @@
+"""This module contains Unit Tests for Nagios Plugin app models"""
+
 from django.test import TestCase
 
 from nagplugin.models import NagPlugin
 
 
 class TestPlugin(TestCase):
+    """Tests for Nagios plugin model"""
+
     def test_get_by_id(self):
         """Ensure that get by id method returns specific plugin using id"""
 

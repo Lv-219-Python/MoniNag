@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for User Profile app views"""
+
 import json
 
 from django.core.urlresolvers import reverse
@@ -6,17 +8,20 @@ from django.test import Client, mock, TestCase
 from registration.models import CustomUser
 
 
-class FakeMD5(object):
+class FakeMD5(object): # pylint: disable=no-self-use, too-few-public-methods
     """Mock md5 function from hashlib."""
 
     def __init__(self, *args, **kwargs):
         pass
 
-    def hexdigest(self):
+    def hexdigest(self): # pylint: disable=no-self-use
+        """Return fake hash"""
+
         return 'fake_avatar_md5_hash'
 
 
 class TestUserProfileView(TestCase):
+    """Tests for User Profile view"""
 
     @mock.patch('registration.models.md5', FakeMD5)
     def setUp(self):

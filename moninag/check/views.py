@@ -1,3 +1,5 @@
+"""This module contains check view with methods for CRUD operations"""
+
 import json
 
 from django.http import HttpResponse, JsonResponse
@@ -6,13 +8,11 @@ from django.views.generic.base import View
 from check.models import Check
 from nagplugin.models import NagPlugin
 from service.models import Service
-from server.models import Server
 
 from utils.validators import validate_dict, validate_subdict
 
 
 class CheckView(View):
-
     """Check view handles GET, POST, PUT, DELETE requests."""
 
     def get(self, request, check_id=None):
@@ -35,7 +35,6 @@ class CheckView(View):
         json_response = {}
 
         if not check_id:
-
             user_checks = Check.get_by_user_id(request.user.id)
             json_response['response'] = [check.to_dict() for check in user_checks]
 
@@ -75,18 +74,19 @@ class CheckView(View):
                     error: <error message>
                 }
         """
-        REQUIREMENTS = {'name',
-                        'plugin_id',
-                        'run_freq',
-                        'target_port',
-                        'service_id'
-                        }
+        requirements = {
+            'name',
+            'plugin_id',
+            'run_freq',
+            'target_port',
+            'service_id'
+        }
 
         json_response = {}
 
         check_params = json.loads(request.body.decode('utf-8'))
 
-        if not validate_dict(check_params, REQUIREMENTS):
+        if not validate_dict(check_params, requirements):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
@@ -114,7 +114,7 @@ class CheckView(View):
         json_response['response'] = check.to_dict()
         return JsonResponse(json_response, status=200)
 
-    def delete(self, request, check_id):
+    def delete(self, request, check_id):  # pylint: disable=no-self-use
         """Handles DELETE request.
 
         Delete check with given id from database.
@@ -135,7 +135,7 @@ class CheckView(View):
 
         return HttpResponse(status=404)
 
-    def put(self, request, check_id):
+    def put(self, request, check_id):  # pylint: disable=no-self-use
         """Handles PUT request.
 
         Get check data from PUT request and update check with given id in database.
@@ -150,18 +150,19 @@ class CheckView(View):
                     error: <error message>
                 }
         """
-        OPTIONAL_REQUIREMENTS = {'name',
-                                 'plugin_id',
-                                 'run_freq',
-                                 'target_port',
-                                 'state',
-                                 }
+        optional_requirements = {
+            'name',
+            'plugin_id',
+            'run_freq',
+            'target_port',
+            'state',
+        }
 
         json_response = {}
 
         check_params = json.loads(request.body.decode('utf-8'))
 
-        if not validate_subdict(check_params, OPTIONAL_REQUIREMENTS):
+        if not validate_subdict(check_params, optional_requirements):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 

@@ -1,3 +1,5 @@
+"""This module contains Unit Tests for Registration app models"""
+
 from django.test import TestCase
 
 from registration.models import CustomUser

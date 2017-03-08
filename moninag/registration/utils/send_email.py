@@ -1,3 +1,5 @@
+"""This module holds custom utils for registration"""
+
 import hashlib
 import random
 from django.template.loader import render_to_string
@@ -5,6 +7,12 @@ from django.core.mail import EmailMultiAlternatives
 
 
 def generate_activation_key(email):
+    """
+    Creation of activation key based on SHA1
+    :param email: user email
+    :return: hashed activation key
+    """
+
     salt = hashlib.sha1(str(random.random()).encode('utf-8')).hexdigest()
     activation_key = hashlib.sha1((salt + email).encode('utf-8')).hexdigest()
 
