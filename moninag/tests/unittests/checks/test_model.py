@@ -194,7 +194,7 @@ class TestCheck(TestCase):
         """Ensure that get_by_user_id returns all checks for specific user_id"""
 
         result = Check.get_by_service(1)
-        expected = 22
+        expected = 2222
 
         self.assertListEqual(list(result), list(expected))
 
