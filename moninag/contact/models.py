@@ -44,11 +44,12 @@ class Contact(models.Model):
     def get_by_id(contact_id):
         """
         :param contact_id: int - contact id
-        :return: QuerySet<Contact>: QuerySet of contact.
+        :return: Object<Contact>: Object of contact.
         """
+
         try:
-            Contact.objects.get(id=contact_id)
-            return Contact.objects.get(id=contact_id)
+            contact = Contact.objects.get(id=contact_id)
+            return contact
         except Contact.DoesNotExist:
             return None
 
@@ -59,6 +60,18 @@ class Contact(models.Model):
         :return: QuerySet<Contact>: QuerySet of contacts.
         """
         return Contact.objects.filter(user=user_id)
+
+    @staticmethod
+    def get_by_email(email):
+        """
+        :param email: str - contact email
+        :return: Object<Contact>: Object of contact.
+        """
+        try:
+            contact = Contact.objects.get(email=email)
+            return contact
+        except Contact.DoesNotExist:
+            return None
 
     def to_dict(self):
         """Convert model object to dictionary.

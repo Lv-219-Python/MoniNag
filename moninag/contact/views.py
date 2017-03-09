@@ -2,8 +2,6 @@
 
 import json
 
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 from django.http import JsonResponse, HttpResponse
 from django.views.generic.base import View
 from django.shortcuts import render
@@ -12,7 +10,7 @@ from contact.models import Contact
 from contact.utils.verify_email import send_verification_email
 from moninag.settings import DEFAULT_FROM_EMAIL, DEFAULT_HOST
 from registration.utils.send_email import generate_activation_key
-from utils.validators import validate_dict, validate_subdict
+from utils.validators import validate_dict, validate_email, validate_subdict
 
 REQUIREMENTS = {
     'first_name',
@@ -37,6 +35,7 @@ class ContactView(View):
                     error: <error message>
                 }
         """
+
         json_response = {}
 
         if not contact_id:
@@ -86,33 +85,32 @@ class ContactView(View):
 
         email = contact_params.get('email')
 
-        try:
-            validate_email(email)
-            try:
-                Contact.objects.get(email=email)
-                json_response['error'] = 'User with such email is already exists.'
-                return JsonResponse(json_response, status=400)
-
-            except Contact.DoesNotExist:
-                contact = Contact()
-
-                contact.first_name = contact_params['first_name']
-                contact.second_name = contact_params['second_name']
-                contact.email = email
-                contact.user = request.user
-                activation_key = generate_activation_key(email)
-                contact.activation_key = activation_key
-                contact.save()
-
-                send_verification_email(
-                    DEFAULT_HOST, DEFAULT_FROM_EMAIL, contact.email, activation_key)
-
-                json_response['response'] = contact.to_dict()
-                return JsonResponse(json_response, status=201)
-
-        except ValidationError:
+        if not validate_email(email):
             json_response['error'] = 'Invalid email format.'
             return JsonResponse(json_response, status=400)
+
+        contact = Contact.get_by_email(email)
+
+        if contact:
+            json_response['error'] = 'User with such email already exists.'
+            return JsonResponse(json_response, status=400)
+
+        else:
+            contact = Contact()
+
+            contact.first_name = contact_params['first_name']
+            contact.second_name = contact_params['second_name']
+            contact.email = email
+            contact.user = request.user
+            activation_key = generate_activation_key(email)
+            contact.activation_key = activation_key
+            contact.save()
+
+            send_verification_email(
+                DEFAULT_HOST, DEFAULT_FROM_EMAIL, contact.email, activation_key)
+
+            json_response['response'] = contact.to_dict()
+            return JsonResponse(json_response, status=201)
 
     def verify(request, activation_key):  # pylint: disable=no-self-argument
         """Making contact active (active=False -> active=True)"""
@@ -144,27 +142,24 @@ class ContactView(View):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        email = contact_params.get('email')
+        if 'email' in contact_params:
+            email = contact_params.get('email')
+            if not validate_email(email):
+                json_response['error'] = 'Invalid email format.'
+                return JsonResponse(json_response, status=400)
 
-        try:
-            validate_email(email)
+        contact = Contact.get_by_id(contact_id)
 
-            contact = Contact.get_by_id(contact_id)
+        if not contact:
+            json_response['error'] = 'Contact was not found.'
+            return JsonResponse(json_response, status=404)
 
-            if not contact:
-                json_response['error'] = 'Contact was not found.'
-                return JsonResponse(json_response, status=404)
+        if not request.user.id == contact.user.id:
+            return HttpResponse(status=403)
 
-            if not request.user.id == contact.user.id:
-                return HttpResponse(status=403)
-
-            contact.update(**contact_params)
-            json_response['response'] = contact.to_dict()
-            return JsonResponse(json_response, status=200)
-
-        except ValidationError:
-            json_response['error'] = 'Invalid email format.'
-            return JsonResponse(json_response, status=400)
+        contact.update(**contact_params)
+        json_response['response'] = contact.to_dict()
+        return JsonResponse(json_response, status=200)
 
     def delete(self, request, contact_id):  # pylint: disable=no-self-use
         """Handles DELETE request.
