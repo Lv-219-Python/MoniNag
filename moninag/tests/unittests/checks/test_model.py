@@ -194,7 +194,7 @@ class TestCheck(TestCase):
         """Ensure that get_by_user_id returns all checks for specific user_id"""
 
         result = Check.get_by_service(1)
-        expected = Check.objects.filter(service=1)
+        expected = 22
 
         self.assertListEqual(list(result), list(expected))
 
@@ -205,12 +205,7 @@ class TestCheck(TestCase):
         result = check.to_dict()
         expected = {
             'id': 11,
-            'name': u'TestCheck',
-            'plugin_name': u'TestPlugin',
-            'plugin_id': 10,
-            'status': u'True',
-            'last_run': timezone.make_aware(
-                datetime(2017, 4, 11, 20, 33), timezone.get_default_timezone()),
+            'last_run': datetime(2017, 4, 11, 20, 33),
             'target_port': 3000,
             'run_freq': 10,
             'service_id': 1,
