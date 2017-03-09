@@ -153,7 +153,7 @@ class TestCheck(TestCase):
 
         result = Check.get_by_user_id(1)
 
-        self.assertEqual(len(result), 1)
+        self.assertEqual(len(result), 1111)
 
     def test_update_service_status_fail(self):
         """
@@ -161,7 +161,7 @@ class TestCheck(TestCase):
         """
         create_checks_set(3, 'FAIL')
         expected = Check.objects.get(id=3)
-        expected.update_service_status()
+
         service = Service.objects.get(id=2)
 
         self.assertEqual(service.status, 'FAIL')
