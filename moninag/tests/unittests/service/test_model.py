@@ -107,6 +107,7 @@ class ServiceTest(TestCase):
             'id': 30,
             'name': "service2",
             'status': "Fail",
+            'state': True,
             'server_id': 2
         }
         expect = service.to_dict()
