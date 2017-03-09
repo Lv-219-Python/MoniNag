@@ -12,7 +12,7 @@ import { UserProfileService } from '../user-profile/user-profile.service';
 })
 
 export class AppHeaderComponent implements OnInit {
-    title = 'Moninag';
+    title = 'MoniNag';
     motto = 'Your monitoring friend';
     user: UserProfile;
     errorMessage: any;

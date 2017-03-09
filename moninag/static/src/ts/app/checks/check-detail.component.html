@@ -5,7 +5,7 @@
                 <label>Name:</label>{{check.name}}
             </div>
             <div>
-                <label>Run frequency:</label>{{check.run_freq}} min
+                <label>Run frequency:</label>{{check.run_freq / 60}} min
             </div>
             <div>
                 <label>Plugin:</label>{{check.plugin_name}}
@@ -24,6 +24,26 @@
             </div>
             <div>
                 <label>Active:</label>{{check.state}}
+            </div>
+            <div>
+                <md-tab-group>
+                    <md-tab>
+                        <template md-tab-label>Hour</template>
+                        <img md-tab-content src="static/img/perfgraphs/hour/check_{{check.id}}.png"/>
+                    </md-tab>
+                    <md-tab>
+                        <template md-tab-label>Day</template>
+                        <img md-tab-content src="static/img/perfgraphs/day/check_{{check.id}}.png"/>
+                    </md-tab>
+                    <md-tab>
+                        <template md-tab-label>Week</template>
+                        <img md-tab-content src="static/img/perfgraphs/week/check_{{check.id}}.png"/>
+                    </md-tab>
+                    <md-tab>
+                        <template md-tab-label>Month</template>
+                        <img md-tab-content src="static/img/perfgraphs/month/check_{{check.id}}.png"/>
+                    </md-tab>
+                </md-tab-group>
             </div>
         </md-card-content>
         <md-card-actions>

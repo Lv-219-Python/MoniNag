@@ -23,6 +23,9 @@ omit =
     # omit daemons directory
     */daemons/*
 
+    # omit performance directory
+    */performance/*
+
     # omit __init__.py, manage.py, apps.py and urls.py
     *apps*
     *__init__*

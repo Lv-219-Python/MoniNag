@@ -5,4 +5,5 @@ psycopg2==2.6.2
 pylint==1.6.5
 pylint-django==0.7.2
 pylint-plugin-utils==0.2.4
+rrdtool==0.1.11
 setproctitle==1.1.10

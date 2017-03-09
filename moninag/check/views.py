@@ -9,6 +9,7 @@ from check.models import Check
 from nagplugin.models import NagPlugin
 from service.models import Service
 
+from performance.check_rrd import generate_perfgraphs
 from utils.validators import validate_dict, validate_subdict
 
 
@@ -47,6 +48,7 @@ class CheckView(View):
             return JsonResponse(json_response, status=404)
 
         if check.service.server.user.id == request.user.id:
+            generate_perfgraphs(check.id)
             json_response['response'] = check.to_dict()
             return JsonResponse(json_response, status=200)
         else:

@@ -3,13 +3,14 @@
 import os
 import sys
 import time
+from pathlib import Path
 
 import django
 
 from daemon import Daemon  # pylint: disable=import-error
 
 # Path to project directory where manage.py is located
-PROJECT_PATH = '../'
+PROJECT_PATH = str(Path(__file__).parents[1])
 sys.path.append(PROJECT_PATH)
 
 # This is so Django knows where to find stuff

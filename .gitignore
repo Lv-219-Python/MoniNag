@@ -104,3 +104,7 @@ styles.css
 
 # tmp folder
 tmp/
+
+# RRD
+rrd/
+perfgraphs/
