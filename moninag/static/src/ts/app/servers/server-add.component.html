@@ -1,5 +1,5 @@
 <div>
-    <form [formGroup]="serverForm" (ngSubmit)="submitForm(serverForm.value)" >
+    <form [formGroup]="serverForm" (ngSubmit)="submitForm(serverForm.value)">
         <div class="form-group">
             <input class="form-control" type="text" placeholder="Server Name" [formControl]="serverForm.controls['name']">
         </div>
@@ -7,14 +7,13 @@
             <input class="form-control" type="text" placeholder="Server Address" [formControl]="serverForm.controls['address']">
         </div>
         <div class="form-array">
-            <label>State:
-                <select class="form-control" formControlName="state">
-                    <option *ngFor="let state of states" [value]="state">{{state}}</option>
-                </select>
-            </label>
+            <label>State:</label>
+            <md-select class="form-control" formControlName="state">
+                <option *ngFor="let state of states" [value]="state">{{state}}</option>
+            </md-select>
         </div>
         <div class="form-group">
-            <button type="submit" (click)="goBack()" class="btn btn-primary">Submit</button>
+            <button type="submit" (click)="goBack($event)" class="btn btn-primary">Submit</button>
         </div>
     </form>
 </div>

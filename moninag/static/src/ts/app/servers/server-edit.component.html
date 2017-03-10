@@ -1,0 +1,27 @@
+<md-card>
+    <md-card-title>
+        Edit Server
+    </md-card-title>
+    <md-card-content>
+        <div *ngIf="server" class="form-group">
+            <label>Server:</label>
+            <md-input-container>
+                <input md-input [(ngModel)]="server.name" placeholder="{{server.name}}">
+            </md-input-container>
+            <label>Address:</label>
+            <md-input-container>
+                <input md-input [(ngModel)]="server.address" placeholder="{{server.address}}" />
+            </md-input-container>
+            <label>State:</label>
+            <md-select [(ngModel)]="state" placeholder="Choose state">
+                <md-option *ngFor="let state of states" value={ {states}}>
+                    {{state}}
+                </md-option>
+            </md-select>
+            <md-card-actions>
+                <button md-button (click)="goBack()">Cancel</button>
+                <button md-button (click)="save()">Save</button>
+            </md-card-actions>
+        </div>
+    </md-card-content>
+</md-card>
