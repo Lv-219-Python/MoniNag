@@ -8,9 +8,9 @@
         </div>
         <div class="form-array">
             <label>State:</label>
-            <md-select class="form-control" formControlName="state">
+            <select class="form-control" formControlName="state">
                 <option *ngFor="let state of states" [value]="state">{{state}}</option>
-            </md-select>
+            </select>
         </div>
         <div class="form-group">
             <button type="submit" (click)="goBack($event)" class="btn btn-primary">Submit</button>
