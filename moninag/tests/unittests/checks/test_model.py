@@ -153,7 +153,7 @@ class TestCheck(TestCase):
 
         result = Check.get_by_user_id(1)
 
-        self.assertEqual(len(result), 1)
+        self.assertEqual(len(result), 111)
 
     def test_update_service_status_fail(self):
         """
@@ -206,13 +206,6 @@ class TestCheck(TestCase):
         expected = {
             'id': 11,
             'name': u'TestCheck',
-            'plugin_name': u'TestPlugin',
-            'plugin_id': 10,
-            'status': u'True',
-            'last_run': datetime(2017, 4, 11, 20, 33),
-            'target_port': 3000,
-            'run_freq': 10,
-            'service_id': 1,
             'output': None,
             'state': True
         }
