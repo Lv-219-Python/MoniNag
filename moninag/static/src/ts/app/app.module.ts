@@ -17,6 +17,9 @@ import { CheckListComponent } from './checks/check-list.component';
 import { CheckUpdateComponent } from './checks/check-update.component';
 import { ChecksService } from './checks/checks.service';
 
+import { VexModalModule } from 'angular2-modal/plugins/vex';
+import { ModalModule } from 'angular2-modal';
+
 import { ServerAddComponent } from './servers/server-add.component';
 import { ServersComponent } from './servers/servers.component';
 import { ServerEditComponent } from './servers/server-edit.component';
@@ -41,7 +44,9 @@ import { UserProfileService } from './user-profile/user-profile.service';
         HttpModule,
         JsonpModule,
         MaterialModule.forRoot(),
+        ModalModule.forRoot(),
         ReactiveFormsModule,
+        VexModalModule
     ],
 
     declarations: [

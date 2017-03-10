@@ -1,6 +1,17 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnChanges, Input, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
+import {
+  VEXBuiltInThemes,
+  Modal,
+  DialogPreset,
+  DialogFormModal,
+  DialogPresetBuilder,
+  VEXModalContext,
+  VexModalModule,
+  providers
+} from 'angular2-modal/plugins/vex';
 import { Observable } from 'rxjs/Observable';
+import { overlayConfigFactory } from "angular2-modal";
+import { Router } from '@angular/router';
 
 import { Server, states } from './model';
 import { ServersService } from './service';
@@ -9,7 +20,12 @@ import { ServerAddComponent } from './server-add.component'
 @Component({
     selector: 'servers-app',
     template: require('./servers.component.html'),
-    providers: [ServersService]
+    styles: [
+                require('../../../less/common/vex/vex.less').toString(),
+                require('../../../less/common/vex/vex-theme-default.css').toString(),
+            ],
+    providers: [ServersService],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class ServersComponent implements OnInit {
@@ -21,7 +37,8 @@ export class ServersComponent implements OnInit {
 
     constructor(
         private serversService: ServersService,
-        private router: Router) { }
+        private router: Router,
+        public modal: Modal) {}
 
     ngOnInit() {
         this.serversService.getServers()
@@ -41,6 +58,8 @@ export class ServersComponent implements OnInit {
         this.servers.push(server)
     }
     add() {
-        this.router.navigate(['server-add']);
+        //this.router.navigate(['server-add']);
+        let modal = this.modal.alert()
+        modal.open();
     }
 }
