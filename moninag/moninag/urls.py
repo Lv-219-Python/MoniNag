@@ -15,6 +15,7 @@ Including another URLconf
 """
 
 from django.conf.urls import include, url
+from utils.navigation_tree_view import get_navigation_tree
 
 urlpatterns = [
     url(r'^api/1/check/', include('check.urls')),
@@ -23,6 +24,7 @@ urlpatterns = [
     url(r'^api/1/profile/', include('user_profile.urls')),
     url(r'^api/1/server/', include('server.urls')),
     url(r'^api/1/service/', include('service.urls')),
+    url(r'^api/1/tree/', get_navigation_tree),
     url(r'^auth/', include('registration.urls')),
     url(r'^', include('home.urls')),
 ]
