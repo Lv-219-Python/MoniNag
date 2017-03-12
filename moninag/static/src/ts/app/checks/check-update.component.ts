@@ -1,3 +1,5 @@
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
@@ -20,10 +22,12 @@ export class CheckUpdateComponent implements OnInit {
 
     constructor(
         private checksService: ChecksService,
-        private location: Location
+        private location: Location,
+        private route: ActivatedRoute
     ) { }
 
     @Input() check: Check;
+
 
     plugins: Plugin[];
 
@@ -33,7 +37,10 @@ export class CheckUpdateComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadPlugins();
+        this.route.params
+            .switchMap((params: Params) => this.checksService.getCheck(+params['id']))
+            .subscribe(check => { this.check = check['response']});
+        //this.loadPlugins();
     }
 
     save(): void {

@@ -1,7 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DialogPreset, DialogPresetBuilder, Modal, VexModalModule } from 'angular2-modal/plugins/vex';
+
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
+
+import { overlayConfigFactory } from "angular2-modal";
 
 import { Server, states } from './model';
 import { ServersService } from './service';
@@ -12,7 +16,8 @@ import { ServicesComponent } from '../services/services.component';
 @Component({
     selector: 'serverdetail-app',
     template: require('./server-detail.component.html'),
-    providers: [ServersService]
+    providers: [ServersService],
+    encapsulation: ViewEncapsulation.None
 })
 
 
@@ -22,7 +27,8 @@ export class ServerDetailComponent implements OnInit {
         private serversService: ServersService,
         private route: ActivatedRoute,
         private router: Router,
-        private location: Location
+        private location: Location,
+        public modal: Modal
     ) { }
 
     server: Server;
@@ -55,5 +61,12 @@ export class ServerDetailComponent implements OnInit {
 
     goBack(): void {
         this.location.back();
+    }
+
+    renderModal() {
+        return new DialogPresetBuilder<DialogPreset>(this.modal)
+            .content(ServerEditComponent)
+            .isBlocking(false)
+            .open();
     }
 }

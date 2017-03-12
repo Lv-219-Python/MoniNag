@@ -1,8 +1,11 @@
+{{test}}
 <div *ngIf="service">
-<div>
-    <label>Name:</label>
-    <input [(ngModel)]="service.name" placeholder="{{service.name}}" />
-</div>
-<button (click)="goBack()">Cancel</button>
-<button (click)="save()">Save</button>
+    <h2 fxLayout="row" fxLayoutAlign="center" fxFlex="100%">Edit Service</h2>
+    <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
+        <label fxFlex="20%">Name:</label>
+        <input [(ngModel)]="service.name" placeholder="{{service.name}}"  fxFlex="80%" class="form-control" name="name" />
+    </div>
+    <div class="form-group vex-dialog-buttons margin-top-1em">
+        <button (click)="save()" class="vex-dialog-button-primary vex-dialog-button">Save</button>
+    </div>
 </div>

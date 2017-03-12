@@ -1,3 +1,4 @@
+<span defaultOverlayTarget></span>
 <h3>Service Details</h3>
 <div *ngIf="service">
     <md-card>
@@ -13,7 +14,7 @@
             </div>
         </md-card-content>
         <md-card-actions>
-            <button (click)="onSelect(service)">Edit</button>
+            <button (click)="renderModal()">Edit</button>
             <button (click)="delete()">Delete</button>
             <button *ngIf="service.state == true" (click)="deactivate()">Deactivate</button>
             <button *ngIf="service.state == false" (click)="activate()">Activate</button>
