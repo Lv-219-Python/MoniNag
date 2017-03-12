@@ -17,6 +17,7 @@ export class ServerAddComponent {
 
     servers: Server[];
     serverForm: FormGroup;
+
     states = states;
 
     @Output() serverAdded = new EventEmitter();
@@ -30,7 +31,6 @@ export class ServerAddComponent {
     }
 
     submitForm(server: any) {
-
         this.serversService.addServer(server)
             .subscribe(servers => {
                 this.servers = servers['response'];
@@ -38,6 +38,6 @@ export class ServerAddComponent {
     }
 
     goBack(): void {
-        this.location.back();
+        location.reload();
     }
 }

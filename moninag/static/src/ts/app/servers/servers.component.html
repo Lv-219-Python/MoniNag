@@ -5,7 +5,7 @@
         <label>Your Servers</label>
     </md-card-title>
     <md-card-content>
-        <button md-button (click)="onSelect(server)" (click)="add()">Add</button>
+        <button md-button (click)="onSelect(server)" (click)="renderModal()">Add</button>
         <md-card fxLayoutWrap fxLayout="row" fxLayoutAlign="space-between center">
             <md-card-content *ngFor="let server of servers">
                 <md-card fxLayout="column" (click)="onSelect(server)" (click)="gotoDetail()">
@@ -23,3 +23,4 @@
         </md-card>
     </md-card-content>
 </md-card>
+

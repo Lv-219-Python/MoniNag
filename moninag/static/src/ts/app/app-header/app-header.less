@@ -1,17 +1,19 @@
 @import '../../../less/common/variables.less';
 @import '../../../less/common/mixins/mixins.less';
 
-app-header {    
+app-header {
     background-color: @app-header-bg-color;
     display: block;
-    height: @app-header-height;    
+    height: @app-header-height;
     min-height: 65px;
-    max-height: 120px;
+    height: 90px;
+    max-height: 160px;
     .box-shadow(@app-header-box-shadow);
 }
 
-#header-wrapper {    
+#header-wrapper {
     height: 100%;
+    border-bottom: 6px solid @app-header-border-bottom;
 }
 
 #left-block {
@@ -32,8 +34,8 @@ app-header {
 }
 
 #logo-img {
-    margin: 5px 15px;
-    height: 100%;
+    margin: 5px 20px;
+    height: 60px;
 }
 
 #title {
@@ -41,7 +43,7 @@ app-header {
     font-family: @font-family-sans-serif;
     font-size: @app-header-title-font-size;
     font-weight: bold;
-    margin: 0;    
+    margin: 0;
     text-shadow: @app-header-text-shadow;
 }
 
@@ -84,8 +86,8 @@ app-header {
         padding: 2px 5px;
     }
 
-    button:hover {    
-        background-color: @app-header-user-hover-color;    
+    button:hover {
+        background-color: @app-header-user-hover-color;
     }
 
     md-icon {
