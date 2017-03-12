@@ -40,6 +40,6 @@ export class CheckAddComponent {
     }
 
     goBack(): void {
-        this.location.back();
+        location.reload();
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ViewEncapsulation } from '@angular/core';
 import { DialogPreset, DialogPresetBuilder, Modal, VexModalModule } from 'angular2-modal/plugins/vex';
 
 import { Observable } from 'rxjs/Observable';
@@ -17,7 +17,6 @@ import { ServerAddComponent } from './server-add.component'
 })
 
 export class ServersComponent implements OnInit {
-
 
     servers: Server[];
     selectedServer: Server;

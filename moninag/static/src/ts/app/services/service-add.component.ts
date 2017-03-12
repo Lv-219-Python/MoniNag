@@ -28,6 +28,6 @@ export class ServiceAddComponent {
     }
 
     goBack(): void {
-        this.location.back();
+        location.reload();
     }
 }

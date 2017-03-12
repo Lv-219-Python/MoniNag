@@ -1,3 +1,4 @@
+<span defaultOverlayTarget></span>
 <h2>Services</h2>
 <div>
     <div *ngIf="server"><div>
@@ -7,5 +8,5 @@
             {{service.name}}
         </li>
     </ul>
-    <button (click)="add()"> Add new service </button>
+    <button (click)="renderModal()"> Add new service </button>
 </div>
