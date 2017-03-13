@@ -1,16 +1,16 @@
-<ul>
+<ul class="tree">
     <li *ngFor="let server of servers">
-        <div (click)="gotoServer(server, $event)">{{server.name}}</div>
+        <label class="tree_label" (click)="gotoServer(server, $event)">{{server.name}}</label>
         <div *ngIf="selectedServer">
             <ul *ngIf="selectedServer.id==server.id">
                 <li *ngFor="let service of server.services">
-                    <div (click)="gotoService(service, $event)">{{service.name}}</div>
+                    <label class="tree_label" (click)="gotoService(service, $event)">{{service.name}}</label>
                     <div *ngIf="selectedService">
                         <ul *ngIf="selectedService.id==service.id">
                             <li *ngFor="let check of service.checks">
-                                <div (click)="gotoCheck(check, $event)">
+                                <label class="tree_label" (click)="gotoCheck(check, $event)">
                                     {{check.name}}
-                                </div>
+                                </label>
                             </li>
                         </ul>
                     </div>

@@ -1,4 +1,8 @@
 <span defaultOverlayTarget></span>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <h3>Checks</h3>
+    <button class="btn btn-info" (click)="renderModal()"> Add new check </button>
+</div>
 <div class='table-responsive'>
     <ul style='list-style-type:none; padding:0'>
         <table class='table'>
@@ -10,15 +14,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.name}}</li></td>
-                    <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.plugin_name}}</li></td>
-                    <td><li *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>{{check.status}}</li></td>
+                <tr *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>
+                    <td>{{check.name}}</td>
+                    <td>{{check.plugin_name}}</td>
+                    <td>{{check.status}}</td>
                 </tr>
             </tbody>
         </table>
     </ul>
-    <button (click)="renderModal()"> Add new check </button>
     <div *ngIf="selectedService">
         <checkadd-app></checkadd-app>
     </div>

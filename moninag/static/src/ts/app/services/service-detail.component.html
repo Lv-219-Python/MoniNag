@@ -1,24 +1,35 @@
 <span defaultOverlayTarget></span>
-<h3>Service Details</h3>
-<div *ngIf="service">
-    <md-card>
+<md-card>
+    <div *ngIf="service" class="form-group">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <h3>Service Details</h3>
+            <md-card-actions>
+                <button class="btn btn-info" (click)="renderModal()">Edit</button>
+                <button class="btn btn-info" *ngIf="service.state == true" (click)="deactivate()">Deactivate</button>
+                <button class="btn btn-info" *ngIf="service.state == false" (click)="activate()">Activate</button>
+                <button class="btn btn-danger" (click)="deleteModal()">Delete</button>
+            </md-card-actions>
+        </div>
         <md-card-content>
-            <div>
-                <label>Name:</label>{{service.name}}
-            </div>
-            <div>
-                <label>Status:</label>{{service.status}}
-            </div>
-            <div>
-                <label>State:</label>{{service.state}}
-            </div>
+            <p>
+                <label>
+                    Name:
+                </label>
+                {{service.name}}
+            </p>
+            <p>
+                <label>
+                    Status:
+                </label>
+                {{service.status}}
+            </p>
+            <p>
+                <label>
+                    State:
+                </label>
+                {{service.state}}
+            </p>
+            <checks-list [service]='service'></checks-list>
         </md-card-content>
-        <md-card-actions>
-            <button (click)="renderModal()">Edit</button>
-            <button (click)="deleteModal()">Delete</button>
-            <button *ngIf="service.state == true" (click)="deactivate()">Deactivate</button>
-            <button *ngIf="service.state == false" (click)="activate()">Activate</button>
-        </md-card-actions>
-    </md-card>
-    <checks-list [service]='service'></checks-list>
-</div>
+    </div>
+</md-card>
