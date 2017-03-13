@@ -10,6 +10,7 @@ import { overlayConfigFactory } from "angular2-modal";
 import { Check } from './check';
 import { ChecksService } from './checks.service';
 import { CheckUpdateComponent } from './check-update.component';
+import { CheckDeleteComponent } from './check-delete.component';
 
 
 @Component({
@@ -42,9 +43,11 @@ export class CheckDetailComponent implements OnInit {
         this.selectedCheck = check;
     }
 
-    delete(): void {
-        this.checksService.remove(this.check.id)
-            .subscribe(() => this.goBack());
+    deleteModal() {
+        return new DialogPresetBuilder<DialogPreset>(this.modal)
+            .content(CheckDeleteComponent)
+            .isBlocking(false)
+            .open();
     }
 
     deactivate(): void {

@@ -8,6 +8,7 @@ import { overlayConfigFactory } from "angular2-modal";
 import { Service } from './services';
 import { ServicesService } from './services.service';
 import { ServiceUpdateComponent } from './service-update.component'
+import { ServiceDeleteComponent } from './service-delete.component'
 
 @Component({
     selector: 'services-detail',
@@ -37,9 +38,11 @@ export class ServiceDetailComponent implements OnInit {
         this.selectedService = service;
     }
 
-    delete(): void {
-        this.servicesService.remove(this.service.id)
-            .subscribe(() => this.goBack());
+    deleteModal() {
+        return new DialogPresetBuilder<DialogPreset>(this.modal)
+            .content(ServiceDeleteComponent)
+            .isBlocking(false)
+            .open();
     }
 
     deactivate(): void {

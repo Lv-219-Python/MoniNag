@@ -15,7 +15,7 @@
         </md-card-content>
         <md-card-actions>
             <button (click)="renderModal()">Edit</button>
-            <button (click)="delete()">Delete</button>
+            <button (click)="deleteModal()">Delete</button>
             <button *ngIf="service.state == true" (click)="deactivate()">Deactivate</button>
             <button *ngIf="service.state == false" (click)="activate()">Activate</button>
             <div *ngIf="selectedService">

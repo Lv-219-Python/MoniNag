@@ -10,6 +10,7 @@ import { overlayConfigFactory } from "angular2-modal";
 import { Server, states } from './model';
 import { ServersService } from './service';
 import { ServerEditComponent } from './server-edit.component'
+import { ServerDeleteComponent } from './server-delete.component'
 import { ServicesComponent } from '../services/services.component';
 
 
@@ -44,9 +45,11 @@ export class ServerDetailComponent implements OnInit {
         this.router.navigate(['server/edit', this.server['id']]);
     }
 
-    delete() {
-        this.serversService.deleteServer(this.server['id'])
-            .subscribe(() => this.goBack())
+    deleteModal() {
+        return new DialogPresetBuilder<DialogPreset>(this.modal)
+            .content(ServerDeleteComponent)
+            .isBlocking(false)
+            .open();
     }
 
     deactivate(): void {
