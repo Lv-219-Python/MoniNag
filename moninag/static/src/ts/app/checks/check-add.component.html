@@ -31,12 +31,6 @@
                 </option>
             </select>
         </div>
-        <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-            <label for="name" fxFlex="35%">Service Id</label>
-            <input type="text" placeholder="Service ID" class="form-control"
-                   required
-                   [(ngModel)]="model.service_id" name="name" fxFlex="65%">
-        </div>
     </form>
     <div class="form-group vex-dialog-buttons margin-top-1em">
         <button type="submit" (click)="add(); goBack()" class="vex-dialog-button-primary vex-dialog-button">Submit</button>

@@ -5,16 +5,6 @@
             <label for="name" fxFlex="20%">Name</label>
             <input placeholder="Service name" class="form-control" type="text" fxFlex="80%" required [(ngModel)]="model.name" name="name">
         </div>
-        <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-            <label for="status" fxFlex="20%">Status</label>
-            <input placeholder="Service status" type="text"
-                   required [(ngModel)]="model.status" name="status" fxFlex="80%" class="form-control">
-        </div>
-        <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-            <label for="server_id" fxFlex="20%">Server id</label>
-            <input placeholder="Server ID" type="text"
-                    required [(ngModel)]="model.server_id" name="status" fxFlex="80%" class="form-control">
-        </div>
     </form>
     <div class="form-group vex-dialog-buttons margin-top-1em">
         <button type="submit" (click)="add(); goBack()" class="vex-dialog-button-primary vex-dialog-button">Save</button>
