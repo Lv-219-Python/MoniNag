@@ -33,7 +33,7 @@ export class AppHeaderComponent implements OnInit {
     }
 
     viewProfile(): void {
-        this.router.navigateByUrl('/profile');
+        this.router.navigateByUrl('settings/profile');
     }
 
     logOut(): void {
