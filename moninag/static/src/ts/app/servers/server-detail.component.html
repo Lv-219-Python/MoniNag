@@ -1,3 +1,4 @@
+<span defaultOverlayTarget></span>
 <md-card>
     <md-card-title>
         Your Server
@@ -15,8 +16,8 @@
             </label>
             <md-card-actions>
                 <button md-button (click)="goBack()">Back</button>
-                <button md-button (click)="gotoEdit()">Edit</button>
-                <button md-button (click)="delete()">Delete</button>
+                <button md-button (click)="renderModal()">Edit</button>
+                <button md-button (click)="deleteModal()">Delete</button>
             </md-card-actions>
             <md-card>
                 <services-app [server]='server'></services-app>

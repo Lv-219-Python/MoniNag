@@ -5,14 +5,17 @@ import { CheckAddComponent } from './checks/check-add.component';
 import { CheckDetailComponent } from './checks/check-detail.component';
 import { CheckListComponent } from './checks/check-list.component';
 import { CheckUpdateComponent } from './checks/check-update.component';
+import { CheckDeleteComponent } from './checks/check-delete.component';
 
 import { ServersComponent } from './servers/servers.component';
 import { ServerAddComponent } from './servers/server-add.component';
 import { ServerEditComponent } from './servers/server-edit.component';
 import { ServerDetailComponent } from './servers/server-detail.component';
+import { ServerDeleteComponent } from './servers/server-delete.component'
 
 import { ServiceAddComponent } from './services/service-add.component';
 import { ServicesComponent } from './services/services.component';
+import { ServiceDeleteComponent } from './services/service-delete.component'
 import { ServiceDetailComponent } from './services/service-detail.component';
 import { ServiceUpdateComponent } from './services/service-update.component'
 
@@ -41,6 +44,10 @@ const APP_ROUTES: Routes = [
         component: ServerEditComponent
     },
     {
+        path: 'server/delete/:id',
+        component: ServerDeleteComponent
+    },
+    {
         path: 'services',
         component: ServicesComponent
     },
@@ -53,6 +60,10 @@ const APP_ROUTES: Routes = [
         component: ServiceUpdateComponent,
     },
     {
+        path: 'service/delete/:id',
+        component: ServiceDeleteComponent,
+    },
+    {
         path: 'checks',
         component: CheckListComponent
     },
@@ -63,6 +74,10 @@ const APP_ROUTES: Routes = [
     {
         path: 'checks/update/:id',
         component: CheckUpdateComponent
+    },
+    {
+        path: 'checks/delete/:id',
+        component: CheckDeleteComponent
     },
     {
         path: 'add',

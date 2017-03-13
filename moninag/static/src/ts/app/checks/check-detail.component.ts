@@ -1,17 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DialogPreset, DialogPresetBuilder, Modal, VexModalModule } from 'angular2-modal/plugins/vex';
+
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
+
+import { overlayConfigFactory } from "angular2-modal";
 
 import { Check } from './check';
 import { ChecksService } from './checks.service';
 import { CheckUpdateComponent } from './check-update.component';
+import { CheckDeleteComponent } from './check-delete.component';
 
 
 @Component({
     selector: 'checkdetail-app',
     template: require('./check-detail.component.html'),
-    providers: [ChecksService]
+    providers: [ChecksService],
+    encapsulation: ViewEncapsulation.None
 })
 
 
@@ -20,7 +26,8 @@ export class CheckDetailComponent implements OnInit {
     constructor(
         private checksService: ChecksService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        public modal: Modal
     ) { }
 
     check: Check;
@@ -29,16 +36,18 @@ export class CheckDetailComponent implements OnInit {
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.checksService.getCheck(+params['id']))
-            .subscribe(check => this.check = check['response']);
+            .subscribe(check => { this.check = check['response']; console.log(this.check)});
     }
 
     onSelect(check: Check): void {
         this.selectedCheck = check;
     }
 
-    delete(): void {
-        this.checksService.remove(this.check.id)
-            .subscribe(() => this.goBack());
+    deleteModal() {
+        return new DialogPresetBuilder<DialogPreset>(this.modal)
+            .content(CheckDeleteComponent)
+            .isBlocking(false)
+            .open();
     }
 
     deactivate(): void {
@@ -53,5 +62,12 @@ export class CheckDetailComponent implements OnInit {
 
     goBack(): void {
         this.location.back();
+    }
+
+    renderModal() {
+        return new DialogPresetBuilder<DialogPreset>(this.modal)
+            .content(CheckUpdateComponent)
+            .isBlocking(false)
+            .open();
     }
 }

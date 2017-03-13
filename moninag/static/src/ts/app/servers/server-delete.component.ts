@@ -10,15 +10,15 @@ import { ServicesComponent } from '../services/services.component';
 
 
 @Component({
-    selector: 'servers-edit',
-    template: require('./server-edit.component.html'),
+    selector: 'servers-delete',
+    template: require('./server-delete.component.html'),
     providers: [
         ServersService,
     ],
 })
 
 
-export class ServerEditComponent {
+export class ServerDeleteComponent {
 
     constructor(
         private serversService: ServersService,
@@ -26,7 +26,7 @@ export class ServerEditComponent {
         private router: Router,
         private location: Location
     ) { }
-
+    servers: Server[];
     server: Server[];
     states = states;
 
@@ -34,15 +34,16 @@ export class ServerEditComponent {
         this.route.params
             .switchMap((params: Params) => this.serversService.getServer(+params['id']))
             .subscribe(server => this.server = server['response']);
+        }
+
+    gotoServers() {
+        location.href = '/#/servers/';
+        location.reload();
     }
 
-    save() {
-        this.serversService.putServer(this.server)
-            .subscribe(() => this.goBack())
-    }
     delete() {
         this.serversService.deleteServer(this.server['id'])
-            .subscribe(() => this.goBack())
+            .subscribe(() => this.gotoServers())
     }
 
     goBack() {

@@ -1,3 +1,5 @@
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
@@ -17,20 +19,25 @@ import { ServicesService } from './services.service';
 export class ServiceUpdateComponent implements OnInit {
 
     constructor(private servicesService: ServicesService,
-                private location: Location) {
+                private location: Location,
+                private route: ActivatedRoute) {
     }
 
-    @Input() service: Service;
+    service: Service;
 
     ngOnInit(): void {
+        this.route.params
+            .switchMap((params: Params) => this.servicesService.getService(+params['id']))
+            .subscribe(service => this.service = service['response']);
     }
 
     save(): void {
         this.servicesService.update(this.service)
-            .subscribe(() => this.goBack());
+            .subscribe((response) => {
+                this.goBack()});
     }
 
     goBack(): void {
-        this.location.back();
+        location.reload();
     }
 }

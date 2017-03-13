@@ -1,3 +1,4 @@
+
 export class Server {
     constructor(
         public id: number,
@@ -8,4 +9,8 @@ export class Server {
     ) { }
 }
 
-export const states = ['NotSelected', 'Production', 'Staging'];
+export const states = [
+                        'NotSelected',
+                        'Production',
+                        'Staging'
+                      ];

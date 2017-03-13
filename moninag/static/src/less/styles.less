@@ -1,4 +1,9 @@
+@import './common/vex/vex.less';
+@import './common/vex/vex-theme-default.less';
 @import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
+@import './common/variables.less';
+@import './common/mixins/mixins.less';
+@import './common/forms.less';
 
 html, body {
     height: 100%;
@@ -12,4 +17,17 @@ moninag-app {
 body {
     margin: 0;
     padding: 0;
+}
+
+.cdk-overlay-container {
+    z-index: 2000;
+}
+
+.pet-icon {
+    position: relative;
+    left: -23px;
+    top: 17px;
+    color: @app-header-motto-color;
+    transform: rotate(25deg);
+    font-size: 18px;
 }

@@ -1,11 +1,14 @@
+<span defaultOverlayTarget></span>
 <h2>Services</h2>
 <div>
     <div *ngIf="server"><div>
     <ul>
         <li class="box" *ngFor="let service of server.Services"
             (click)="onSelect(service)" (click)="gotoDetail()">
-            {{service.name}}
+            <p>{{service.name}}</p>
+            <p>{{service.status}}</p>
+
         </li>
     </ul>
-    <button (click)="add()"> Add new service </button>
+    <button (click)="renderModal()"> Add new service </button>
 </div>

@@ -39,9 +39,9 @@ export class ServicesService {
         let options = new RequestOptions({ headers: headers });
         let updated_service = {
             name: service.name,
-            status: service.status,
-            state: service.state,
+            status: service.status
         }
+
         return this.http.put(`${this.servicesUrl}/${service['id']}/`, JSON.stringify(updated_service), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }

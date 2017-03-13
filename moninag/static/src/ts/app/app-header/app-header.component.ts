@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { UserProfile } from '../user-profile/user-profile';
 import { UserProfileService } from '../user-profile/user-profile.service';
-
+import { MainNavComponent } from '../navs/main-nav/main-nav.component'
 
 @Component({
     selector: 'app-header',

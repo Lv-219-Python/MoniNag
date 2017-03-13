@@ -1,10 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { DialogPreset, DialogPresetBuilder, Modal, VexModalModule } from 'angular2-modal/plugins/vex';
+
 import { Router } from '@angular/router';
 
 import { Check } from './check';
 import { CheckAddComponent } from './check-add.component';
 import { ChecksService } from './checks.service';
 import { Observable } from 'rxjs/Observable';
+import { overlayConfigFactory } from "angular2-modal";
 import { Plugin } from './plugin';
 import { Service } from '../services/services';
 
@@ -16,7 +19,8 @@ import { Service } from '../services/services';
     styles: [`
        table, th, td {
            border: 1px solid black;}`
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None
 })
 
 
@@ -24,7 +28,8 @@ export class CheckListComponent {
 
     constructor(
         private checksService: ChecksService,
-        private router: Router
+        private router: Router,
+        public modal: Modal
     ) { }
 
     @Input() service: Service[];
@@ -45,5 +50,12 @@ export class CheckListComponent {
 
     gotoDetail(): void {
         this.router.navigate(['/checks', this.selectedCheck.id]);
+    }
+
+    renderModal() {
+        return new DialogPresetBuilder<DialogPreset>(this.modal)
+            .content(CheckAddComponent)
+            .isBlocking(false)
+            .open();
     }
 }

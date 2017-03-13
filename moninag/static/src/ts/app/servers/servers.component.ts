@@ -1,6 +1,9 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnChanges, Input, ViewEncapsulation } from '@angular/core';
+import { DialogPreset, DialogPresetBuilder, Modal, VexModalModule } from 'angular2-modal/plugins/vex';
+
 import { Observable } from 'rxjs/Observable';
+import { overlayConfigFactory } from "angular2-modal";
+import { Router } from '@angular/router';
 
 import { Server, states } from './model';
 import { ServersService } from './service';
@@ -9,7 +12,8 @@ import { ServerAddComponent } from './server-add.component'
 @Component({
     selector: 'servers-app',
     template: require('./servers.component.html'),
-    providers: [ServersService]
+    providers: [ServersService],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class ServersComponent implements OnInit {
@@ -21,13 +25,15 @@ export class ServersComponent implements OnInit {
 
     constructor(
         private serversService: ServersService,
-        private router: Router) { }
+        private router: Router,
+        public modal: Modal) {}
 
     ngOnInit() {
         this.serversService.getServers()
             .subscribe(servers => {
                 this.servers = servers['response']
             })
+
     }
 
     onSelect(server: Server): void {
@@ -40,7 +46,11 @@ export class ServersComponent implements OnInit {
     handleServerAdded(server: Server) {
         this.servers.push(server)
     }
-    add() {
-        this.router.navigate(['server-add']);
+    renderModal() {
+        return new DialogPresetBuilder<DialogPreset>(this.modal)
+            .content(ServerAddComponent)
+            .isBlocking(false)
+            .open();
     }
+
 }

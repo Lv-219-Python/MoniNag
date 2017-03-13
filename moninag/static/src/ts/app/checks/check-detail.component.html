@@ -1,3 +1,4 @@
+<span defaultOverlayTarget></span>
 <div *ngIf="check">
     <md-card>
         <md-card-content>
@@ -49,11 +50,8 @@
         <md-card-actions>
             <button *ngIf="check.state == true" (click)="deactivate()">Deactivate</button>
             <button *ngIf="check.state == false"(click)="activate()">Activate</button>
-            <button (click)="onSelect(check)">Edit</button>
-            <button (click)="delete()">Delete</button>
-            <div *ngIf="selectedCheck">
-                <checkupdate-app [check]='check'> </checkupdate-app>
-            </div>
+            <button (click)="renderModal()">Edit</button>
+            <button (click)="deleteModal()">Delete</button>
         </md-card-actions>
     </md-card>
 </div>
