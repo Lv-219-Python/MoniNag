@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { SideNavSettingsComponent } from './side-nav.component';
+import { SettingsMenuComponent } from './settings-menu.component';
 
 @Component({
     selector: 'settings-app',
     styles: [require('../../../less/styles.less').toString()],
     template: `
-        <side-nav-settings></side-nav-settings>
+        <settings-menu></settings-menu>
     `
 })
 

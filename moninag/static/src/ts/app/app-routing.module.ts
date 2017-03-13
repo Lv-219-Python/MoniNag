@@ -20,7 +20,7 @@ import { ServiceDetailComponent } from './services/service-detail.component';
 import { ServiceUpdateComponent } from './services/service-update.component'
 
 import { SettingsComponent } from './settings/settings.component';
-import { SideNavSettingsComponent } from './settings/side-nav.component';
+import { SettingsMenuComponent } from './settings/settings-menu.component';
 
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
