@@ -5,7 +5,7 @@
 </div>
 
 <div>
-    <div *ngIf="server">
+    <div fxLayout="row" fxLayoutAlign="start center" *ngIf="server">
         <div class="box" *ngFor="let service of server.Services"
             (click)="onSelect(service)" (click)="gotoDetail()">
             <p>{{service.name}}</p>
