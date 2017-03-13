@@ -2,13 +2,9 @@
     <div id="left-block" class="flex-container" fxLayout="row" fxLayoutAlign="start center">
         <a class="flex-container" fxLayout="row" fxLayoutAlign="start center" href="/" title="Home">
             <img id="logo-img" src="./static/img/moninag-logo.png"/>
-            <!-- <h1 id="title">{{ title }}</h1> -->
+            <md-icon class="pet-icon">pets</md-icon>
         </a>
     </div>
-    <!-- <div id="motto" class="flex-container" fxLayout="row" fxLayoutAlign="center center">
-        <h3>{{ motto }}</h3>
-        <md-icon>pets</md-icon>
-    </div> -->
     <main-nav></main-nav>
     <div *ngIf="user" id="user-block">
         <button md-button [mdMenuTriggerFor]="menu">

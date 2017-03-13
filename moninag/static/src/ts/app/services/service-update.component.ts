@@ -23,7 +23,7 @@ export class ServiceUpdateComponent implements OnInit {
                 private route: ActivatedRoute) {
     }
 
-    @Input() service: Service;
+    service: Service;
 
     ngOnInit(): void {
         this.route.params
@@ -33,7 +33,7 @@ export class ServiceUpdateComponent implements OnInit {
 
     save(): void {
         this.servicesService.update(this.service)
-            .subscribe((response) => { debugger;
+            .subscribe((response) => {
                 this.goBack()});
     }
 

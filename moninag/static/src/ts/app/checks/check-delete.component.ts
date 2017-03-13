@@ -31,16 +31,16 @@ export class CheckDeleteComponent {
         this.route.params
             .switchMap((params: Params) => this.checksService.getCheck(+params['id']))
             .subscribe(check => { this.check = check['response']; console.log(this.check)});
-        }
-
-
-    gotoServers() {
-        location = 'http://127.0.0.1:8000';
-
     }
+
+    gotoServices() {
+        location.href = `/#/services/${this.check.service_id}`;
+        location.reload();
+    }
+
     delete() {
         this.checksService.remove(this.check.id)
-            .subscribe(() => this.gotoServers());
+            .subscribe(() => this.gotoServices());
     }
 
     goBack() {

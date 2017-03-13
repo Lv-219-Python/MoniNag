@@ -36,11 +36,11 @@ export class ServerDeleteComponent {
             .subscribe(server => this.server = server['response']);
         }
 
-    
     gotoServers() {
-        location = 'http://127.0.0.1:8000';
-
+        location.href = '/#/servers/';
+        location.reload();
     }
+
     delete() {
         this.serversService.deleteServer(this.server['id'])
             .subscribe(() => this.gotoServers())

@@ -52,9 +52,6 @@
             <button *ngIf="check.state == false"(click)="activate()">Activate</button>
             <button (click)="renderModal()">Edit</button>
             <button (click)="deleteModal()">Delete</button>
-            <div *ngIf="selectedCheck">
-                <checkupdate-app [check]='check'></checkupdate-app>
-            </div>
         </md-card-actions>
     </md-card>
 </div>

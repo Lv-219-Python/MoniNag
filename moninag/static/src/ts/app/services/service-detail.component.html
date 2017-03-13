@@ -18,9 +18,6 @@
             <button (click)="deleteModal()">Delete</button>
             <button *ngIf="service.state == true" (click)="deactivate()">Deactivate</button>
             <button *ngIf="service.state == false" (click)="activate()">Activate</button>
-            <div *ngIf="selectedService">
-                <serviceupdate-app [service]='service'></serviceupdate-app>
-            </div>
         </md-card-actions>
     </md-card>
     <checks-list [service]='service'></checks-list>

@@ -26,9 +26,7 @@ export class CheckUpdateComponent implements OnInit {
         private route: ActivatedRoute
     ) { }
 
-    @Input() check: Check;
-
-
+    check: Check;
     plugins: Plugin[];
 
     loadPlugins() {
@@ -39,8 +37,8 @@ export class CheckUpdateComponent implements OnInit {
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.checksService.getCheck(+params['id']))
-            .subscribe(check => { this.check = check['response']});
-        //this.loadPlugins();
+            .subscribe(check => {this.check = check['response']});
+        this.loadPlugins();
     }
 
     save(): void {
@@ -49,6 +47,6 @@ export class CheckUpdateComponent implements OnInit {
     }
 
     goBack(): void {
-        this.location.back();
+        location.reload();
     }
 }

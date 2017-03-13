@@ -32,11 +32,11 @@ export class ServiceDeleteComponent {
             .subscribe(service => this.service = service["response"]);
     }
 
-
     gotoServers() {
-        location = 'http://127.0.0.1:8000';
-
+        location.href = `/#/server/${this.service.server_id}`;
+        location.reload();
     }
+
     delete(): void {
         this.servicesService.remove(this.service.id)
             .subscribe(() => this.gotoServers());
