@@ -1,0 +1,21 @@
+<ul>
+    <li *ngFor="let server of servers">
+        <div (click)="gotoServer(server, $event)">{{server.name}}</div>
+        <div *ngIf="selectedServer">
+            <ul *ngIf="selectedServer.id==server.id">
+                <li *ngFor="let service of server.services">
+                    <div (click)="gotoService(service, $event)">{{service.name}}</div>
+                    <div *ngIf="selectedService">
+                        <ul *ngIf="selectedService.id==service.id">
+                            <li *ngFor="let check of service.checks">
+                                <div (click)="gotoCheck(check, $event)">
+                                    {{check.name}}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>
