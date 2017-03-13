@@ -1,27 +1,33 @@
 <span defaultOverlayTarget></span>
 <md-card>
-    <md-card-title>
-        Your Server
-    </md-card-title>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>Your Server</h3>
+        <md-card-actions>
+            <button class="btn btn-info" (click)="renderModal()">Edit</button>
+            <button class="btn btn-danger" (click)="deleteModal()">Delete</button>
+        </md-card-actions>
+    </div>
     <md-card-content>
         <div *ngIf="server" class="form-group">
-            <label>
-                <div>Name: {{server.name}} </div>
-            </label>
-            <label>
-                <div>Address: {{server.address}} </div>
-            </label>
-            <label>
-                <div>State: {{server.state}} </div>
-            </label>
-            <md-card-actions>
-                <button md-button (click)="goBack()">Back</button>
-                <button md-button (click)="renderModal()">Edit</button>
-                <button md-button (click)="deleteModal()">Delete</button>
-            </md-card-actions>
-            <md-card>
-                <services-app [server]='server'></services-app>
-            </md-card>
+            <p>
+                <label>
+                    Name:
+                </label>
+                {{server.name}}
+            </p>
+            <p>
+                <label>
+                    Address:
+                </label>
+                {{server.address}}
+            </p>
+            <p>
+                <label>
+                    State:
+                </label>
+                {{server.state}}
+            </p>
+            <services-app [server]='server'></services-app>
         </div>
     </md-card-content>
 </md-card>

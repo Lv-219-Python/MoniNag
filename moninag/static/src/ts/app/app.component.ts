@@ -8,8 +8,10 @@ import { Component } from '@angular/core';
             ],
     template: `
         <app-header></app-header>
-        <side-nav></side-nav>
-        <router-outlet></router-outlet>
+        <side-nav id="side-navigation"></side-nav>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
     `
 })
 

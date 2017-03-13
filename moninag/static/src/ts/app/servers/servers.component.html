@@ -1,25 +1,28 @@
 <span defaultOverlayTarget></span>
 <md-card>
-    <md-card-title>
-        <label>Your Servers</label>
-    </md-card-title>
-    <md-card-content>
-        <button md-button (click)="onSelect(server)" (click)="renderModal()">Add</button>
-        <md-card fxLayoutWrap fxLayout="row" fxLayoutAlign="space-between center">
-            <md-card-content *ngFor="let server of servers">
-                <md-card fxLayout="column" (click)="onSelect(server)" (click)="gotoDetail()">
-                    <label>
-                        Name: {{ server.name }}
-                    </label>
-                    <label>
-                        Address: {{ server.address }}
-                    </label>
-                    <label>
-                        State: {{ server.state }}
-                    </label>
-                </md-card>
-            </md-card-content>
-        </md-card>
-    </md-card-content>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <h3>Your Servers</h3>
+
+            <button (click)="onSelect(server)" (click)="renderModal()" class="btn btn-info">Add</button>
+        </div>
+        <div fxLayoutWrap fxLayout="row" fxLayoutAlign="start center">
+            <div class="margin-top-2em" *ngFor="let server of servers">
+                <div class="box margin-right-2em" fxLayout="column" (click)="onSelect(server)" (click)="gotoDetail()">
+                    <span><label>
+                            Name:
+                        </label>
+                        {{ server.name }}</span>
+                    <span><label>
+                            Address:
+                        </label>
+                        {{ server.address }}</span>
+                   <span> <label>
+                           State:
+                       </label>
+                       {{ server.state }}</span>
+                </div>
+            </div>
+        </div>
+
 </md-card>
 

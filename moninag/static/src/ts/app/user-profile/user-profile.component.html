@@ -1,14 +1,10 @@
-<div *ngIf="user" class="flex-container" fxLayout="row" fxLayoutAlign="center start">
-    <img alt="User picture" src="https://www.gravatar.com/avatar/{{ user.avatar }}">
+<div *ngIf="user" class="flex-container" fxLayout="row" fxLayoutAlign="center center">
+    <img class="img-circle margin-right-1em" alt="User picture" src="https://www.gravatar.com/avatar/{{ user.avatar }}">
     <table>
         <tbody>
             <tr>
                 <td>Name:</td>
-                <td>{{ user.first_name }}</td>
-            </tr>
-            <tr>
-                <td>Surname:</td>
-                <td>{{ user.second_name }}</td>
+                <td>{{ user.first_name }} {{ user.second_name }}</td>
             </tr>
             <tr>
                 <td>Email: </td>
@@ -20,6 +16,6 @@
     </table>
 </div>
 <div *ngIf="errorMessage" class="flex-container" fxLayout="column" fxLayoutAlign="start center">
-    <h3>Something go wrong.</h3> 
+    <h3>Something go wrong.</h3>
     <p>Error message: {{ errorMessage }}</p>
 </div>
