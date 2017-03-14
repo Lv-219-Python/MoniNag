@@ -37,6 +37,6 @@ export class ContactsEditComponent {
     }
 
     gotoContacts() {
-        location.href = '/#/contacts/';
+        location.href = '/#/settings/';
     }
 }
