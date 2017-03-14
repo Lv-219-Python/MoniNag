@@ -132,7 +132,7 @@ class ServiceView(View):
         Except JSON with fields:
             {
                 'name': <service name>,
-                'status': <service status>
+                'state': <service state>
             }
 
         Returns:
@@ -148,7 +148,7 @@ class ServiceView(View):
 
         json_response = {}
 
-        optional_requirements = {'name', 'status'}
+        optional_requirements = {'name', 'state'}
 
         service_params = json.loads(request.body.decode('utf-8'))
 
