@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -19,6 +20,7 @@ export class CheckAddComponent {
 
     constructor(
         private checksService: ChecksService,
+        private route: ActivatedRoute,
         private location: Location
     ) { }
 
@@ -35,6 +37,12 @@ export class CheckAddComponent {
     }
 
     add() {
+        this.route.params.
+            subscribe(params => {
+                // (+) converts string 'id' to a number
+                this.model.service_id = +params['id'];
+            });
+
         this.checksService.create(this.model)
             .subscribe(model => model = model);
     }

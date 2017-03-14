@@ -9,7 +9,7 @@ from check.models import Check
 from nagplugin.models import NagPlugin
 from service.models import Service
 
-from performance.check_rrd import generate_perfgraphs
+from performance.check_rrd import create as create_rrd, generate_perfgraphs
 from utils.validators import validate_dict, validate_subdict
 
 
@@ -112,6 +112,9 @@ class CheckView(View):
                              run_freq=check_params['run_freq'],
                              target_port=check_params['target_port'],
                              service=service)
+
+        # Create rrd to generate empty graph
+        create_rrd(check.id, int(check.run_freq))
 
         json_response['response'] = check.to_dict()
         return JsonResponse(json_response, status=200)

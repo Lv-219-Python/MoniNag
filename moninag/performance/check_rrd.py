@@ -179,7 +179,7 @@ def generate_graph(check_id, graph_dir, time_period=3600, width=800, height=300)
                       '--watermark', 'MoniNag',
                       'TEXTALIGN:left',
                       'DEF:times={0}:time:AVERAGE'.format(rrd_name),
-                      'AREA:times#5095CE:average time (ms)')
+                      'AREA:times#5095CE:time (ms)')
 
         LOGGER.info('GRAPH RRD: check#{0}: {1}.'.format(check_id, graph_name))
 

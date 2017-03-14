@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -13,14 +14,21 @@ import { ServicesService } from './services.service';
 
 export class ServiceAddComponent {
 
-    model = new Service(0, '', null, null, null);
+    model = new Service(0, '', 'UNKNOWN', null, null);
 
     constructor(
         private servicesService: ServicesService,
+        private route: ActivatedRoute,
         private location: Location
     ) { }
 
     add() {
+        this.route.params.
+            subscribe(params => {
+                // (+) converts string 'id' to a number
+                this.model.server_id = +params['id'];
+            });
+
         this.servicesService.create(this.model)
             .subscribe(
             model => model = model
