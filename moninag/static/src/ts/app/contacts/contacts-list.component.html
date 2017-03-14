@@ -1,0 +1,32 @@
+<span defaultOverlayTarget></span>
+<div class="add-button" >
+    <button md-mini-fab (click)="onSelect(contact)" (click)="renderModalAdd()"><md-icon>add</md-icon></button>
+</div>
+<div class="Rtable">
+    <table>
+        <thead>
+            <tr>
+                <th><h5>First Name</h5></th>
+                <th><h5>Last Name</h5></th>
+                <th><h5>Email</h5></th>
+                <th><h5>Status</h5></th>
+                <th></th>
+            </tr>
+        </thead>
+    <tbody>
+        <tr *ngFor="let contact of contacts">
+            <td class="Rtable-cell">{{ contact.first_name }}</td>
+            <td class="Rtable-cell">{{ contact.second_name }}</td>
+            <td class="Rtable-cell">{{ contact.email }}</td>
+            <td class="Rtable-cell">
+                <div *ngIf="contact.is_active"><i class="material-icons">done</i></div>
+                <div *ngIf="!contact.is_active"><i class="material-icons">sync</i></div>
+            </td>
+            <td class="contact-buttons">
+                <button md-raised-button (click)="onSelect(contact)" (click)="edit()"><i class="material-icons">edit</i></button>
+                <button md-raised-button (click)="onSelect(contact)" (click)="delete()"><i class="material-icons">delete</i></button>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+    <h2 fxLayout="row" fxLayoutAlign="start center" fxFlex="70%">Edit contact</h2>
+    <form fxLayout="column" fxFlex="100%">
+        <div *ngIf="contact">
+            <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
+                <label fxFlex="10%">First Name:</label>
+                <input md-input [(ngModel)]="contact.first_name" placeholder="{{contact.first_name}}" fxFlex="30%" class="form-control" name="first_name"/>
+            </div>
+            <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
+                <label fxFlex="10%">Last Name:</label>
+                <input md-input [(ngModel)]="contact.second_name" placeholder="{{contact.second_name}}" fxFlex="30%" class="form-control" name="second_name"/>
+            </div>
+            <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
+                <label fxFlex="10%">Email</label>
+                <input md-input [(ngModel)]="contact.email" placeholder="{{contact.email}}" fxFlex="30%" class="form-control" name="email"/>
+            </div>
+            <div class="form-group vex-dialog-buttons margin-top-1em">
+                <button md-raised-button (click)="save()" class="vex-dialog-button-primary vex-dialog-button">Save</button>
+                <button md-raised-button (click)="gotoContacts()" class="vex-dialog-button-primary vex-dialog-button">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

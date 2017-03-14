@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
     styles: [
                 require('../../less/styles.less').toString()
             ],
+
     template: `
         <app-header></app-header>
         <side-nav id="side-navigation"></side-nav>
