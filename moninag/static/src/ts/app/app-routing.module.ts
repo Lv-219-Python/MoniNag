@@ -19,6 +19,9 @@ import { ServiceDeleteComponent } from './services/service-delete.component'
 import { ServiceDetailComponent } from './services/service-detail.component';
 import { ServiceUpdateComponent } from './services/service-update.component'
 
+import { SettingsComponent } from './settings/settings.component';
+import { SettingsMenuComponent } from './settings/settings-menu.component';
+
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const APP_ROUTES: Routes = [
@@ -26,10 +29,6 @@ const APP_ROUTES: Routes = [
         path: '',
         redirectTo: '/servers',
         pathMatch: 'full'
-    },
-    {
-        path: 'profile',
-        component: UserProfileComponent
     },
     {
         path: 'servers',
@@ -62,6 +61,14 @@ const APP_ROUTES: Routes = [
     {
         path: 'service/delete/:id',
         component: ServiceDeleteComponent,
+    },
+    {
+        path: 'settings',
+        component: SettingsComponent, 
+    },
+    {
+        path: 'settings/profile',
+        component: UserProfileComponent, 
     },
     {
         path: 'checks',
