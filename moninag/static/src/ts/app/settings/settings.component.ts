@@ -11,9 +11,3 @@ import { SettingsMenuComponent } from './settings-menu.component';
 })
 
 export class SettingsComponent { }
-/*        <md-toolbar>
-            <button md-button
-                [routerLink]="['settings', {outlets: {'userroute': ['profile']}}]">
-                Speakers
-            </button>
-        </md-toolbar>*/
