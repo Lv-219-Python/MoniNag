@@ -67,10 +67,6 @@ const APP_ROUTES: Routes = [
         component: SettingsComponent, 
     },
     {
-        path: 'settings/profile',
-        component: UserProfileComponent, 
-    },
-    {
         path: 'checks',
         component: CheckListComponent
     },

@@ -1,4 +1,4 @@
-<div class="flex-container" fxLayoutAlign="space-around center">
+<div class="flex-container" fxLayoutAlign="start center">
     <md-tab-group class="settings-menu-container">
         <md-tab label="Profile">
             <user-profile></user-profile>
@@ -6,13 +6,13 @@
 
         <md-tab label="Contacts">
             <h1>In development</h1>
-<!--             When contacts will be in dev, uncomment this part. Otherwise 
-            it will cause an error.
+<!--        When contacts will be in dev, uncomment <contacts-list> and delete <h1>.
+            Otherwise it will cause an error.
             <contacts-list></contacts-list> -->
         </md-tab>
 
         <md-tab label="Plugins">
-            <h1>In development</h1>
+            <plugins-app></plugins-app>
         </md-tab>
 
         <md-tab label="Help">

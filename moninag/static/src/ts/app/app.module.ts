@@ -36,9 +36,10 @@ import { ServicesService } from './services/services.service';
 import { ServiceUpdateComponent } from './services/service-update.component'
 
 import { SettingsComponent } from './settings/settings.component';
-import { SettingsService } from './settings/settings-service';
-import { SettingsMenuComponent } from './settings/settings-menu.component';
 import { SettingsHelpComponent } from './settings/settings-help.component';
+import { SettingsMenuComponent } from './settings/settings-menu.component';
+import { SettingsPluginsComponent } from './settings/plugins.component';
+import { SettingsService } from './settings/settings.service';
 
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserProfileService } from './user-profile/user-profile.service';
@@ -78,9 +79,10 @@ import { UserProfileService } from './user-profile/user-profile.service';
         ServicesComponent,
         ServiceUpdateComponent,
         SideNavComponent,
-        SettingsMenuComponent,
         SettingsComponent,
         SettingsHelpComponent,
+        SettingsMenuComponent,
+        SettingsPluginsComponent,
         UserProfileComponent,
     ],
 

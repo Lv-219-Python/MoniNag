@@ -1,0 +1,12 @@
+<div class="flex-container" fxLayoutAlign="start center">
+    <table class="table-plugins">
+        <tr>
+            <th>Name:</th>
+            <th>Description:</th>
+        </tr>
+        <tr *ngFor="let plugin of plugins">
+            <td>{{plugin.name}}</td>
+            <td>{{plugin.description}}</td>
+        </tr>
+    </table>
+</div>
