@@ -5,7 +5,7 @@ from django.db import models
 from registration.models import CustomUser
 
 STATE_CHOICES = (
-    ('', "NotSelected"),
+    ('', "Disabled"),
     ('prod', "Production"),
     ('stag', "Staging"),
 )

@@ -10,7 +10,7 @@ export class Server {
 }
 
 export const states = [
-                        'NotSelected',
+                        'Disabled',
                         'Production',
                         'Staging'
                       ];
