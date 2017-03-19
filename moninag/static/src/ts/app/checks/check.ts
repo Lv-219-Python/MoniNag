@@ -9,4 +9,8 @@ export class Check {
     public plugin_id: number;
     public service_id: number;
     public state: boolean;
+
+    constructor() {
+        this.run_freq = 60;
+    }
 }

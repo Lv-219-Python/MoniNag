@@ -1,34 +1,55 @@
 <div *ngIf="check">
     <h2 fxLayout="row" fxLayoutAlign="center" fxFlex="100%">Edit Check</h2>
-    <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-        <label fxFlex="35%">Name:</label>
-        <input [(ngModel)]="check.name" placeholder="{{check.name}}" name="name" fxFlex="65%" class="form-control"/>
-    </div>
-    <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-        <label fxFlex="35%">Run frequency:</label>
-        <select [(ngModel)]="check.run_freq" name="run_freq" fxFlex="65%" class="form-control">
-            <option value=60>1 min</option>
-            <option value=300>5 min</option>
-            <option value=900>15 min</option>
-            <option value=1800>30 min</option>
-            <option value=3600>1 hour</option>
-        </select>
-    </div>
-    <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-        <label fxFlex="35%">Plugin:</label>
-        <select [(ngModel)]="check.plugin_id" name="plugin_id" fxFlex="65%" class="form-control">
-            <option *ngFor="let plugin of plugins" value= {{plugin.id}}>
-                {{plugin.name}}
-            </option>
-        </select>
-    </div>
-    <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-        <label fxFlex="35%">Target port:</label>
-        <input [(ngModel)]="check.target_port" placeholder="{{check.target_port}}" name="target_port" fxFlex="65%" class="form-control" />
-    </div>
-    <div class="form-group vex-dialog-buttons margin-top-1em">
-        <button (click)="save()" class="vex-dialog-button-primary vex-dialog-button">Save</button>
-    </div>
+    <form fxLayout="column" fxFlex="100%" #f="ngForm">
+        <div fxLayoutWrap class="form-group" fxLayout="row" fxLayoutAlign="start center">
+            <label fxFlex="35%">Name:</label>
+            <input [(ngModel)]="check.name" placeholder="{{check.name}}" name="name" fxFlex="65%" class="form-control" required="required" minlength="3" maxlength="30" #name="ngModel" required="required" minlength="3" maxlength="30" />
+            <div fxFlex="100%" *ngIf="name.errors && (name.dirty || name.touched)" class="help-block">
+                <div [hidden]="!name.errors.required">
+                    Check name is required
+                </div>
+                <div [hidden]="!name.errors.minlength">
+                    Check name must be at least 3 characters long
+                </div>
+                <div [hidden]="!name.errors.maxlength">
+                    Server name cannot be more than 30 characters long
+                </div>
+            </div>
+        </div>
+        <div fxLayoutWrap class="form-group" fxLayout="row" fxLayoutAlign="start center">
+            <label fxFlex="35%">Target port:</label>
+            <input [(ngModel)]="check.target_port" placeholder="{{check.target_port}}" name="target_port" fxFlex="65%" class="form-control" pattern="[0-9]{1,5}" required="required" #port="ngModel" />
+            <div fxFlex="100%" *ngIf="port.errors && (port.dirty || port.touched)" class="help-block">
+                <div [hidden]="!port.errors.required">
+                    Target port name is required
+                </div>
+                <div [hidden]="!port.errors.pattern">
+                    Target port must contain only digits and cannot be more than 5 digits long
+                </div>
+            </div>
+        </div>
+        <div fxLayoutWrap class="form-group" fxLayout="row" fxLayoutAlign="start center">
+            <label fxFlex="35%">Run frequency:</label>
+            <select [(ngModel)]="check.run_freq" name="run_freq" fxFlex="65%" class="form-control">
+                <option value=60>1 min</option>
+                <option value=300>5 min</option>
+                <option value=900>15 min</option>
+                <option value=1800>30 min</option>
+                <option value=3600>1 hour</option>
+            </select>
+        </div>
+        <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
+            <label fxFlex="35%">Plugin:</label>
+            <select [(ngModel)]="check.plugin_id" name="plugin_id" fxFlex="65%" class="form-control">
+                <option *ngFor="let plugin of plugins" value= {{plugin.id}}>
+                    {{plugin.name}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group vex-dialog-buttons margin-top-1em">
+            <button [disabled]="!f.form.valid" (click)="save()" class="btn vex-dialog-button-primary vex-dialog-button">Save</button>
+        </div>
+    </form>
 </div>
 
 
