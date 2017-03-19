@@ -28,7 +28,6 @@ export class ServiceAddComponent {
                 // (+) converts string 'id' to a number
                 this.model.server_id = +params['id'];
             });
-
         this.servicesService.create(this.model)
             .subscribe(
             model => model = model
