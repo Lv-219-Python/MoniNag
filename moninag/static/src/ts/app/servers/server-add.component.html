@@ -1,18 +1,20 @@
 <div>
     <h2 fxLayout="row" fxLayoutAlign="center" fxFlex="100%">Add Server</h2>
-    <form [formGroup]="serverForm" (ngSubmit)="submitForm(serverForm.value)" fxLayout="column" fxFlex="100%">
+    <form (ngSubmit)="submitForm()" fxLayout="column" fxFlex="100%">
         <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-            <label fxFlex="20%">Name</label>
-            <input class="form-control" type="text" placeholder="Server Name" [formControl]="serverForm.controls['name']"fxFlex="80%" required="required">
+            <label for="server-name" fxFlex="20%">Name</label>
+            <input id="server-name" class="form-control" type="text" placeholder="Server Name" fxFlex="80%" required="required" minlength="3" maxlength="30" [(ngModel)]="model.name" name="name">
         </div>
         <div class="form-group" fxLayout="row" fxLayoutAlign="start center">
-            <label fxFlex="20%">Address</label>
-            <input class="form-control" type="text" placeholder="Server Address" [formControl]="serverForm.controls['address']" fxFlex="80%" required="required">
+            <label for="server-address" fxFlex="20%">Address</label>
+            <input id="server-address" pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$" class="form-control" type="text" placeholder="Server Address" fxFlex="80%" required="required" [(ngModel)]="model.address" name="address">
         </div>
         <div class="form-array" fxLayout="row" fxLayoutAlign="start center">
-            <label fxFlex="20%">State</label>
-            <select class="form-control" formControlName="state" [formControl]="serverForm.controls['state']" fxFlex="80%" required="required" [(ngModel)]="servers">
-                <option *ngFor="let state of states" [value]="state">{{state}}</option>
+            <label for="server-state" fxFlex="20%">State</label>
+            <select id="server-state" class="form-control" fxFlex="80%" required="required" [(ngModel)]="model.state" name="state">
+                <option value='NotSelected'>Not Selected</option>
+                <option value='Production'>Production</option>
+                <option value='Staging'>Staging</option>
             </select>
         </div>
         <div class="form-group vex-dialog-buttons margin-top-1em">

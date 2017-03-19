@@ -1,16 +1,12 @@
 
 export class Server {
-    constructor(
-        public id: number,
-        public name: string,
-        public address: string,
-        public state: string,
-        public userid: number
-    ) { }
-}
+    public id: number;
+    public name: string;
+    public address: string;
+    public state: string;
+    public userid: number;
 
-export const states = [
-                        'Disabled',
-                        'Production',
-                        'Staging'
-                      ];
+    constructor() {
+        this.state = 'NotSelected';
+    }
+}

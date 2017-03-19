@@ -16,7 +16,7 @@ import { Service } from '../services/services';
 
 export class CheckAddComponent {
 
-    model = new Check(10, '', null, null, null, null, null, null, null, null);
+    model = new Check();
 
     constructor(
         private checksService: ChecksService,
