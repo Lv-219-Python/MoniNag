@@ -55,8 +55,8 @@ h6, .h6 {
 }
 
 h1, .h1 { font-size: @font-size-h1; }
-h2, .h2 { font-size: @font-size-h2; }
-h3, .h3 { font-size: @font-size-h3; }
+h2, .h2 { font-size: @font-size-h2; font-weight: bold; margin: 1.3rem 0; }
+h3, .h3 { font-size: @font-size-h3; margin: .9rem 0; }
 h4, .h4 { font-size: @font-size-h4; }
 h5, .h5 { font-size: @font-size-h5; }
 h6, .h6 { font-size: @font-size-h6; }
@@ -309,4 +309,10 @@ address {
     margin-bottom: @line-height-computed;
     font-style: normal;
     line-height: @line-height-base;
+}
+
+// Links
+a {
+    color: @app-header-user-bg-color;
+    text-decoration: none;
 }

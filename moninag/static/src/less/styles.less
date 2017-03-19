@@ -1,16 +1,16 @@
+@import './common/reset.less';
 @import './common/vex/vex.less';
 @import './common/vex/vex-theme-default.less';
 @import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
 @import './common/variables.less';
+@import './common/type.less';
 @import './common/mixins/mixins.less';
 @import './common/forms.less';
 @import './common/buttons.less';
 
 html, body {
     height: 100%;
-    font-family: Helvetica, Arial, sans-serif;
-    color: #333;
-    font-size: 100%;
+    font-family: @font-family-sans-serif;
 }
 
 moninag-app {
@@ -19,72 +19,48 @@ moninag-app {
 }
 
 body {
-    margin: 0;
-    padding: 0;
     background: @body-background;
-}
-
-h3 {
-    font-size: 2rem;
-    margin: 15px 0;
 }
 
 .cdk-overlay-container {
     z-index: 2000;
 }
 
-.pet-icon {
-    position: relative;
-    left: -23px;
-    top: 17px;
-    color: @app-header-motto-color;
-    transform: rotate(25deg);
-    font-size: 18px;
-}
-
 table {
     border-collapse: collapse;
     background: @body-background;
-    border: 1px solid #fff;
+    border: 1px solid @white;
 
     th {
         background-color: @app-header-bg-color;
         font-weight: bold;
-        color: #fff;
+        color: @white;
         white-space: nowrap;
     }
 
     td, th {
         padding: 1em 3.5em;
         text-align: left;
-        border: 1px solid #fff;
+        border: 1px solid @white;
     }
 
     tbody tr:nth-child(even) {
         transition: all .125s ease-in-out;
-        background-color: #e2e2e2;
+        background-color: @table-cell-background-hover;
     }
     tbody tr:hover {
-        background-color: #d9edf7;
+        background-color: @table-cell-background-hover;
     }
 }
 
-a {
-    color: @app-header-user-bg-color;
-    text-decoration: none;
+.table-responsive {
+    tr {
+        cursor: pointer;
+    }
 }
 
 .img-circle {
     border-radius: 50%;
-}
-
-#side-navigation, .content {
-    float: left;
-    margin-top: 2em;
-}
-
-#side-navigation {
-    min-width: 20%;
 }
 
 .content {
@@ -107,36 +83,23 @@ a {
     position: relative;
     padding: 1em;
     margin: 0 2em 2em 0;
-    background: #f8f8f8;
+    background: @box-background;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     line-height: 1.8;
     box-sizing: border-box;
-    border: 3px solid #ddd;
+    border: 3px solid @grey-border;
     border-radius: 9px;
     transition: border-color .5s, background .5s;
 
     &:hover {
-        border-color: #aaa;
-        background: #f1f1f1;
+        border-color: @grey-border-darker;
+        background: @box-background-hover;
     }
 
     label {
         margin-bottom: 0;
     }
 }
-
-.table-responsive {
-    tr {
-        cursor: pointer;
-    }
-}
-
-li {
-    list-style-type: none;
-}
-
-
-

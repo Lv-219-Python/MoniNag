@@ -17,6 +17,7 @@ import { CheckDeleteComponent } from './check-delete.component';
     selector: 'checkdetail-app',
     template: require('./check-detail.component.html'),
     providers: [ChecksService],
+    styles: [ require('./checks.less').toString() ],
     encapsulation: ViewEncapsulation.None
 })
 
