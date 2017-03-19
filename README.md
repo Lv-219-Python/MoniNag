@@ -72,7 +72,15 @@ We are assuming that you're using bash & you have to install or clone such packa
   ```
   sudo apt-get install nagios-plugins
   ```
-
+* Import the database dump. Run this code, locating in `moninag/DB`:
+```
+psql -h localhost -p 5433 -U postgres -d moninag -f INSERT_DATA.sql 
+```
+-h is your local host address 
+-p stands for `port`
+-U username
+-d database name
+-f filename
 ## Tests
 * Back-end Unit Tests for entire project are in **tests/unittests/** directory. In order to launch 
 tests use:
@@ -113,3 +121,4 @@ configurations are in **.pylintrc** config file. To check specific  file or pack
     pylint --rcfile=/path/.pylintrc filename.py
     ```
     Additional information: [Pylint User Manual](https://pylint.readthedocs.io/en/latest/)
+
