@@ -1,15 +1,15 @@
 <ngb-accordion>
     <ul class="tree">
         <li *ngFor="let server of servers">
-            <label class="tree_label" (click)="gotoServer(server, $event)">{{server.name}}</label>
+            <label class="tree-label" (click)="gotoServer(server, $event)">{{server.name}}</label>
             <ngb-accordion-group (click)="onSelectServer(server)" heading="+" [isOpen]="isOpen">
                 <ul *ngIf="selectedServer">
                     <li *ngFor="let service of server.services">
-                        <label class="tree_label" (click)="gotoService(service, $event)">{{service.name}}</label>
+                        <label class="tree-label" (click)="gotoService(service, $event)">{{service.name}}</label>
                         <ngb-accordion-group (click)="onSelectService(service)" heading="+" [isOpen]="isOpen">
                             <ul *ngIf="selectedService">
                                 <li *ngFor="let check of service.checks">
-                                    <label class="tree_label" (click)="gotoCheck(check, $event)">
+                                    <label class="tree-label" (click)="gotoCheck(check, $event)">
                                     {{check.name}}
                                     </label>
                                 </li>

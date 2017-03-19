@@ -16,11 +16,11 @@ export class NgbAccordion {
 }
 
 @Component({
-    selector: 'ngb-accordion-group', 
+    selector: 'ngb-accordion-group',
     inputs: ['heading', 'isOpen', 'isDisabled'],
     template: `
         <div>
-            <div class="isDisabled" (click)="toggleOpen($event)">{{heading}}</div>
+            <div class="isDisabled tree-label-icon" (click)="toggleOpen($event)">{{heading}}</div>
             <div [hidden]="!isOpen">
                 <div>
                     <ng-content></ng-content>
@@ -54,6 +54,7 @@ export class NgbAccordionGroup {
 @Component({
     selector: 'side-nav',
     template: require('./side-nav.component.html'),
+    styles: [ require('./side-nav.less').toString() ],
     providers: [SideNavService]
 })
 
@@ -74,7 +75,7 @@ export class SideNavComponent implements OnInit {
         this.sideNavService.getTree()
             .subscribe(servers => {
                 this.servers = servers['response']
-            })    
+            })
     }
 
     onSelectServer(server:Server): void {
@@ -84,7 +85,7 @@ export class SideNavComponent implements OnInit {
     onSelectService(service:Service): void {
         this.selectedService = service;
     }
-    
+
     gotoServer(server:Server): void {
         this.selectedServer = server;
         this.router.navigate(['server', this.selectedServer.id]);
