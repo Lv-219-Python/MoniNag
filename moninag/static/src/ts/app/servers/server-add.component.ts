@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 
+import { ip4Address } from '../validations/patterns';
 import { ServersService } from './service';
 import { Server } from './model';
 
@@ -16,6 +17,7 @@ import { Server } from './model';
 export class ServerAddComponent {
 
     servers: Server[];
+    ip4Address = ip4Address;
 
     model = new Server();
 

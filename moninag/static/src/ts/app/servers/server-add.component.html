@@ -18,7 +18,7 @@
         </div>
         <div fxLayoutWrap class="form-group" fxLayout="row" fxLayoutAlign="start center">
             <label for="server-address" fxFlex="20%">Address</label>
-            <input id="server-address" pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$" class="form-control" type="text" placeholder="Server Address" fxFlex="80%" required="required" [(ngModel)]="model.address" name="address" #address="ngModel" />
+            <input id="server-address" pattern={{ip4Address}} class="form-control" type="text" placeholder="Server Address" fxFlex="80%" required="required" [(ngModel)]="model.address" name="address" #address="ngModel" />
             <div fxFlex="100%" *ngIf="address.errors && (address.dirty || address.touched)" class="help-block">
                 <div [hidden]="!address.errors.required">
                     Server address is required

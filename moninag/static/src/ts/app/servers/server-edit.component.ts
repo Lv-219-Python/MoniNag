@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
+import { ip4Address } from '../validations/patterns';
 import { Server } from './model';
 import { ServersService } from './service';
 import { ServicesComponent } from '../services/services.component';
@@ -28,6 +29,7 @@ export class ServerEditComponent {
     ) { }
 
     server: Server;
+    ip4Address = ip4Address;
 
     ngOnInit() {
         this.route.params

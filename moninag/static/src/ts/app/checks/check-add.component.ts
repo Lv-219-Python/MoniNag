@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Check } from './check';
 import { ChecksService } from './checks.service';
+import { onlyDigits } from '../validations/patterns';
 import { Service } from '../services/services';
 
 
@@ -26,6 +27,7 @@ export class CheckAddComponent {
 
     plugins: Plugin[];
     services: Service[];
+    onlyDigits = onlyDigits;
 
     loadPlugins() {
         this.checksService.getPlugins()
