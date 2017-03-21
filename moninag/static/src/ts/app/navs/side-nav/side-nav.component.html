@@ -1,21 +1,23 @@
-<ul class="tree">
-    <li *ngFor="let server of servers">
-        <label class="tree_label" (click)="gotoServer(server, $event)">{{server.name}}</label>
-        <div *ngIf="selectedServer">
-            <ul *ngIf="selectedServer.id==server.id">
-                <li *ngFor="let service of server.services">
-                    <label class="tree_label" (click)="gotoService(service, $event)">{{service.name}}</label>
-                    <div *ngIf="selectedService">
-                        <ul *ngIf="selectedService.id==service.id">
-                            <li *ngFor="let check of service.checks">
-                                <label class="tree_label" (click)="gotoCheck(check, $event)">
+<ngb-accordion>
+    <ul class="tree">
+        <li *ngFor="let server of servers">
+            <label class="tree_label" (click)="gotoServer(server, $event)">{{server.name}}</label>
+            <ngb-accordion-group (click)="onSelectServer(server)" heading="+" [isOpen]="isOpen">
+                <ul *ngIf="selectedServer">
+                    <li *ngFor="let service of server.services">
+                        <label class="tree_label" (click)="gotoService(service, $event)">{{service.name}}</label>
+                        <ngb-accordion-group (click)="onSelectService(service)" heading="+" [isOpen]="isOpen">
+                            <ul *ngIf="selectedService">
+                                <li *ngFor="let check of service.checks">
+                                    <label class="tree_label" (click)="gotoCheck(check, $event)">
                                     {{check.name}}
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </li>
-</ul>
+                                    </label>
+                                </li>
+                            </ul>
+                        </ngb-accordion-group>
+                    </li>
+                </ul>
+            </ngb-accordion-group>
+        </li>
+    </ul>
+</ngb-accordion>
