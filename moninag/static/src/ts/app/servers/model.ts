@@ -7,6 +7,6 @@ export class Server {
     public userid: number;
 
     constructor() {
-        this.state = 'NotSelected';
+        this.state = 'Disabled';
     }
 }
