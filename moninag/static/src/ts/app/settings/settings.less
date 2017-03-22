@@ -1,0 +1,44 @@
+@import '../../../less/common/variables.less';
+@import '../../../less/common/mixins/mixins.less';
+
+settings-app {
+    display: block;
+
+    nav {
+        a {
+            width: 200px;
+            background-color: @main-nav-item-color;
+            border-radius: 30px;
+            color: @main-nav-text-color;
+            font-family: @font-family-roboto;
+            font-size: @main-nav-menu-item-font-size;
+            font-weight: bold;
+            margin: 5px;
+            padding: 5px 15px;
+            text-decoration: none;
+            text-shadow: @main-nav-text-shadow;
+            .box-shadow(@main-nav-box-shadow);
+        }
+
+        a.active {
+            background-color: @main-nav-item-active-color;
+        }
+
+        a:hover {
+            background-color: @main-nav-item-hover-color;
+        }
+
+        md-icon {
+            color: @main-nav-text-color;
+            margin-right: 10px;
+        }
+    }
+}
+
+.settings-menu-container .md-tab-header {
+    margin-bottom: 27px
+}
+
+.table-plugins {
+    width: 70%
+}
