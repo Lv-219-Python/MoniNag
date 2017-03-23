@@ -1,0 +1,9 @@
+<div>
+    <h1 md-dialog-title>Attention!</h1>
+    <div md-dialog-content>Are you sure you want to {{actionName}} ?</div>
+    <div md-dialog-actions>
+        <button *ngIf="!serviceState" md-button (click)="dialogRef.close(true)">Activate</button>
+        <button *ngIf="serviceState" md-button (click)="dialogRef.close(false)">Deactivate</button>
+        <button  md-button (click)="dialogRef.close()">Cancel</button>
+    </div>
+</div>
