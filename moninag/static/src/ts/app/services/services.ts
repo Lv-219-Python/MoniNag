@@ -4,8 +4,10 @@ export class Service {
     public status: string;
     public server_id: number;
     public state: boolean;
+    public expanded: boolean;
 
     constructor() {
         this.status = '';
+        this.expanded = false;
     }
 }
