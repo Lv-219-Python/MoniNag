@@ -66,6 +66,12 @@ export class ServerDetailComponent implements OnInit {
         this.location.back();
     }
 
+    updateServerState(state: string) {
+        this.server.state = state;
+        this.serversService.putServer(this.server)
+            .subscribe()
+    }
+
     renderModal() {
         return new DialogPresetBuilder<DialogPreset>(this.modal)
             .content(ServerEditComponent)

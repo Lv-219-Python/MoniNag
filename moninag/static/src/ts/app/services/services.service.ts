@@ -29,6 +29,9 @@ export class ServicesService {
 
     postService(service: Service): Observable<Service[]> {
         const url = `${this.servicesUrl}/${service.id}`;
+
+        delete service.expanded;
+
         return this.http.post(url, service)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -38,8 +41,7 @@ export class ServicesService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let updated_service = {
-            name: service.name,
-            status: service.status
+            name: service.name
         }
 
         return this.http.put(`${this.servicesUrl}/${service['id']}/`, JSON.stringify(updated_service), options)

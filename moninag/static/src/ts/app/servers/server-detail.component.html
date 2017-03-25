@@ -25,7 +25,9 @@
                 <label>
                     State:
                 </label>
-                {{server.state}}
+                <button class="btn btn-sm" [ngClass]="{'btn-info': server.state=='Disabled'}" (click)="updateServerState('Disabled')">Disabled</button>
+                <button class="btn btn-sm" [ngClass]="{'btn-info': server.state=='Staging'}" (click)="updateServerState('Staging')">Staging</button>
+                <button class="btn btn-sm" [ngClass]="{'btn-info': server.state=='Production'}" (click)="updateServerState('Production')">Production</button>
             </p>
             <services-app [server]='server'></services-app>
         </div>

@@ -147,6 +147,23 @@
   // line-height: ensure proper height of button next to small input
   .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @btn-border-radius-small);
 }
+
+.btn-sm {
+    text-transform: none;
+    font-size: 14px;
+    padding: 2px 6px;
+    transition: background .5s;
+
+    &:hover {
+        color: @white;
+        background: darken(@brand-info, 6.5%);
+    }
+
+    &.btn-success {
+        background: @app-header-bg-color;
+    }
+}
+
 .btn-xs {
   .button-size(@padding-xs-vertical; @padding-xs-horizontal; @font-size-small; @line-height-small; @btn-border-radius-small);
 }

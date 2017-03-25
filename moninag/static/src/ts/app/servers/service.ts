@@ -51,6 +51,8 @@ export class ServersService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
+        delete server.expanded;
+
         return this.http.post(this.serversUrl, server, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server Error'))

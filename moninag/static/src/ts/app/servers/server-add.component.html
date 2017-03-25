@@ -28,14 +28,6 @@
                 </div>
             </div>
         </div>
-        <div class="form-array" fxLayout="row" fxLayoutAlign="start center">
-            <label for="server-state" fxFlex="20%">State</label>
-            <select id="server-state" class="form-control" fxFlex="80%" required="required" [(ngModel)]="model.state" name="state">
-                <option value='Disabled'>Disabled</option>
-                <option value='Production'>Production</option>
-                <option value='Staging'>Staging</option>
-            </select>
-        </div>
         <div class="form-group vex-dialog-buttons margin-top-1em">
             <button [disabled]="!f.form.valid" type="submit" (click)="submitForm(); goBack($event)" class="btn vex-dialog-button-primary vex-dialog-button">Submit</button>
         </div>
