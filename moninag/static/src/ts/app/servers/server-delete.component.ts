@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
-import { Server, states } from './model';
+import { Server } from './model';
 import { ServersService } from './service';
 import { ServicesComponent } from '../services/services.component';
 
@@ -28,7 +28,6 @@ export class ServerDeleteComponent {
     ) { }
     servers: Server[];
     server: Server[];
-    states = states;
 
     ngOnInit() {
         this.route.params

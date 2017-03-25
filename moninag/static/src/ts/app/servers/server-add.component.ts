@@ -1,9 +1,10 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 
+import { ip4Address } from '../validations/patterns';
 import { ServersService } from './service';
-import { Server, states } from './model';
+import { Server } from './model';
 
 
 @Component({
@@ -16,25 +17,20 @@ import { Server, states } from './model';
 export class ServerAddComponent {
 
     servers: Server[];
-    serverForm: FormGroup;
+    ip4Address = ip4Address;
 
-    states = states;
+    model = new Server();
 
     @Output() serverAdded = new EventEmitter();
 
-    constructor(private serversService: ServersService, fb: FormBuilder, private location: Location) {
-        this.serverForm = fb.group({
-            'name': '',
-            'address': '',
-            'state': ''
-        })
+    constructor(
+        private serversService: ServersService,
+        private location: Location) {
     }
 
-    submitForm(server: any) {
-        this.serversService.addServer(server)
-            .subscribe(servers => {
-                this.servers = servers['response'];
-            })
+    submitForm() {
+        this.serversService.addServer(this.model)
+            .subscribe(model => model = model);
     }
 
     goBack(): void {

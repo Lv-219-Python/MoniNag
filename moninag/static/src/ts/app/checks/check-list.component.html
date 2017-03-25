@@ -1,27 +1,25 @@
 <span defaultOverlayTarget></span>
-<div fxLayout="row" fxLayoutAlign="space-between center">
-    <h3>Checks</h3>
+<div fxLayout="row" fxLayoutAlign="start center">
+    <h3 class="margin-right-1em">Checks</h3>
     <button class="btn btn-info" (click)="renderModal()"> Add new check </button>
 </div>
 <div class='table-responsive'>
-    <ul style='list-style-type:none; padding:0'>
-        <table class='table'>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Plugin name</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>
-                    <td>{{check.name}}</td>
-                    <td>{{check.plugin_name}}</td>
-                    <td>{{check.status}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </ul>
+    <table class='table table-checks'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Plugin name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let check of service.checks" (click)="onSelect(check); gotoDetail()" value={{check.id}>
+                <td>{{check.name}}</td>
+                <td>{{check.plugin_name}}</td>
+                <td>{{check.status}}</td>
+            </tr>
+        </tbody>
+    </table>
     <div *ngIf="selectedService">
         <checkadd-app></checkadd-app>
     </div>

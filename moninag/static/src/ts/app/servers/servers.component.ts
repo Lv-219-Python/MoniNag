@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { overlayConfigFactory } from "angular2-modal";
 import { Router } from '@angular/router';
 
-import { Server, states } from './model';
+import { Server } from './model';
 import { ServersService } from './service';
 import { ServerAddComponent } from './server-add.component'
 

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { overlayConfigFactory } from "angular2-modal";
 
-import { Server, states } from './model';
+import { Server } from './model';
 import { ServersService } from './service';
 import { ServerEditComponent } from './server-edit.component'
 import { ServerDeleteComponent } from './server-delete.component'

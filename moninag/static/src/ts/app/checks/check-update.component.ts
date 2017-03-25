@@ -8,6 +8,7 @@ import 'rxjs/add/operator/switchMap';
 import { Check } from './check';
 import { CheckListComponent } from './check-list.component';
 import { ChecksService } from './checks.service';
+import { onlyDigits } from '../validations/patterns';
 import { Plugin } from './plugin';
 
 
@@ -28,6 +29,7 @@ export class CheckUpdateComponent implements OnInit {
 
     check: Check;
     plugins: Plugin[];
+    onlyDigits = onlyDigits;
 
     loadPlugins() {
         this.checksService.getPlugins()

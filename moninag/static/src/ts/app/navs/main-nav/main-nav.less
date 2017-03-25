@@ -1,13 +1,17 @@
 @import '../../../../less/common/variables.less';
 @import '../../../../less/common/mixins/mixins.less';
 
+.cdk-overlay-pane {
+    top: 64px !important;
+
+    .md-menu-panel {
+        border: 1px solid @grey-border;
+        box-shadow: none;
+    }
+}
+
 main-nav {
-    // display: block;
-    // .box-shadow(@main-nav-box-shadow);
-
     nav {
-        // background-color: @main-nav-bg-color;
-
         a {
             background-color: @main-nav-item-color;
             border-radius: 30px;
@@ -18,8 +22,6 @@ main-nav {
             margin: 5px;
             padding: 5px 15px;
             text-decoration: none;
-            //text-shadow: @main-nav-text-shadow;
-            //.box-shadow(@main-nav-box-shadow);
             transition: background-color .2s;
         }
 

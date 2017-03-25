@@ -1,23 +1,45 @@
-<ngb-accordion>
-    <ul class="tree">
-        <li *ngFor="let server of servers">
-            <label class="tree_label" (click)="gotoServer(server, $event)">{{server.name}}</label>
-            <ngb-accordion-group (click)="onSelectServer(server)" heading="+" [isOpen]="isOpen">
-                <ul *ngIf="selectedServer">
-                    <li *ngFor="let service of server.services">
-                        <label class="tree_label" (click)="gotoService(service, $event)">{{service.name}}</label>
-                        <ngb-accordion-group (click)="onSelectService(service)" heading="+" [isOpen]="isOpen">
-                            <ul *ngIf="selectedService">
-                                <li *ngFor="let check of service.checks">
-                                    <label class="tree_label" (click)="gotoCheck(check, $event)">
+<ul class="tree-menu">
+    <li *ngFor="let server of servers">
+        <label class="tree-label" [ngClass]="{'selected': selectedComponent.id == server.id && selectedComponent.name == server.name, 'no-children': !server.services.length}">
+            <span class="tree-label-icon" (click)="toggleExpand(server)">
+                <span *ngIf="!server.expanded">
+                    +
+                </span>
+                <span *ngIf="server.expanded">
+                    -
+                </span>
+            </span>
+            <span (click)="navigateToComponent(server, 'server', $event)">
+                {{server.name}}
+            </span>
+        </label>
+        <div *ngIf="server.expanded">
+            <ul>
+                <li *ngFor="let service of server.services">
+                    <label class="tree-label" [ngClass]="{'selected': selectedComponent.id == service.id && selectedComponent.name == service.name, 'no-children': !service.checks.length}">
+                        <span class="tree-label-icon" (click)="toggleExpand(service)">
+                            <span *ngIf="!service.expanded">
+                                +
+                            </span>
+                            <span *ngIf="service.expanded">
+                                -
+                            </span>
+                        </span>
+                        <span (click)="navigateToComponent(service, '/services', $event)">
+                            {{service.name}}
+                        </span>
+                    </label>
+                    <div *ngIf="service.expanded">
+                        <ul>
+                            <li *ngFor="let check of service.checks">
+                                <label class="tree-label no-children" (click)="navigateToComponent(check, 'checks', $event)" [ngClass]="{'selected': selectedComponent.id == check.id && selectedComponent.name == check.name}">
                                     {{check.name}}
-                                    </label>
-                                </li>
-                            </ul>
-                        </ngb-accordion-group>
-                    </li>
-                </ul>
-            </ngb-accordion-group>
-        </li>
-    </ul>
-</ngb-accordion>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>

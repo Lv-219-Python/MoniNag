@@ -14,7 +14,7 @@ import { ServicesService } from './services.service';
 
 export class ServiceAddComponent {
 
-    model = new Service(0, '', 'UNKNOWN', null, null);
+    model = new Service();
 
     constructor(
         private servicesService: ServicesService,
@@ -28,7 +28,6 @@ export class ServiceAddComponent {
                 // (+) converts string 'id' to a number
                 this.model.server_id = +params['id'];
             });
-
         this.servicesService.create(this.model)
             .subscribe(
             model => model = model

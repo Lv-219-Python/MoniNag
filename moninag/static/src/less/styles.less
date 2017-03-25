@@ -1,16 +1,16 @@
+@import './common/reset.less';
 @import './common/vex/vex.less';
 @import './common/vex/vex-theme-default.less';
 @import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
 @import './common/variables.less';
+@import './common/type.less';
 @import './common/mixins/mixins.less';
 @import './common/forms.less';
 @import './common/buttons.less';
 
 html, body {
     height: 100%;
-    font-family: Helvetica, Arial, sans-serif;
-    color: #333;
-    font-size: 100%;
+    font-family: @font-family-sans-serif;
 }
 
 moninag-app {
@@ -19,72 +19,48 @@ moninag-app {
 }
 
 body {
-    margin: 0;
-    padding: 0;
     background: @body-background;
-}
-
-h3 {
-    font-size: 2rem;
-    margin: 15px 0;
 }
 
 .cdk-overlay-container {
     z-index: 2000;
 }
 
-.pet-icon {
-    position: relative;
-    left: -23px;
-    top: 17px;
-    color: @app-header-motto-color;
-    transform: rotate(25deg);
-    font-size: 18px;
-}
-
 table {
     border-collapse: collapse;
     background: @body-background;
-    border: 1px solid #fff;
+    border: 1px solid @white;
 
     th {
         background-color: @app-header-bg-color;
         font-weight: bold;
-        color: #fff;
+        color: @white;
         white-space: nowrap;
     }
 
     td, th {
         padding: 1em 3.5em;
         text-align: left;
-        border: 1px solid #fff;
+        border: 1px solid @white;
     }
 
     tbody tr:nth-child(even) {
         transition: all .125s ease-in-out;
-        background-color: #e2e2e2;
+        background-color: @table-cell-background-hover;
     }
     tbody tr:hover {
-        background-color: #d9edf7;
+        background-color: @table-cell-background-hover;
     }
 }
 
-a {
-    color: @app-header-user-bg-color;
-    text-decoration: none;
+.table-responsive {
+    tr {
+        cursor: pointer;
+    }
 }
 
 .img-circle {
     border-radius: 50%;
-}
-
-#side-navigation, .content {
-    float: left;
-    margin-top: 2em;
-}
-
-#side-navigation {
-    min-width: 20%;
 }
 
 .content {
@@ -107,20 +83,20 @@ a {
     position: relative;
     padding: 1em;
     margin: 0 2em 2em 0;
-    background: #f8f8f8;
+    background: @box-background;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     line-height: 1.8;
     box-sizing: border-box;
-    border: 3px solid #ddd;
+    border: 3px solid @grey-border;
     border-radius: 9px;
     transition: border-color .5s, background .5s;
 
     &:hover {
-        border-color: #aaa;
-        background: #f1f1f1;
+        border-color: @grey-border-darker;
+        background: @box-background-hover;
     }
 
     label {
@@ -128,93 +104,10 @@ a {
     }
 }
 
-.table-responsive {
-    tr {
-        cursor: pointer;
-    }
+.help-block, .text-danger {
+    color: @brand-danger;
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-align: right;
+    font-size: .9rem;
 }
-
-.tree {
-    margin: 1em;
-
-    ul {
-        padding-left: 1em;
-
-        li {
-            line-height: 1.2;
-            position: relative;
-            padding: 1.5em 0 0 1em;
-
-            &::before {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: -.5em;
-                display: block;
-                width: 0;
-                border-left: 1px solid #777;
-                content: "";
-            }
-        }
-    }
-
-    .tree_label {
-        cursor: pointer;
-        position: relative;
-        display: inline-block;
-        background: @white;
-
-        &:hover {
-            color: #666;
-        }
-
-        &::before {
-            background: @app-header-bg-color;
-            color: #fff;
-            position: relative;
-            z-index: 1;
-            float: left;
-            margin: 0 1em 0 -2em;
-            width: 1em;
-            height: 1em;
-            border-radius: .5em;
-            content: '';
-        }
-
-        &::after {
-            position: absolute;
-            top: 0;
-            left: -1.5em;
-            display: block;
-            height: 0.5em;
-            width: 1em;
-            border-bottom: 1px solid #777;
-            border-left: 1px solid #777;
-            border-radius: 0 0 0 .3em;
-            content: '';
-        }
-    }
-}
-
-input ~ .tree_label:after {
-  border-top: 1px solid #777;
-  border-bottom: 0;
-  border-left: 0;
-  bottom: 0;
-  top: 0.5em;
-  height: auto;
-  }
-
-.tree li:last-child:before {
-  height: 1em;
-  bottom: auto;
-  }
-
-.tree > li:last-child:before { display: none; }
-
-li {
-    list-style-type: none;
-}
-
-
-

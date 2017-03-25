@@ -15,7 +15,7 @@ import { ServicesService } from './services.service';
     template: require('./services.component.html'),
     providers: [ServicesService],
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./services.component.css')]
+    styles: [require('./services.component.less').toString()]
 })
 
 export class ServicesComponent {
