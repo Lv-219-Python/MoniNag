@@ -42,33 +42,33 @@ export class ChecksService {
     update(check: Check): Observable<Check[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        let updated_check = {
+        let updatedCheck = {
             name: check.name,
             plugin_id: check.plugin_id,
             run_freq: check.run_freq,
             target_port: check.target_port,
         }
-        return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updated_check), options)
+        return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updatedCheck), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     deactivate(check: Check): Observable<Check[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        let updated_check = {
+        let updatedCheck = {
             state: false
         }
-        return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updated_check), options)
+        return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updatedCheck), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     activate(check: Check): Observable<Check[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        let updated_check = {
+        let updatedCheck = {
             state: true
         }
-        return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updated_check), options)
+        return this.http.put(`${this.checksUrl}/${check['id']}/`, JSON.stringify(updatedCheck), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
@@ -76,14 +76,14 @@ export class ChecksService {
         const url = `${this.checksUrl}/`;
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        let new_check = {
+        let newCheck = {
             name: check.name,
             plugin_id: check.plugin_id,
             run_freq: check.run_freq,
             target_port: check.target_port,
             service_id: check.service_id
         }
-        return this.http.post(url, new_check, options)
+        return this.http.post(url, newCheck, options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 

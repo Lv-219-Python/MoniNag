@@ -30,7 +30,9 @@ export class ServerAddComponent {
 
     submitForm() {
         this.serversService.addServer(this.model)
-            .subscribe(model => model = model);
+            .subscribe(model => {
+                model = model
+            });
     }
 
     goBack(): void {
