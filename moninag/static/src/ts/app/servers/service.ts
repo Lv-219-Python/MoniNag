@@ -30,13 +30,13 @@ export class ServersService {
     putServer(server: any): Observable<Server[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        let edited_server = JSON.stringify({
+        let updatedServer = JSON.stringify({
             name: server.name,
             address: server.address,
             state: server.state
         });
 
-        return this.http.put(`${this.serversUrl}${server['id']}/`, edited_server, options)
+        return this.http.put(`${this.serversUrl}${server['id']}/`, updatedServer, options)
             .map((response: any) => {
 
                 if (response.status === 200) {
@@ -72,20 +72,20 @@ export class ServersService {
     deactivate(server: Server): Observable<Server[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        let edited_server = {
+        let updatedServer = {
             state: false
         }
-        return this.http.put(`${this.serversUrl}/${server['id']}/`, JSON.stringify(edited_server), options)
+        return this.http.put(`${this.serversUrl}/${server['id']}/`, JSON.stringify(updatedServer), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     activate(server: Server): Observable<Server[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        let edited_server = {
+        let updatedServer = {
             state: true
         }
-        return this.http.put(`${this.serversUrl}/${server['id']}/`, JSON.stringify(edited_server), options)
+        return this.http.put(`${this.serversUrl}/${server['id']}/`, JSON.stringify(updatedServer), options)
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
