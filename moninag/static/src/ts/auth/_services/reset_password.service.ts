@@ -11,7 +11,7 @@ export class ResetPasswordService {
         let headers = new Headers({ 'Content-Type': 'application/json', 'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'});
         let options = new RequestOptions({ headers: headers });
         let body = JSON.stringify({'email': email});
-        return this.http.post('/auth/reset_password', body, options).map((res: Response) => res.json());
+        return this.http.post('/auth/reset_password/', body, options).map((res: Response) => res.json());
     }
 
     confirmPasswordReset(password: string, uidb64: string, token: string) {

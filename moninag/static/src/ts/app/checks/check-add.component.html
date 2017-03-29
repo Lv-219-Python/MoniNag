@@ -3,7 +3,7 @@
     <form fxLayout="column" fxFlex="100%" #f="ngForm">
         <div fxLayoutWrap class="form-group" fxLayout="row" fxLayoutAlign="start center">
             <label for="name" fxFlex="35%">Name</label>
-            <input type="text" class="form-control" placeholder="Check name" required [(ngModel)]="model.name" name="name" fxFlex="65%" #name="ngModel" required="required" minlength="3" maxlength="30" />
+            <input type="text" class="form-control" placeholder="Check name" required [(ngModel)]="model.name" name="name" fxFlex="65%" #name="ngModel" required="required" minlength="3" maxlength="20" />
             <div fxFlex="100%" *ngIf="name.errors && (name.dirty || name.touched)" class="help-block">
                 <div [hidden]="!name.errors.required">
                     Check name is required
@@ -12,7 +12,7 @@
                     Check name must be at least 3 characters long
                 </div>
                 <div [hidden]="!name.errors.maxlength">
-                    Server name cannot be more than 30 characters long
+                    Server name cannot be more than 20 characters long
                 </div>
             </div>
         </div>
