@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
-from django.conf.urls import include, url, handler404, handler500
+from django.conf.urls import include, url, handler404
 from utils.navigation_tree_view import get_navigation_tree
 
 from moninag import views
