@@ -83,7 +83,7 @@ class ContactView(View):
             json_response['error'] = 'Incorrect JSON format.'
             return JsonResponse(json_response, status=400)
 
-        email = contact_params.get('email')
+        email = contact_params.get('email').lower()
 
         if not validate_email(email):
             json_response['error'] = 'Invalid email format.'
@@ -143,7 +143,7 @@ class ContactView(View):
             return JsonResponse(json_response, status=400)
 
         if 'email' in contact_params:
-            email = contact_params.get('email')
+            email = contact_params.get('email').lower()
             if not validate_email(email):
                 json_response['error'] = 'Invalid email format.'
                 return JsonResponse(json_response, status=400)
