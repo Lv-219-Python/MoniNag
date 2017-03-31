@@ -4,8 +4,8 @@
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <h3>Service Details</h3>
             <md-card-actions>
-                <button class="btn btn-info" *ngIf="service.state == true" (click)="deactivate()">Deactivate</button>
-                <button class="btn btn-info" *ngIf="service.state == false" (click)="activate()">Activate</button>
+                <button class="btn btn-info" *ngIf="service.state == true" (click)="openDialog()">Deactivate</button>
+                <button class="btn btn-info" *ngIf="service.state == false" (click)="openDialog()">Activate</button>
                 <button class="btn btn-info" (click)="renderModal()">Edit</button>
                 <button class="btn btn-danger" (click)="deleteModal()">Delete</button>
             </md-card-actions>

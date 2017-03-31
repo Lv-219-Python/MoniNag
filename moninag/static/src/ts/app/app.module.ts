@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '@angular/material';
+import { ModalModule } from 'angular2-modal';
+import { VexModalModule } from 'angular2-modal/plugins/vex';
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module';
@@ -17,9 +19,7 @@ import { CheckDeleteComponent } from './checks/check-delete.component';
 import { CheckListComponent } from './checks/check-list.component';
 import { CheckUpdateComponent } from './checks/check-update.component';
 import { ChecksService } from './checks/checks.service';
-
-import { VexModalModule } from 'angular2-modal/plugins/vex';
-import { ModalModule } from 'angular2-modal';
+import { ChecksDialog } from './checks/checks-activate-deactivate.component';
 
 import { ContactsListComponent } from './contacts/contacts-list.component';
 import { ContactsEmailComponent } from './contacts/contacts-email.component';
@@ -36,6 +36,7 @@ import { ServiceAddComponent } from './services/service-add.component';
 import { ServiceDeleteComponent } from './services/service-delete.component'
 import { ServiceDetailComponent } from './services/service-detail.component';
 import { ServicesComponent } from './services/services.component';
+import { ServicesDialog } from './services/services-activate-deactivate.component';
 import { ServicesService } from './services/services.service';
 import { ServiceUpdateComponent } from './services/service-update.component'
 
@@ -71,8 +72,9 @@ import { UserProfileService } from './user-profile/user-profile.service';
         CheckDeleteComponent,
         CheckListComponent,
         CheckUpdateComponent,
-        ContactsListComponent,
+        ChecksDialog,
         ContactsEmailComponent,
+        ContactsListComponent,
         MainNavComponent,
         ServerAddComponent,
         ServerDeleteComponent,
@@ -83,6 +85,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
         ServiceDeleteComponent,
         ServiceDetailComponent,
         ServicesComponent,
+        ServicesDialog,
         ServiceUpdateComponent,
         SideNavComponent,
         SettingsComponent,
@@ -98,6 +101,11 @@ import { UserProfileService } from './user-profile/user-profile.service';
         ServersService,
         ServicesService,
         UserProfileService,
+    ],
+
+    entryComponents: [
+        ChecksDialog,
+        ServicesDialog,
     ],
 
     bootstrap: [
