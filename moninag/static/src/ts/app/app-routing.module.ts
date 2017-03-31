@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
 
 import { CheckAddComponent } from './checks/check-add.component';
 import { CheckDetailComponent } from './checks/check-detail.component';
 import { CheckListComponent } from './checks/check-list.component';
 import { CheckUpdateComponent } from './checks/check-update.component';
 import { CheckDeleteComponent } from './checks/check-delete.component';
+
+import { ContactsListComponent} from './contacts/contacts-list.component';
+import { ContactsEditComponent } from './contacts/contacts-edit.component';
+import { ContactsEmailComponent } from './contacts/contacts-email.component';
 
 import { ServersComponent } from './servers/servers.component';
 import { ServerAddComponent } from './servers/server-add.component';
@@ -87,6 +91,18 @@ const APP_ROUTES: Routes = [
         component: CheckAddComponent
     },
     {
+        path: 'contacts',
+        component: ContactsListComponent
+    },
+    {
+        path: 'contact/:id',
+        component: ContactsEditComponent
+    },
+    {
+        path: 'contact-add',
+        component: ContactsEmailComponent
+    },
+    {
         path: 'server-add',
         component: ServerAddComponent
     },
@@ -101,6 +117,7 @@ const APP_ROUTES: Routes = [
         RouterModule.forRoot(APP_ROUTES, { useHash: true }),
     ],
     exports: [RouterModule]
+
 })
 
 export class AppRoutingModule { }

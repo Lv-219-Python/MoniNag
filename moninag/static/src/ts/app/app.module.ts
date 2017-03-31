@@ -21,6 +21,11 @@ import { ChecksService } from './checks/checks.service';
 import { VexModalModule } from 'angular2-modal/plugins/vex';
 import { ModalModule } from 'angular2-modal';
 
+import { ContactsListComponent } from './contacts/contacts-list.component';
+import { ContactsEditComponent } from './contacts/contacts-edit.component';
+import { ContactsEmailComponent } from './contacts/contacts-email.component';
+import { ContactsService } from './contacts/contacts.service';
+
 import { ServerAddComponent } from './servers/server-add.component';
 import { ServersComponent } from './servers/servers.component';
 import { ServerEditComponent } from './servers/server-edit.component';
@@ -67,6 +72,9 @@ import { UserProfileService } from './user-profile/user-profile.service';
         CheckDeleteComponent,
         CheckListComponent,
         CheckUpdateComponent,
+        ContactsListComponent,
+        ContactsEditComponent,
+        ContactsEmailComponent,
         MainNavComponent,
         ServerAddComponent,
         ServerDeleteComponent,
@@ -88,6 +96,7 @@ import { UserProfileService } from './user-profile/user-profile.service';
 
     providers: [
         ChecksService,
+        ContactsService,
         ServersService,
         ServicesService,
         UserProfileService,
