@@ -7,6 +7,9 @@ import { CheckListComponent } from './checks/check-list.component';
 import { CheckUpdateComponent } from './checks/check-update.component';
 import { CheckDeleteComponent } from './checks/check-delete.component';
 
+import { ContactsListComponent} from './contacts/contacts-list.component';
+import { ContactsEmailComponent } from './contacts/contacts-email.component';
+
 import { ServersComponent } from './servers/servers.component';
 import { ServerAddComponent } from './servers/server-add.component';
 import { ServerEditComponent } from './servers/server-edit.component';
@@ -64,7 +67,7 @@ const APP_ROUTES: Routes = [
     },
     {
         path: 'settings',
-        component: SettingsComponent, 
+        component: SettingsComponent,
     },
     {
         path: 'checks',
@@ -85,6 +88,14 @@ const APP_ROUTES: Routes = [
     {
         path: 'add',
         component: CheckAddComponent
+    },
+    {
+        path: 'contacts',
+        component: ContactsListComponent
+    },
+    {
+        path: 'contact-add',
+        component: ContactsEmailComponent
     },
     {
         path: 'server-add',

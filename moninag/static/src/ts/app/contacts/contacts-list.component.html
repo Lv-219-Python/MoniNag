@@ -1,0 +1,77 @@
+<span defaultOverlayTarget></span>
+<div class="table-responsive">
+    <table class="table table-contacts">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th><button class="btn-add" md-mini-fab (click)="onSelect(contact)" (click)="renderModalAdd()"><md-icon>add</md-icon></button></th>
+            </tr>
+    <tbody>
+        <tr *ngFor="let contact of contacts">
+            <td>{{ contact.first_name }}</td>
+            <td>{{ contact.second_name }}</td>
+            <td>{{ contact.email }}</td>
+            <td>
+                <div *ngIf="contact.is_active"><i class="material-icons">done</i></div>
+                <div *ngIf="!contact.is_active"><i class="material-icons">sync</i></div>
+            </td>
+            <td>
+                <button class="btn btn-info" (click)="onSelect(contact)" (click)="renderModalEdit(contact)"><i class="material-icons btn-edit">edit</i></button>
+                <button class="btn btn-info" (click)="onSelect(contact)" (click)="renderModalDelete(contact)"><i class="material-icons btn-delete">delete</i></button>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+<template #emailAdd let-dialogRef="dialogRef" let-ctx="dialogRef.context">
+  <div *ngIf="selectedContact">
+      <h2 fxLayout="row" fxLayoutAlign="center" fxFlex="100%">Edit Contact</h2>
+      <form fxLayout="column" fxFlex="100%" #f="ngForm">
+          <div fxLayoutWrap class="form-group" fxLayout="row" fxLayoutAlign="start center">
+          <label fxFlex="20%" >First Name:</label>
+          <input [(ngModel)]="selectedContact.first_name" placeholder="{{selectedContact.first_name}}" fxFlex="80%" class="form-control" required="required" maxlength="12" name="first_name" #first_name="ngModel"/>
+          <div fxFlex="100%" *ngIf="first_name.errors && (first_name.dirty || first_name.touched)" class="help-block">
+              <div [hidden]="!first_name.errors.required">
+                  Contact first name is required
+              </div>
+          </div>
+      </div>
+      <div fxLayoutWrap class="form-group" fxLayout="row" fxLayoutAlign="start center">
+          <label fxFlex="20%">Last Name:</label>
+          <input [(ngModel)]="selectedContact.second_name" placeholder="{{selectedContact.second_name}}" fxFlex="80%" class="form-control" required="required" maxlength="12" name="second_name" #second_name="ngModel"/>
+          <div fxFlex="100%" *ngIf="second_name.errors && (second_name.dirty || second_name.touched)" class="help-block">
+              <div [hidden]="!second_name.errors.required">
+                  Contact second name is required
+              </div>
+          </div>
+      </div>
+      <div fxLayoutWrap class="form-group" fxLayout="row" fxLayoutAlign="start center">
+          <label fxFlex="20%">Email:</label>
+          <input pattern={{emailValid}} [(ngModel)]="selectedContact.email" placeholder="{{selectedContact.email}}" fxFlex="80%" class="form-control" required="required" name="email" #email="ngModel"/>
+          <div fxFlex="100%" *ngIf="email.errors && (email.dirty || email.touched)" class="help-block">
+              <div [hidden]="!email.errors.required && !email.errors.pattern">
+                  Invalid email format
+              </div>
+          </div>
+      </div>
+      <div class="form-group vex-dialog-buttons margin-top-1em">
+          <button [disabled]="!f.form.valid" (click)="save()" class="vex-dialog-button-primary vex-dialog-button">Save</button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<template #deleteContact let-dialogRef="dialogRef" let-ctx="dialogRef.context">
+  <div class="container">
+      <p fxLayout="row" fxLayoutAlign="center" fxFlex="100%">Do you really want to delete this contact?</p>
+      <form fxLayout="column" fxFlex="100%">
+              <div class="form-group vex-dialog-buttons margin-top-1em">
+                  <button (click)="delete(selectedContact); goBack()" class="vex-dialog-button-primary vex-dialog-button">delete</button>
+                  <button (click)="goBack()" class="vex-dialog-button-primary vex-dialog-button">back</button>
+              </div>
+      </form>
+  </div>
+</template>
