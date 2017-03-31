@@ -1,3 +1,4 @@
+const path = require('path')
 var webpack = require('webpack');
 var glob = require('glob');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -81,7 +82,7 @@ var config = {
 var appConfig = Object.assign({}, config, {
     entry: glob.sync('./static/src/ts/app/**/*.ts'),
     output: {
-        path: './static/js',
+        path: path.resolve(__dirname, './static/js'),
         filename: 'source_app.js'
     }
 });
@@ -89,7 +90,7 @@ var appConfig = Object.assign({}, config, {
 var authConfig = Object.assign({}, config, {
     entry: glob.sync('./static/src/ts/auth/**/*.ts'),
     output: {
-        path: './static/js',
+        path: path.resolve(__dirname, './static/js'),
         filename: 'auth_app.js',
         publicPath: './static/img/compressed/'
     }
