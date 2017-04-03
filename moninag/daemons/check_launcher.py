@@ -98,7 +98,7 @@ def perform_check(check_id, command, freq):
     """
     Method which performs check in an infinite loop. Each check has its own subprocess
     :param check_id: check_id
-    :param command: check command to be laubuntu zoom screenunched
+    :param command: check command for launching nagios plugin (template with address)
     :param freq: check run frequency
     """
 
